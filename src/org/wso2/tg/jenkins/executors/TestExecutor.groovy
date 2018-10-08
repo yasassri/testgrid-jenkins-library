@@ -69,9 +69,10 @@ def runPlan(tPlan, testPlanId) {
             java -version
             #Need to change directory to root to run the next command properly
             cd /
-            .${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}/testgrid run-testplan --product ${PRODUCT} \
-            --file ${PWD}/${testPlanId}/${tPlan} --workspace ${PWD}/${testPlanId}        
+      
         """
+//                .${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}/testgrid run-testplan --product ${PRODUCT} \
+//            --file ${PWD}/${testPlanId}/${tPlan} --workspace ${PWD}/${testPlanId}
         commonUtil.truncateTestRunLog(testPlanId)
     } catch (Exception err) {
         echo "Error : ${err}"
@@ -114,14 +115,14 @@ def getTestExecutionMap() {
                                 int fileNo = i
                                 testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
                                 echo "XXXXXX : Running tests!!!!!" + testplanId.toString()
-                                //runPlan(files[i], testplanId)
+                                runPlan(files[i], testplanId)
                             }
                         } else {
                             for (int i = 0; i < processFileCount; i++) {
                                 int fileNo = processFileCount * (executor - 1) + i
                                 testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
                                 echo "XXXXXX : Running tests!!!!!" + testplanId.toString()
-                                //runPlan(files[fileNo], testplanId)
+                                runPlan(files[fileNo], testplanId)
                             }
                         }
                     }
