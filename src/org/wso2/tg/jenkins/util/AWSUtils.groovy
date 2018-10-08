@@ -20,16 +20,16 @@ package org.wso2.tg.jenkins.util
 
 def uploadToS3(testPlanId) {
     def s3BucketName = getS3BucketName()
-    sh """
-      aws s3 sync ${TESTGRID_HOME}/jobs/${PRODUCT}/${testPlanId}/ s3://${s3BucketName}/artifacts/jobs/${PRODUCT}/builds/${testPlanId} --include "*" --exclude 'workspace/*'
-      """
+//    sh """
+//      aws s3 sync ${TESTGRID_HOME}/jobs/${PRODUCT}/${testPlanId}/ s3://${s3BucketName}/artifacts/jobs/${PRODUCT}/builds/${testPlanId} --include "*" --exclude 'workspace/*'
+//      """
 }
 
 def uploadCharts() {
     def s3BucketName = getS3BucketName()
-    sh """
-      aws s3 sync ${TESTGRID_HOME}/jobs/${PRODUCT}/builds/ s3://${s3BucketName}/charts/${PRODUCT}/ --exclude "*" --include "*.png" --acl public-read
-      """
+//    sh """
+//      aws s3 sync ${TESTGRID_HOME}/jobs/${PRODUCT}/builds/ s3://${s3BucketName}/charts/${PRODUCT}/ --exclude "*" --include "*.png" --acl public-read
+//      """
 }
 
 def loadProperties() {
