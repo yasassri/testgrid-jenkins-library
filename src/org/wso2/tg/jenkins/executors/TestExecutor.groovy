@@ -113,13 +113,15 @@ def getTestExecutionMap() {
                                 // Execution logic
                                 int fileNo = i
                                 testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
-                                runPlan(files[i], testplanId)
+                                echo "XXXXXX : Running tests!!!!!" + testplanId.toString()
+                                //runPlan(files[i], testplanId)
                             }
                         } else {
                             for (int i = 0; i < processFileCount; i++) {
                                 int fileNo = processFileCount * (executor - 1) + i
                                 testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
-                                runPlan(files[fileNo], testplanId)
+                                echo "XXXXXX : Running tests!!!!!" + testplanId.toString()
+                                //runPlan(files[fileNo], testplanId)
                             }
                         }
                     }

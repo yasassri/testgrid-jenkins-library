@@ -198,8 +198,7 @@ def call() {
                             def name = "unknown"
                             try {
                                 def tests = testExecutor.getTestExecutionMap()
-                                //parallel tests
-                                echo "XXXXXX : Running tests!!!!!"
+                                parallel tests
                             } catch (e) {
                                 currentBuild.result = "FAILED"
                                 alert.sendNotification(currentBuild.result, "Parallel", "#build_status_verbose")
