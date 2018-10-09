@@ -18,6 +18,7 @@
 
 package org.wso2.tg.jenkins.executors
 
+import com.cloudbees.groovy.cps.NonCPS
 import org.wso2.tg.jenkins.util.Common
 import org.wso2.tg.jenkins.util.AWSUtils
 import org.wso2.tg.jenkins.alert.Slack
