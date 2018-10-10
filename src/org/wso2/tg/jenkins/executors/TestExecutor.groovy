@@ -101,7 +101,6 @@ def getTestExecutionMap(parallel_executor_count) {
         echo name
         tests["${name}"] = {
             node {
-                stage("Parallel Executor : ${executor}") {
                     script {
                         int processFileCount
                         if (files.length < parallelExecCount) {
@@ -111,12 +110,14 @@ def getTestExecutionMap(parallel_executor_count) {
                         }
                         if (executor == parallelExecCount) {
                             for (int i = processFileCount * (executor - 1); i < files.length; i++) {
-                                /*IMPORTANT: Instead of using 'i' directly in your logic below, 
-                                you should assign it to a new variable and use it. (To avoid same 'i-object' being refered)*/
-                                // Execution logic
-                                int fileNo = i
-                                testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
-                                runPlan(files[i], testplanId)
+                                stage("Parallel Executor : ${executor}") {
+                                    /*IMPORTANT: Instead of using 'i' directly in your logic below,
+                                    you should assign it to a new variable and use it. (To avoid same 'i-object' being refered)*/
+                                    // Execution logic
+                                    int fileNo = i
+                                    testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
+                                    runPlan(files[i], testplanId)
+                                }
                             }
                         } else {
                             for (int i = 0; i < processFileCount; i++) {
@@ -129,7 +130,6 @@ def getTestExecutionMap(parallel_executor_count) {
                             }
                         }
                     }
-                }
             }
         }
     }
