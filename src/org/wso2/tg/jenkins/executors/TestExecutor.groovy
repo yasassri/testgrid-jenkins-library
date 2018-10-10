@@ -121,6 +121,7 @@ def getTestExecutionMap(parallel_executor_count) {
                         } else {
                             for (int i = 0; i < processFileCount; i++) {
                                 stage("${name}") {
+                                    echo "In the sequential loop!!!"
                                     int fileNo = processFileCount * (executor - 1) + i
                                     testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
                                     runPlan(files[fileNo], testplanId)
