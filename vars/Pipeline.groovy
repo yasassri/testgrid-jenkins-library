@@ -58,6 +58,7 @@ def call() {
         def awsHelper = new AWSUtils()
         def testExecutor = new TestExecutor()
         properties = null
+        def tests
 
         pipeline {
             agent {
@@ -193,7 +194,6 @@ def call() {
                         }
                     }
                 }
-                def tests
                 stage('parallel-run') {
                     steps {
                         script {
@@ -213,7 +213,9 @@ def call() {
                     }
                 }
                 stage('22222XXXX') {
+                    script {
                         parallel tests
+                    }
                 }
             }
 
