@@ -31,7 +31,7 @@ def call() {
         2. Add the custom pipeline to an additional if-clause with referring the job name similar to 'dev'.
     */
     def uniqueId = env['uniqueId']
-    def jobName = "dev"
+    def jobName = "test"
 
     echo uniqueId;
     if (uniqueId != null) {
@@ -41,11 +41,54 @@ def call() {
         pipeline {
             agent any
             stages {
-                stage('Testing') {
+                stage('first-solo') {
                     steps {
-                        script {
-                            echo "This is a test"
+                        sh 'echo \'dummy text first-solo\''
+                    }
+                }
+                stage('parent') {
+                    parallel {
+                        stage('single-stage') {
+                            steps {
+                                sh 'echo \'dummy text single-stage\''
+                            }
                         }
+
+                        stage('multiple-stages') {
+                            stages {
+                                stage('first-sequential-stage') {
+                                    steps {
+                                        sh 'echo \'dummy text first-sequential-stage\''
+                                    }
+                                }
+                                stage('second-sequential-stage') {
+                                    steps {
+                                        sh 'echo \'dummy text second-sequential-stage\''
+                                    }
+                                }
+                                stage('third-sequential-stage') {
+                                    steps {
+                                        sh 'echo \'dummy text third-sequential-stage\''
+                                    }
+                                }
+                            }
+                            post {
+                                success {
+                                    sh 'echo \'dummy text post multiple-stages\''
+                                }
+                            }
+                        }
+
+                        stage('other-single-stage') {
+                            steps {
+                                sh 'echo \'dummy text other-single-stage\''
+                            }
+                        }
+                    }
+                }
+                stage('second-solo') {
+                    steps {
+                        sh 'echo \'dummy text second-solo\''
                     }
                 }
             }
