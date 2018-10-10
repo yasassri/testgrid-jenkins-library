@@ -194,8 +194,8 @@ def call() {
                     }
                 }
 
-                stages {
-                    stage('parallel-run') {
+                stage('parallel-run') {
+                    steps {
                         script {
                             def name = "unknown"
                             try {
@@ -210,6 +210,13 @@ def call() {
                                 currentBuild.result = "FAILED"
                                 alert.sendNotification(currentBuild.result, "Parallel", "#build_status_verbose")
                             }
+                        }
+                    }
+                }
+                stage('22222XXXX') {
+                    steps {
+                        script {
+                            echo "Test one!!"
                         }
                     }
                 }
