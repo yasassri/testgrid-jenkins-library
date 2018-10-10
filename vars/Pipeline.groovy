@@ -193,7 +193,7 @@ def call() {
                         }
                     }
                 }
-
+                def tests
                 stage('parallel-run') {
                     steps {
                         script {
@@ -204,8 +204,7 @@ def call() {
                                     echo "executor count is"+ env.EXECUTOR_COUNT
                                     parallel_executor_count = env.EXECUTOR_COUNT
                                 }
-                                def tests = testExecutor.getTestExecutionMap(parallel_executor_count)
-                                parallel tests
+                                tests = testExecutor.getTestExecutionMap(parallel_executor_count)
                             } catch (e) {
                                 currentBuild.result = "FAILED"
                                 alert.sendNotification(currentBuild.result, "Parallel", "#build_status_verbose")
@@ -214,11 +213,7 @@ def call() {
                     }
                 }
                 stage('22222XXXX') {
-                    steps {
-                        script {
-                            echo "Test one!!"
-                        }
-                    }
+                        parallel tests
                 }
             }
 
