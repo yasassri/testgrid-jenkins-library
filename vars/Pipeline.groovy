@@ -213,9 +213,7 @@ def call() {
                     }
                 }
                 stage('22222XXXX') {
-                    script {
                         parallel tests
-                    }
                 }
             }
 
