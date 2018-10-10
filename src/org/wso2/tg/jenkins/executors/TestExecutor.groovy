@@ -100,7 +100,6 @@ def getTestExecutionMap(parallel_executor_count) {
         name = commonUtils.getParameters("${PWD}/test-plans/" + files[f - 1].name)
         echo name
         tests["${name}"] = {
-            stages {
                     int processFileCount
                     if (files.length < parallelExecCount) {
                         processFileCount = 1
@@ -132,7 +131,6 @@ def getTestExecutionMap(parallel_executor_count) {
                                 }
                         }
                     }
-            }
         }
     }
     return tests
