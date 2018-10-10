@@ -111,21 +111,25 @@ def getTestExecutionMap(parallel_executor_count) {
                     if (executor == parallelExecCount) {
                         for (int i = processFileCount * (executor - 1); i < files.length; i++) {
                                 stage("Parallel Executor : ${executor}") {
-                                    /*IMPORTANT: Instead of using 'i' directly in your logic below,
-                                        you should assign it to a new variable and use it. (To avoid same 'i-object' being refered)*/
-                                    // Execution logic
-                                    int fileNo = i
-                                    testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
-                                    runPlan(files[i], testplanId)
+                                    steps{
+                                        /*IMPORTANT: Instead of using 'i' directly in your logic below,
+                                       you should assign it to a new variable and use it. (To avoid same 'i-object' being refered)*/
+                                        // Execution logic
+                                        int fileNo = i
+                                        testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
+                                        runPlan(files[i], testplanId)
+                                    }
                                 }
                         }
                     } else {
                         for (int i = 0; i < processFileCount; i++) {
                                 stage("${name}") {
-                                    echo "In the sequential loop!!!"
-                                    int fileNo = processFileCount * (executor - 1) + i
-                                    testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
-                                    runPlan(files[fileNo], testplanId)
+                                    steps {
+                                        echo "In the sequential loop!!!"
+                                        int fileNo = processFileCount * (executor - 1) + i
+                                        testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
+                                        runPlan(files[fileNo], testplanId)
+                                    }
                                 }
                         }
                     }
