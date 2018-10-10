@@ -101,7 +101,6 @@ def getTestExecutionMap(parallel_executor_count) {
         echo name
         tests["${name}"] = {
             stages {
-                script {
                     int processFileCount
                     if (files.length < parallelExecCount) {
                         processFileCount = 1
@@ -133,7 +132,6 @@ def getTestExecutionMap(parallel_executor_count) {
                                 }
                         }
                     }
-                }
             }
         }
     }
