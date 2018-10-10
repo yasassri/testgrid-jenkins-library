@@ -103,9 +103,9 @@ def getTestExecutionMap(parallel_executor_count) {
             node {
                 stage("Parallel Executor : ${executor}") {
                     script {
-                        int processFileCount = 0;
+                        int processFileCount
                         if (files.length < parallelExecCount) {
-                            processFileCount = 1;
+                            processFileCount = 1
                         } else {
                             processFileCount = files.length / parallelExecCount;
                         }
@@ -120,9 +120,11 @@ def getTestExecutionMap(parallel_executor_count) {
                             }
                         } else {
                             for (int i = 0; i < processFileCount; i++) {
-                                int fileNo = processFileCount * (executor - 1) + i
-                                testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
-                                runPlan(files[fileNo], testplanId)
+                                stage("${name}") {
+                                    int fileNo = processFileCount * (executor - 1) + i
+                                    testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
+                                    runPlan(files[fileNo], testplanId)
+                                }
                             }
                         }
                     }
