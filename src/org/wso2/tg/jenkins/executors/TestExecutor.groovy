@@ -26,45 +26,21 @@ import org.wso2.tg.jenkins.alert.Slack
 @NonCPS
 def runPlan(tPlan, testPlanId) {
     def commonUtil = new Common()
-    def notfier = new Slack()
+    def notifier = new Slack()
     def awsHelper = new AWSUtils()
-    sh """
-        echo Executing Test Plan : ${tPlan} On directory : ${testPlanId}
-        echo Creating workspace and builds sub-directories
-        rm -r -f ${PWD}/${testPlanId}/
-        mkdir -p ${PWD}/${testPlanId}/builds
-        mkdir -p ${PWD}/${testPlanId}/workspace
-        #Cloning should be done before unstashing TestGridYaml since its going to be injected
-        #inside the cloned repository
-        echo Cloning ${SCENARIOS_REPOSITORY} into ${PWD}/${testPlanId}/${SCENARIOS_LOCATION}
-        cd ${PWD}/${testPlanId}/workspace
-        git clone ${SCENARIOS_REPOSITORY}
 
-        echo Cloning ${INFRASTRUCTURE_REPOSITORY} into ${PWD}/${testPlanId}/${INFRA_LOCATION}
-        git clone ${INFRASTRUCTURE_REPOSITORY}
-
-        echo Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}
-    """
-
+    echo "Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}"
     dir("${PWD}/${testPlanId}") {
         unstash name: "${JOB_CONFIG_YAML}"
         unstash name: "test-plans"
         unstash name: "TestGridYaml"
     }
-
-    sh """
-        cp /testgrid/testgrid-prod-key.pem ${PWD}/${testPlanId}/workspace/testgrid-key.pem
-        chmod 400 ${PWD}/${testPlanId}/workspace/testgrid-key.pem
-        echo Workspace directory content:
-        ls ${PWD}/${testPlanId}/
-        echo Test-plans directory content:
-        ls ${PWD}/${testPlanId}/test-plans/
-    """
+    prepareWorkSpace()
 
     writeFile file: "${PWD}/${testPlanId}/${INFRA_LOCATION}/deploy.sh", text: '#!/bin/sh'
 
     def name = commonUtil.getParameters("${PWD}/${testPlanId}/${tPlan}")
-    notfier.sendNotification("STARTED", "parallel \n Infra : " + name, "#build_status_verbose")
+    notifier.sendNotification("STARTED", "parallel \n Infra : " + name, "#build_status_verbose")
     try {
         sh """
             echo Running Test-Plan: ${tPlan}
@@ -79,7 +55,7 @@ def runPlan(tPlan, testPlanId) {
         echo "Error : ${err}"
         currentBuild.result = 'UNSTABLE'
     } finally {
-        notfier.sendNotification(currentBuild.result, "Parallel \n Infra : " + name, "#build_status_verbose")
+        notifier.sendNotification(currentBuild.result, "Parallel \n Infra : " + name, "#build_status_verbose")
     }
     
     echo "RESULT: ${currentBuild.result}"
@@ -131,4 +107,29 @@ def getTestExecutionMap(parallel_executor_count) {
         }
     }
     return tests
+}
+
+def prepareWorkSpace(){
+    sh """
+        echo Executing Test Plan : ${tPlan} On directory : ${testPlanId}
+        echo Creating workspace and builds sub-directories
+        rm -r -f ${PWD}/${testPlanId}/
+        mkdir -p ${PWD}/${testPlanId}/builds
+        mkdir -p ${PWD}/${testPlanId}/workspace
+        #Cloning should be done before unstashing TestGridYaml since its going to be injected
+        #inside the cloned repository
+        echo Cloning ${SCENARIOS_REPOSITORY} into ${PWD}/${testPlanId}/${SCENARIOS_LOCATION}
+        cd ${PWD}/${testPlanId}/workspace
+        git clone ${SCENARIOS_REPOSITORY}
+
+        echo Cloning ${INFRASTRUCTURE_REPOSITORY} into ${PWD}/${testPlanId}/${INFRA_LOCATION}
+        git clone ${INFRASTRUCTURE_REPOSITORY}
+
+        cp /testgrid/testgrid-prod-key.pem ${PWD}/${testPlanId}/workspace/testgrid-key.pem
+        chmod 400 ${PWD}/${testPlanId}/workspace/testgrid-key.pem
+        echo Workspace directory content:
+        ls ${PWD}/${testPlanId}/
+        echo Test-plans directory content:
+        ls ${PWD}/${testPlanId}/test-plans/
+    """
 }
