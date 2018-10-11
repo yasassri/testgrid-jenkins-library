@@ -30,23 +30,7 @@ def runPlan(tPlan, testPlanId) {
     def fileUtil = new FileUtils()
 
     fileUtil.createDirectory("${PWD}/${testPlanId}")
-    sh """
-        echo Executing Test Plan : ${tPlan} On directory : ${testPlanId}
-        echo Creating workspace and builds sub-directories
-        rm -r -f ${PWD}/${testPlanId}/
-        mkdir -p ${PWD}/${testPlanId}/builds
-        mkdir -p ${PWD}/${testPlanId}/workspace
-        #Cloning should be done before unstashing TestGridYaml since its going to be injected
-        #inside the cloned repository
-        echo Cloning ${SCENARIOS_REPOSITORY} into ${PWD}/${testPlanId}/${SCENARIOS_LOCATION}
-        cd ${PWD}/${testPlanId}/workspace
-        git clone ${SCENARIOS_REPOSITORY}
-
-        echo Cloning ${INFRASTRUCTURE_REPOSITORY} into ${PWD}/${testPlanId}/${INFRA_LOCATION}
-        git clone ${INFRASTRUCTURE_REPOSITORY}
-
-        echo Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}
-    """
+    prepareWorkspace(tPlan, testPlanId)
 
     dir("${PWD}/${testPlanId}") {
         unstash name: "${JOB_CONFIG_YAML}"
@@ -133,4 +117,26 @@ def getTestExecutionMap(parallel_executor_count) {
         }
     }
     return tests
+}
+
+def prepareWorkspace(tPlan, testPlanId) {
+
+    sh """
+        echo Executing Test Plan : ${tPlan} On directory : ${testPlanId}
+        echo Creating workspace and builds sub-directories
+        rm -r -f ${PWD}/${testPlanId}/
+        mkdir -p ${PWD}/${testPlanId}/builds
+        mkdir -p ${PWD}/${testPlanId}/workspace
+        #Cloning should be done before unstashing TestGridYaml since its going to be injected
+        #inside the cloned repository
+        echo Cloning ${SCENARIOS_REPOSITORY} into ${PWD}/${testPlanId}/${SCENARIOS_LOCATION}
+        cd ${PWD}/${testPlanId}/workspace
+        git clone ${SCENARIOS_REPOSITORY}
+
+        echo Cloning ${INFRASTRUCTURE_REPOSITORY} into ${PWD}/${testPlanId}/${INFRA_LOCATION}
+        git clone ${INFRASTRUCTURE_REPOSITORY}
+
+        echo Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}
+    """
+
 }
