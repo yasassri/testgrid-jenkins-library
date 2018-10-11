@@ -132,8 +132,8 @@ def prepareWorkspace(tPlan, testPlanId){
         chmod 400 ${PWD}/${testPlanId}/workspace/testgrid-key.pem
         echo Workspace directory content:
         ls ${PWD}/${testPlanId}/
-        echo Test-plans directory content:
-        ls ${PWD}/${testPlanId}/test-plans/
+        #echo Test-plans directory content:
+        #ls ${PWD}/${testPlanId}/test-plans/
     """
 }
 
