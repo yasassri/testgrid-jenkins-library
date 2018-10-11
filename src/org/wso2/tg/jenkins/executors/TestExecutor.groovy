@@ -28,7 +28,7 @@ def runPlan(tPlan, testPlanId) {
     def notifier = new Slack()
     def awsHelper = new AWSUtils()
 
-    prepareWorkSpace()
+    def a = prepareWorkSpace()
     echo "Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}"
     dir("${PWD}/${testPlanId}") {
         unstash name: "${JOB_CONFIG_YAML}"
@@ -74,11 +74,13 @@ def getTestExecutionMap(parallel_executor_count) {
         def executor = f
         name = commonUtils.getParameters("${PWD}/test-plans/" + files[f - 1].name)
         echo name
+        echo "11111111111"
         tests["${name}"] = {
             node {
                 stage("Parallel Executor : ${executor}") {
                     script {
-                        int processFileCount = 0;
+                        echo "22222222"
+                        int processFileCount
                         if (files.length < parallelExecCount) {
                             processFileCount = 1;
                         } else {
@@ -132,4 +134,5 @@ def prepareWorkSpace(){
         echo Test-plans directory content:
         ls ${PWD}/${testPlanId}/test-plans/
     """
+    return ""
 }
