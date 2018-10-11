@@ -108,7 +108,7 @@ def getTestExecutionMap(parallel_executor_count) {
     return tests
 }
 
-@NonCPS
+//@NonCPS
 def prepareWorkSpace(){
     sh """
         echo Executing Test Plan : ${tPlan} On directory : ${testPlanId}
