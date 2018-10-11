@@ -30,7 +30,8 @@ def runPlan(tPlan, testPlanId) {
     def awsHelper = new AWSUtils()
     echo "777777777"
     def a = prepareWorkSpace()
-    echo "Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}"
+    echo "9999999999"
+    //echo "Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}"
     dir("${PWD}/${testPlanId}") {
         unstash name: "${JOB_CONFIG_YAML}"
         unstash name: "test-plans"
@@ -114,8 +115,8 @@ def getTestExecutionMap(parallel_executor_count) {
     return tests
 }
 
-//@NonCPS
 def prepareWorkSpace(){
+    echo "88888888888"
     sh """
         echo Executing Test Plan : ${tPlan} On directory : ${testPlanId}
         echo Creating workspace and builds sub-directories
@@ -138,5 +139,4 @@ def prepareWorkSpace(){
         echo Test-plans directory content:
         ls ${PWD}/${testPlanId}/test-plans/
     """
-    return ""
 }
