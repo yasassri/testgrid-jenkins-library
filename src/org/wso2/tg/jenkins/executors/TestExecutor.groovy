@@ -23,10 +23,19 @@ import org.wso2.tg.jenkins.util.Common
 import org.wso2.tg.jenkins.util.AWSUtils
 import org.wso2.tg.jenkins.alert.Slack
 
+@NonCPS
 def runPlan(tPlan, testPlanId) {
     def commonUtil = new Common()
     def notfier = new Slack()
     def awsHelper = new AWSUtils()
+
+    echo "Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}"
+    dir("${PWD}/${testPlanId}") {
+        unstash name: "${JOB_CONFIG_YAML}"
+        unstash name: "test-plans"
+        unstash name: "TestGridYaml"
+    }
+
     sh """
         echo Executing Test Plan : ${tPlan} On directory : ${testPlanId}
         echo Creating workspace and builds sub-directories
@@ -42,16 +51,6 @@ def runPlan(tPlan, testPlanId) {
         echo Cloning ${INFRASTRUCTURE_REPOSITORY} into ${PWD}/${testPlanId}/${INFRA_LOCATION}
         git clone ${INFRASTRUCTURE_REPOSITORY}
 
-        echo Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}
-    """
-    
-    dir("${PWD}/${testPlanId}") {
-        unstash name: "${JOB_CONFIG_YAML}"
-        unstash name: "test-plans"
-        unstash name: "TestGridYaml"
-    }
-    echo "Starting to run the test plans!!!"
-    sh """
         cp /testgrid/testgrid-prod-key.pem ${PWD}/${testPlanId}/workspace/testgrid-key.pem
         chmod 400 ${PWD}/${testPlanId}/workspace/testgrid-key.pem
         echo Workspace directory content:
