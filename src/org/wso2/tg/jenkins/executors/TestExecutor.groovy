@@ -28,13 +28,13 @@ def runPlan(tPlan, testPlanId) {
     def notifier = new Slack()
     def awsHelper = new AWSUtils()
 
+    prepareWorkSpace()
     echo "Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}"
     dir("${PWD}/${testPlanId}") {
         unstash name: "${JOB_CONFIG_YAML}"
         unstash name: "test-plans"
         unstash name: "TestGridYaml"
     }
-    prepareWorkSpace()
 
     writeFile file: "${PWD}/${testPlanId}/${INFRA_LOCATION}/deploy.sh", text: '#!/bin/sh'
 
