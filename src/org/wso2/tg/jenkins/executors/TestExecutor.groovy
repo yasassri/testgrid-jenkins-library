@@ -24,12 +24,11 @@ import org.wso2.tg.jenkins.util.AWSUtils
 import org.wso2.tg.jenkins.alert.Slack
 
 def runPlan(tPlan, testPlanId) {
-    echo "666666666"
     def commonUtil = new Common()
     def notifier = new Slack()
     def awsHelper = new AWSUtils()
     echo "777777777"
-    def a = prepareWorkSpace()
+    def a = prepareWorkSpace(tPlan, testPlanId)
     echo "9999999999"
     //echo "Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}"
     dir("${PWD}/${testPlanId}") {
@@ -115,7 +114,7 @@ def getTestExecutionMap(parallel_executor_count) {
     return tests
 }
 
-def prepareWorkSpace(){
+def prepareWorkSpace(tPlan, testPlanId){
     echo "88888888888"
     sh """
         echo Executing Test Plan : ${tPlan} On directory : ${testPlanId}
