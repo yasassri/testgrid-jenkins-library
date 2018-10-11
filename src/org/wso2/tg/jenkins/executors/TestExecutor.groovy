@@ -24,6 +24,7 @@ import org.wso2.tg.jenkins.util.AWSUtils
 import org.wso2.tg.jenkins.alert.Slack
 
 def runPlan(tPlan, testPlanId) {
+    echo "666666666"
     def commonUtil = new Common()
     def notifier = new Slack()
     def awsHelper = new AWSUtils()
@@ -101,6 +102,7 @@ def getTestExecutionMap(parallel_executor_count) {
                                 echo "44444444"
                                 int fileNo = processFileCount * (executor - 1) + i
                                 testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
+                                echo "55555555"
                                 runPlan(files[fileNo], testplanId)
                             }
                         }
