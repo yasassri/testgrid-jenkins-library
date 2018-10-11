@@ -28,14 +28,6 @@ def runPlan(tPlan, testPlanId) {
     def commonUtil = new Common()
     def notfier = new Slack()
     def awsHelper = new AWSUtils()
-
-    echo "Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}"
-    dir("${PWD}/${testPlanId}") {
-        unstash name: "${JOB_CONFIG_YAML}"
-        unstash name: "test-plans"
-        unstash name: "TestGridYaml"
-    }
-
     sh """
         echo Executing Test Plan : ${tPlan} On directory : ${testPlanId}
         echo Creating workspace and builds sub-directories
@@ -51,6 +43,16 @@ def runPlan(tPlan, testPlanId) {
         echo Cloning ${INFRASTRUCTURE_REPOSITORY} into ${PWD}/${testPlanId}/${INFRA_LOCATION}
         git clone ${INFRASTRUCTURE_REPOSITORY}
 
+        echo Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}
+    """
+
+    dir("${PWD}/${testPlanId}") {
+        unstash name: "${JOB_CONFIG_YAML}"
+        unstash name: "test-plans"
+        unstash name: "TestGridYaml"
+    }
+
+    sh """
         cp /testgrid/testgrid-prod-key.pem ${PWD}/${testPlanId}/workspace/testgrid-key.pem
         chmod 400 ${PWD}/${testPlanId}/workspace/testgrid-key.pem
         echo Workspace directory content:
@@ -98,33 +100,34 @@ def getTestExecutionMap(parallel_executor_count) {
         name = commonUtils.getParameters("${PWD}/test-plans/" + files[f - 1].name)
         echo name
         tests["${name}"] = {
-                    int processFileCount
-                    if (files.length < parallelExecCount) {
-                        processFileCount = 1
-                    } else {
-                        processFileCount = files.length / parallelExecCount;
-                    }
-                    if (executor == parallelExecCount) {
-                        for (int i = processFileCount * (executor - 1); i < files.length; i++) {
-                                stage("${name}") {
-                                    /*IMPORTANT: Instead of using 'i' directly in your logic below,
-                                        you should assign it to a new variable and use it. (To avoid same 'i-object' being refered)*/
-                                    // Execution logic
-                                    int fileNo = i
-                                    testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
-                                    runPlan(files[i], testplanId)
-                                }
+            node {
+                stage("Parallel Executor : ${executor}") {
+                    script {
+                        int processFileCount = 0;
+                        if (files.length < parallelExecCount) {
+                            processFileCount = 1;
+                        } else {
+                            processFileCount = files.length / parallelExecCount;
                         }
-                    } else {
-                        for (int i = 0; i < processFileCount; i++) {
-                                stage("${name}") {
-                                    echo "In the sequential loop!!!"
-                                    int fileNo = processFileCount * (executor - 1) + i
-                                    testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
-                                    runPlan(files[fileNo], testplanId)
-                                }
+                        if (executor == parallelExecCount) {
+                            for (int i = processFileCount * (executor - 1); i < files.length; i++) {
+                                /*IMPORTANT: Instead of using 'i' directly in your logic below,
+                                you should assign it to a new variable and use it. (To avoid same 'i-object' being refered)*/
+                                // Execution logic
+                                int fileNo = i
+                                testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
+                                runPlan(files[i], testplanId)
+                            }
+                        } else {
+                            for (int i = 0; i < processFileCount; i++) {
+                                int fileNo = processFileCount * (executor - 1) + i
+                                testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
+                                runPlan(files[fileNo], testplanId)
+                            }
                         }
                     }
+                }
+            }
         }
     }
     return tests
