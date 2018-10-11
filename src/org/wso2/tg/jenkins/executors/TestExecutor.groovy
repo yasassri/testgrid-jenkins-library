@@ -40,11 +40,36 @@ def runPlan(tPlan, testPlanId) {
         unstash name: "TestGridYaml"
     }
 
+    sh """
+        cp /testgrid/testgrid-prod-key.pem ${PWD}/${testPlanId}/workspace/testgrid-key.pem
+        chmod 400 ${PWD}/${testPlanId}/workspace/testgrid-key.pem
+        echo Workspace directory content:
+        ls ${PWD}/${testPlanId}/
+        echo Test-plans directory content:
+        ls ${PWD}/${testPlanId}/test-plans/
+    """
+
     writeFile file: "${PWD}/${testPlanId}/${INFRA_LOCATION}/deploy.sh", text: '#!/bin/sh'
 
     def name = commonUtil.getParameters("${PWD}/${testPlanId}/${tPlan}")
     notfier.sendNotification("STARTED", "parallel \n Infra : " + name, "#build_status_verbose")
-    runTestPlan(tPlan, testPlanId)
+    try {
+        sh """
+            echo Running Test-Plan: ${tPlan}
+            java -version
+            #Need to change directory to root to run the next command properly
+            cd /
+            #.${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}/testgrid run-testplan --product ${PRODUCT} \
+            #--file ${PWD}/${testPlanId}/${tPlan} --workspace ${PWD}/${testPlanId}        
+        """
+        commonUtil.truncateTestRunLog(testPlanId)
+    } catch (Exception err) {
+        echo "Error : ${err}"
+        currentBuild.result = 'UNSTABLE'
+    } finally {
+        notfier.sendNotification(currentBuild.result, "Parallel \n Infra : " + name, "#build_status_verbose")
+    }
+
     echo "RESULT: ${currentBuild.result}"
     script {
         awsHelper.uploadToS3(testPlanId)
@@ -113,31 +138,6 @@ def prepareWorkspace(tPlan, testPlanId){
 
         echo Cloning ${INFRASTRUCTURE_REPOSITORY} into ${PWD}/${testPlanId}/${INFRA_LOCATION}
         git clone ${INFRASTRUCTURE_REPOSITORY}
-                cp /testgrid/testgrid-prod-key.pem ${PWD}/${testPlanId}/workspace/testgrid-key.pem
-        chmod 400 ${PWD}/${testPlanId}/workspace/testgrid-key.pem
-        echo Workspace directory content:
-        ls ${PWD}/${testPlanId}/
-        echo Test-plans directory content:
-        ls ${PWD}/${testPlanId}/test-plans/
     """
 }
 
-@NonCPS
-def runTestPlan(tPlan, testPlanId){
-    try {
-        sh """
-            echo Running Test-Plan: ${tPlan}
-            java -version
-            #Need to change directory to root to run the next command properly
-            cd /
-            #.${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}/testgrid run-testplan --product ${PRODUCT} \
-            #--file ${PWD}/${testPlanId}/${tPlan} --workspace ${PWD}/${testPlanId}        
-        """
-        commonUtil.truncateTestRunLog(testPlanId)
-    } catch (Exception err) {
-        echo "Error : ${err}"
-        currentBuild.result = 'UNSTABLE'
-    } finally {
-        notfier.sendNotification(currentBuild.result, "Parallel \n Infra : " + name, "#build_status_verbose")
-    }
-}
