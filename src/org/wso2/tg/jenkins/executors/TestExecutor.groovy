@@ -23,7 +23,6 @@ import org.wso2.tg.jenkins.util.Common
 import org.wso2.tg.jenkins.util.AWSUtils
 import org.wso2.tg.jenkins.alert.Slack
 
-@NonCPS
 def runPlan(tPlan, testPlanId) {
     def commonUtil = new Common()
     def notifier = new Slack()
@@ -109,6 +108,7 @@ def getTestExecutionMap(parallel_executor_count) {
     return tests
 }
 
+@NonCPS
 def prepareWorkSpace(){
     sh """
         echo Executing Test Plan : ${tPlan} On directory : ${testPlanId}
