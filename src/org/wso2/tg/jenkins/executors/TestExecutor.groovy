@@ -38,6 +38,7 @@ def runPlan(tPlan, testPlanId) {
                 url: "${SCENARIOS_REPOSITORY}",
                 branch: "master"
         )
+        sleep(3000)
         git(
                 url: "${INFRASTRUCTURE_REPOSITORY}",
                 branch: "master"
