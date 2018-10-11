@@ -18,8 +18,11 @@
 
 package org.wso2.tg.jenkins.util
 
+import com.cloudbees.groovy.cps.NonCPS
+
 def s3BucketName = getS3BucketName()
 
+@NonCPS
 def uploadToS3(testPlanId) {
     echo "XXXXXUUU : ${s3BucketName}"
     sh """
@@ -27,6 +30,7 @@ def uploadToS3(testPlanId) {
       """
 }
 
+@NonCPS
 def uploadCharts() {
     sh """
       aws s3 sync ${TESTGRID_HOME}/jobs/${PRODUCT}/builds/ s3://${s3BucketName}/charts/${PRODUCT}/ --exclude "*" --include "*.png" --acl public-read
