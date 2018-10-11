@@ -34,12 +34,12 @@ def runPlan(tPlan, testPlanId) {
     prepareWorkspace(tPlan, testPlanId)
 
     dir("${PWD}/${testPlanId}/workspace"){
-        sleep(time:commonUtil.getRandomNumber(5),unit:"SECONDS")
+        sleep(time:commonUtil.getRandomNumber(10),unit:"SECONDS")
         git(
                 url: "${SCENARIOS_REPOSITORY}",
                 branch: "master"
         )
-        sleep(time:commonUtil.getRandomNumber(5),unit:"SECONDS")
+        sleep(time:commonUtil.getRandomNumber(10),unit:"SECONDS")
         git(
                 url: "${INFRASTRUCTURE_REPOSITORY}",
                 branch: "master"
