@@ -33,18 +33,18 @@ def runPlan(tPlan, testPlanId) {
     fileUtil.createDirectory("${PWD}/${testPlanId}")
     prepareWorkspace(tPlan, testPlanId)
 
-    dir("${PWD}/${testPlanId}/workspace"){
-        sleep(time:commonUtil.getRandomNumber(10),unit:"SECONDS")
-        git(
-                url: "${SCENARIOS_REPOSITORY}",
-                branch: "master"
-        )
-        sleep(time:commonUtil.getRandomNumber(10),unit:"SECONDS")
-        git(
-                url: "${INFRASTRUCTURE_REPOSITORY}",
-                branch: "master"
-        )
-    }
+//    dir("${PWD}/${testPlanId}/workspace"){
+//        sleep(time:commonUtil.getRandomNumber(10),unit:"SECONDS")
+//        git(
+//                url: "${SCENARIOS_REPOSITORY}",
+//                branch: "master"
+//        )
+//        sleep(time:commonUtil.getRandomNumber(10),unit:"SECONDS")
+//        git(
+//                url: "${INFRASTRUCTURE_REPOSITORY}",
+//                branch: "master"
+//        )
+//    }
 
     echo "Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}"
     dir("${PWD}/${testPlanId}") {
@@ -147,10 +147,10 @@ def prepareWorkspace(tPlan, testPlanId){
         #inside the cloned repository
         echo Cloning ${SCENARIOS_REPOSITORY} into ${PWD}/${testPlanId}/${SCENARIOS_LOCATION}
         cd ${PWD}/${testPlanId}/workspace
-        #git clone ${SCENARIOS_REPOSITORY}
+        git clone ${SCENARIOS_REPOSITORY}
 
         echo Cloning ${INFRASTRUCTURE_REPOSITORY} into ${PWD}/${testPlanId}/${INFRA_LOCATION}
-        #git clone ${INFRASTRUCTURE_REPOSITORY}
+        git clone ${INFRASTRUCTURE_REPOSITORY}
     """
 }
 
