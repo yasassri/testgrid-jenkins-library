@@ -28,6 +28,13 @@ def runPlan(tPlan, testPlanId) {
     def commonUtil = new Common()
     def notfier = new Slack()
     def awsHelper = new AWSUtils()
+
+    dir("${PWD}/${testPlanId}") {
+        unstash name: "${JOB_CONFIG_YAML}"
+        unstash name: "test-plans"
+        unstash name: "TestGridYaml"
+    }
+
     sh """
         echo Executing Test Plan : ${tPlan} On directory : ${testPlanId}
         echo Creating workspace and builds sub-directories
@@ -44,15 +51,6 @@ def runPlan(tPlan, testPlanId) {
         git clone ${INFRASTRUCTURE_REPOSITORY}
 
         echo Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}
-    """
-
-    dir("${PWD}/${testPlanId}") {
-        unstash name: "${JOB_CONFIG_YAML}"
-        unstash name: "test-plans"
-        unstash name: "TestGridYaml"
-    }
-
-    sh """
         cp /testgrid/testgrid-prod-key.pem ${PWD}/${testPlanId}/workspace/testgrid-key.pem
         chmod 400 ${PWD}/${testPlanId}/workspace/testgrid-key.pem
         echo Workspace directory content:
