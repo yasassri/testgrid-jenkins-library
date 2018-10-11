@@ -63,5 +63,5 @@ def getTestPlanId(file) {
  }
 
 def getRandomNumber(limit){
-    retirn Math.abs(new Random().nextInt() % limit) + 1 as int
+    return Math.abs(new Random().nextInt() % limit) + 1 as int
 }
