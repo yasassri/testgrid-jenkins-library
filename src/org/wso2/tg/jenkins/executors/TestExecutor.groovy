@@ -35,7 +35,7 @@ def runPlan(tPlan, testPlanId) {
 
     dir("${PWD}/${testPlanId}/workspace"){
         git(
-                url: "${SCENARIOS_REPOSITORY},"
+                url: "${SCENARIOS_REPOSITORY}",
                 branch: "master"
         )
         git(
