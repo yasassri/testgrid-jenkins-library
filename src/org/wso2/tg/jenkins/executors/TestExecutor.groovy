@@ -22,12 +22,15 @@ import com.cloudbees.groovy.cps.NonCPS
 import org.wso2.tg.jenkins.util.Common
 import org.wso2.tg.jenkins.util.AWSUtils
 import org.wso2.tg.jenkins.alert.Slack
+import org.wso2.tg.jenkins.util.FileUtils
 
 def runPlan(tPlan, testPlanId) {
     def commonUtil = new Common()
     def notifier = new Slack()
     def awsHelper = new AWSUtils()
+    def fileUtil = new FileUtils()
     echo "777777777"
+    fileUtil.createDirectory("${PWD}/${testPlanId}")
     dir("${PWD}/${testPlanId}") {
         unstash name: "${JOB_CONFIG_YAML}"
         unstash name: "test-plans"
