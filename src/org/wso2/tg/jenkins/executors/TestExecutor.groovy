@@ -28,8 +28,8 @@ def runPlan(tPlan, testPlanId) {
     def notifier = new Slack()
     def awsHelper = new AWSUtils()
     echo "777777777"
-    def a = prepareWorkSpace(tPlan, testPlanId)
-    echo "9999999999"
+    prepareWorkSpace(tPlan, testPlanId)
+    echo "10101010101010"
     //echo "Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}"
     dir("${PWD}/${testPlanId}") {
         unstash name: "${JOB_CONFIG_YAML}"
@@ -138,4 +138,5 @@ def prepareWorkSpace(tPlan, testPlanId){
         echo Test-plans directory content:
         ls ${PWD}/${testPlanId}/test-plans/
     """
+    echo "9999999999"
 }
