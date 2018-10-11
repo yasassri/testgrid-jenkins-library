@@ -33,19 +33,7 @@ def runPlan(tPlan, testPlanId) {
     fileUtil.createDirectory("${PWD}/${testPlanId}")
     prepareWorkspace(tPlan, testPlanId)
 
-//    dir("${PWD}/${testPlanId}/workspace"){
-//        sleep(time:commonUtil.getRandomNumber(10),unit:"SECONDS")
-//        git(
-//                url: "${SCENARIOS_REPOSITORY}",
-//                branch: "master"
-//        )
-//        sleep(time:commonUtil.getRandomNumber(10),unit:"SECONDS")
-//        git(
-//                url: "${INFRASTRUCTURE_REPOSITORY}",
-//                branch: "master"
-//        )
-//    }
-
+    sleep(time:commonUtil.getRandomNumber(10),unit:"SECONDS")
     echo "Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}"
     dir("${PWD}/${testPlanId}") {
         unstash name: "${JOB_CONFIG_YAML}"
