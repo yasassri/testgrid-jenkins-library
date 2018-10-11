@@ -18,7 +18,6 @@
 
 package org.wso2.tg.jenkins.alert
 
-import com.cloudbees.groovy.cps.NonCPS
 
 /**
  * Sends out a slack notification to a given channel.
@@ -26,7 +25,6 @@ import com.cloudbees.groovy.cps.NonCPS
  * @param phase build phase
  * @param channel channel
  */
-@NonCPS
 def sendNotification(String buildStatus = 'STARTED', phase, channel) {
     // build status of null means successful
     buildStatus = buildStatus ?: 'SUCCESS'
