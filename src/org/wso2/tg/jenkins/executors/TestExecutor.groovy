@@ -28,7 +28,7 @@ def runPlan(tPlan, testPlanId) {
     def commonUtil = new Common()
     def notifier = new Slack()
     def awsHelper = new AWSUtils()
-
+    echo "777777777"
     def a = prepareWorkSpace()
     echo "Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}"
     dir("${PWD}/${testPlanId}") {
