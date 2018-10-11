@@ -36,21 +36,10 @@ def runPlan(tPlan, testPlanId) {
     sleep(time:commonUtil.getRandomNumber(10),unit:"SECONDS")
     echo "Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}"
     dir("${PWD}/${testPlanId}") {
-        unstash name: "${JOB_CONFIG_YAML}"
         unstash name: "test-plans"
-        unstash name: "TestGridYaml"
     }
 
-    sh """
-        cp /testgrid/testgrid-prod-key.pem ${PWD}/${testPlanId}/workspace/testgrid-key.pem
-        chmod 400 ${PWD}/${testPlanId}/workspace/testgrid-key.pem
-        echo Workspace directory content:
-        ls ${PWD}/${testPlanId}/
-        echo Test-plans directory content:
-        ls ${PWD}/${testPlanId}/test-plans/
-    """
-
-    writeFile file: "${PWD}/${testPlanId}/${INFRA_LOCATION}/deploy.sh", text: '#!/bin/sh'
+    //writeFile file: "${PWD}/${testPlanId}/${INFRA_LOCATION}/deploy.sh", text: '#!/bin/sh'
 
     def name = commonUtil.getParameters("${PWD}/${testPlanId}/${tPlan}")
     notfier.sendNotification("STARTED", "parallel \n Infra : " + name, "#build_status_verbose")
@@ -139,6 +128,12 @@ def prepareWorkspace(tPlan, testPlanId){
 
         echo Cloning ${INFRASTRUCTURE_REPOSITORY} into ${PWD}/${testPlanId}/${INFRA_LOCATION}
         git clone ${INFRASTRUCTURE_REPOSITORY}
+        cp /testgrid/testgrid-prod-key.pem ${PWD}/${testPlanId}/workspace/testgrid-key.pem
+        chmod 400 ${PWD}/${testPlanId}/workspace/testgrid-key.pem
+        echo Workspace directory content:
+        ls ${PWD}/${testPlanId}/
+        echo Test-plans directory content:
+        ls ${PWD}/${testPlanId}/test-plans/
     """
 }
 
