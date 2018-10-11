@@ -69,8 +69,8 @@ def runPlan(tPlan, testPlanId) {
             java -version
             #Need to change directory to root to run the next command properly
             cd /
-            .${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}/testgrid run-testplan --product ${PRODUCT} \
-            --file ${PWD}/${testPlanId}/${tPlan} --workspace ${PWD}/${testPlanId}        
+            #.${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}/testgrid run-testplan --product ${PRODUCT} \
+            #--file ${PWD}/${testPlanId}/${tPlan} --workspace ${PWD}/${testPlanId}        
         """
         commonUtil.truncateTestRunLog(testPlanId)
     } catch (Exception err) {
