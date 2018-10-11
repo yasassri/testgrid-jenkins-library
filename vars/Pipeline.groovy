@@ -31,7 +31,7 @@ def call() {
         2. Add the custom pipeline to an additional if-clause with referring the job name similar to 'dev'.
     */
     def uniqueId = env['uniqueId']
-    def jobName = "test"
+    def jobName = "dev"
 
     echo uniqueId;
     if (uniqueId != null) {
@@ -41,54 +41,11 @@ def call() {
         pipeline {
             agent any
             stages {
-                stage('first-solo') {
+                stage('Testing') {
                     steps {
-                        sh 'echo \'dummy text first-solo\''
-                    }
-                }
-                stage('parent') {
-                    parallel {
-                        stage('single-stage') {
-                            steps {
-                                sh 'echo \'dummy text single-stage\''
-                            }
+                        script {
+                            echo "This is a test"
                         }
-
-                        stage('multiple-stages') {
-                            stages {
-                                stage('first-sequential-stage') {
-                                    steps {
-                                        sh 'echo \'dummy text first-sequential-stage\''
-                                    }
-                                }
-                                stage('second-sequential-stage') {
-                                    steps {
-                                        sh 'echo \'dummy text second-sequential-stage\''
-                                    }
-                                }
-                                stage('third-sequential-stage') {
-                                    steps {
-                                        sh 'echo \'dummy text third-sequential-stage\''
-                                    }
-                                }
-                            }
-                            post {
-                                success {
-                                    sh 'echo \'dummy text post multiple-stages\''
-                                }
-                            }
-                        }
-
-                        stage('other-single-stage') {
-                            steps {
-                                sh 'echo \'dummy text other-single-stage\''
-                            }
-                        }
-                    }
-                }
-                stage('second-solo') {
-                    steps {
-                        sh 'echo \'dummy text second-solo\''
                     }
                 }
             }
@@ -101,7 +58,6 @@ def call() {
         def awsHelper = new AWSUtils()
         def testExecutor = new TestExecutor()
         properties = null
-        def tests
 
         pipeline {
             agent {
@@ -237,6 +193,7 @@ def call() {
                         }
                     }
                 }
+
                 stage('parallel-run') {
                     steps {
                         script {
@@ -247,16 +204,14 @@ def call() {
                                     echo "executor count is"+ env.EXECUTOR_COUNT
                                     parallel_executor_count = env.EXECUTOR_COUNT
                                 }
-                                tests = testExecutor.getTestExecutionMap(parallel_executor_count)
+                                def tests = testExecutor.getTestExecutionMap(parallel_executor_count)
+                                parallel tests
                             } catch (e) {
                                 currentBuild.result = "FAILED"
                                 alert.sendNotification(currentBuild.result, "Parallel", "#build_status_verbose")
                             }
                         }
                     }
-                }
-                stage('22222XXXX') {
-                        parallel tests
                 }
             }
 

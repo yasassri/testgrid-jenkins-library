@@ -108,7 +108,7 @@ def getTestExecutionMap(parallel_executor_count) {
                     }
                     if (executor == parallelExecCount) {
                         for (int i = processFileCount * (executor - 1); i < files.length; i++) {
-                                stage("Parallel Executor : ${executor}") {
+                                stage("${name}") {
                                     steps{
                                         /*IMPORTANT: Instead of using 'i' directly in your logic below,
                                        you should assign it to a new variable and use it. (To avoid same 'i-object' being refered)*/
