@@ -51,7 +51,7 @@ def runPlan(tPlan, testPlanId) {
         unstash name: "test-plans"
         unstash name: "TestGridYaml"
     }
-
+    echo "Starting to run the test plans!!!"
     sh """
         cp /testgrid/testgrid-prod-key.pem ${PWD}/${testPlanId}/workspace/testgrid-key.pem
         chmod 400 ${PWD}/${testPlanId}/workspace/testgrid-key.pem
