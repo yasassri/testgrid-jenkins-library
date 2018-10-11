@@ -93,10 +93,12 @@ def getTestExecutionMap(parallel_executor_count) {
                                 // Execution logic
                                 int fileNo = i
                                 testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
+                                echo "3333333"
                                 runPlan(files[i], testplanId)
                             }
                         } else {
                             for (int i = 0; i < processFileCount; i++) {
+                                echo "44444444"
                                 int fileNo = processFileCount * (executor - 1) + i
                                 testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
                                 runPlan(files[fileNo], testplanId)
