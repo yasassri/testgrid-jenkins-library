@@ -18,8 +18,6 @@
 
 package org.wso2.tg.jenkins.util
 
-import com.cloudbees.groovy.cps.NonCPS
-
 def getTimestamp(Date date = new Date()) {
     return date.format('yyyyMMddHHmmss', TimeZone.getTimeZone('GMT')) as String
 }
@@ -41,7 +39,7 @@ def truncateTestRunLog(parallelNumber) {
     fi
    """
 }
-@NonCPS
+
 def getParameters(file) {
     def tpyaml = readFile(file)
     def m = tpyaml =~ /(parameters:)([A-z \n:'0-9\.-]*)(provisioners)/
@@ -57,7 +55,6 @@ def getParameters(file) {
     return name
 }
 
-@NonCPS
 def getTestPlanId(file) {
     echo "This is the file " + file.toString()
      def tpyaml = readFile(file)

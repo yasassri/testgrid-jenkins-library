@@ -26,7 +26,7 @@ import com.cloudbees.groovy.cps.NonCPS
  * @param phase build phase
  * @param channel channel
  */
-@NonCPS
+
 def sendNotification(String buildStatus = 'STARTED', phase, channel) {
     // build status of null means successful
     buildStatus = buildStatus ?: 'SUCCESS'
