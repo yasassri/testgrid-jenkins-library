@@ -61,3 +61,7 @@ def getTestPlanId(file) {
      def m = tpyaml =~ /(id:)([A-z :'0-9\.-]*)(\n)/
     return m[0][2].trim()
  }
+
+def getRandomNumber(limit){
+    retirn Math.abs(new Random().nextInt() % limit) + 1 as int
+}

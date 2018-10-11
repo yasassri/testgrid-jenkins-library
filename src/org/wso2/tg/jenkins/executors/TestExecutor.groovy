@@ -38,7 +38,7 @@ def runPlan(tPlan, testPlanId) {
                 url: "${SCENARIOS_REPOSITORY}",
                 branch: "master"
         )
-        sleep(3000)
+        sleep(time:commonUtil.getRandomNumber(5),unit:"SECONDS")
         git(
                 url: "${INFRASTRUCTURE_REPOSITORY}",
                 branch: "master"
