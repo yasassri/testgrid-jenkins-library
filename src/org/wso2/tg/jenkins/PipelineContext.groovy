@@ -1,3 +1,4 @@
+package org.wso2.tg.jenkins
 /*
  * Copyright (c) 2018, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  *
@@ -16,7 +17,5 @@
  * under the License.
  */
 
-def TETESTGRID_HOMESTGRID_HOME = "/testgrid/testgrid-home"
-
-// TODO: read the configuration file and create a constant map
-def getProperty(){}
+@Singleton
+class PipelineContext implements Serializable {}
