@@ -49,7 +49,7 @@ def call() {
                 stage('Preparation') {
                     steps {
                         script {
-                            echo Properties.getProperty("A")
+                            echo Properties.getProperty("PRODUCT")
 //                            try {
 //                                alert.sendNotification('STARTED', "Initiation", "#build_status_verbose")
 //                                alert.sendNotification('STARTED', "Initiation", "#build_status")

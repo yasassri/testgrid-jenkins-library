@@ -49,7 +49,7 @@ class Properties implements Serializable {
 //            (Constants.EXECUTOR_COUNT)           : "${EXECUTOR_COUNT}"
 //    ]
 
-    static def props2 = [ "A" : "B"]
+    static def props2 = [ (Constants.PRODUCT) : "B"]
 
     // Returns a requested property.
     static def getProperty(property) {
