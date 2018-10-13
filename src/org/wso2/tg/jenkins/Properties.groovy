@@ -49,8 +49,10 @@ class Properties implements Serializable {
             (Constants.EXECUTOR_COUNT)           : "${EXECUTOR_COUNT}"
     ]
 
+    def props2 = [ "A" : "B"]
+
     // Returns a requested property.
     def getProperty(property) {
-        return props.get(property)
+        return props2.get(property)
     }
 }
