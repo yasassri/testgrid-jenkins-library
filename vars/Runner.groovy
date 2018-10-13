@@ -16,6 +16,8 @@
  * under the License.
  */
 
+
+import org.wso2.tg.jenkins.Constants
 import org.wso2.tg.jenkins.alert.Slack
 import org.wso2.tg.jenkins.alert.Email
 import org.wso2.tg.jenkins.util.AWSUtils
@@ -49,7 +51,7 @@ def call() {
                 stage('Preparation') {
                     steps {
                         script {
-                            echo Properties.getProperty("PRODUCT")
+                            echo Properties.getProperty(Constants.PRODUCT)
 //                            try {
 //                                alert.sendNotification('STARTED', "Initiation", "#build_status_verbose")
 //                                alert.sendNotification('STARTED', "Initiation", "#build_status")
