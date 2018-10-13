@@ -53,7 +53,7 @@ def call() {
                         script {
                             Properties a = new Properties()
                             //echo Properties.PRODUCT
-                            echo a.PRODUCT
+                            echo a.getP()
                             echo "${JOB_BASE_NAME}"
 //                            try {
 //                                alert.sendNotification('STARTED', "Initiation", "#build_status_verbose")

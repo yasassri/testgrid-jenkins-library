@@ -20,6 +20,9 @@ package org.wso2.tg.jenkins
 
 def PRODUCT = "${JOB_BASE_NAME}"
 
+def getP(){
+    return "${JOB_BASE_NAME}"
+}
 //class Properties {
 
 //    static final def TESTGRID_NAME            = "WSO2-TestGrid"
