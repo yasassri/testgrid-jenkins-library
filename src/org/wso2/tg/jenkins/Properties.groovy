@@ -18,7 +18,7 @@
 package org.wso2.tg.jenkins
 
 class Properties {
-    def a = "${JOB_BASE_NAME}"
+    def a = "{JOB_BASE_NAME}"
 
     def getP() {
         return a
