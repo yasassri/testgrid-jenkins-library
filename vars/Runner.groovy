@@ -51,7 +51,8 @@ def call() {
                 stage('Preparation') {
                     steps {
                         script {
-                            echo "${Constants.PRODUCT}"
+                            echo Constants.PRODUCT
+                            echo "${JOB_BASE_NAME}"
 //                            try {
 //                                alert.sendNotification('STARTED', "Initiation", "#build_status_verbose")
 //                                alert.sendNotification('STARTED', "Initiation", "#build_status")
