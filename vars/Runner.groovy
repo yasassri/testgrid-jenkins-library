@@ -34,6 +34,7 @@ def call() {
         def testExecutor = new TestExecutor()
         properties = null
 
+        Pipeline {
             agent {
                 node {
                     label ""
@@ -161,4 +162,5 @@ def call() {
 //                    }
 //                }
             }
+        }
 }
