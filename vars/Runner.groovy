@@ -38,7 +38,7 @@ def call() {
             agent {
                 node {
                     label ""
-                    customWorkspace "/testgrid/testgrid-home/jobs/${JOB_BASE_NAME}"
+                    customWorkspace "/testgrid/testgrid-home/jobs/${Properties.getProperty("JOB_BASE_NAME")}"
                 }
             }
             tools {
