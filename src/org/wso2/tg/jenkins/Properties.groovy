@@ -17,7 +17,10 @@
  */
 package org.wso2.tg.jenkins
 
-class Properties {
+
+def PRODUCT = "${JOB_BASE_NAME}"
+
+//class Properties {
 
 //    static final def TESTGRID_NAME            = "WSO2-TestGrid"
 //    static final def TESTGRID_DIST_LOCATION   = "/testgrid/testgrid-home/testgrid-dist/"
@@ -75,10 +78,10 @@ class Properties {
 //            (Constants.EXECUTOR_COUNT)           : "${EXECUTOR_COUNT}"
 //    ]
 
-    static def configProps = []
-
-    // Returns a requested property.
-    static def getProperty(property) {
-        return configProps.get(property)
-    }
-}
+//    static def configProps = []
+//
+//    // Returns a requested property.
+//    static def getProperty(property) {
+//        return configProps.get(property)
+//    }
+//}
