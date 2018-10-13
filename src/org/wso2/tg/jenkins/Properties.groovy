@@ -20,32 +20,32 @@ package org.wso2.tg.jenkins
 @Singleton
 class Properties implements Serializable {
 
-    static final def TESTGRID_NAME            = "WSO2-TestGrid"
-    static final def TESTGRID_DIST_LOCATION   = "/testgrid/testgrid-home/testgrid-dist/"
-    static final def TESTGRID_HOME            = "/testgrid/testgrid-home/"
+//    static final def TESTGRID_NAME            = "WSO2-TestGrid"
+//    static final def TESTGRID_DIST_LOCATION   = "/testgrid/testgrid-home/testgrid-dist/"
+//    static final def TESTGRID_HOME            = "/testgrid/testgrid-home/"
     static final def PRODUCT                  = "${JOB_BASE_NAME}"
-    static final def TESTGRID_YAML_LOCATION   = "${INFRA_LOCATION}/jobs/${PRODUCT}/testgrid.yaml"
-    static final def AWS_ACCESS_KEY_ID        = credentials('AWS_ACCESS_KEY_ID')
-    static final def AWS_SECRET_ACCESS_KEY    = credentials('AWS_SECRET_ACCESS_KEY')
-    static final def TOMCAT_USERNAME          = credentials('TOMCAT_USERNAME')
-    static final def TOMCAT_PASSWORD          = credentials('TOMCAT_PASSWORD')
-    static final def WUM_UAT_URL              = credentials('WUM_UAT_URL')
-    static final def WUM_UAT_APP_KEY          = credentials('WUM_UAT_APPKEY')
-    static final def USER_NAME                = credentials('WUM_USERNAME')
-    static final def PASSWORD                 = credentials('WUM_PASSWORD')
-    static final def GIT_WUM_USERNAME         = credentials('GIT_WUM_USERNAME')
-    static final def GIT_WUM_PASSWORD         = credentials('GIT_WUM_PASSWORD')
-    static final def CURRENT_WORKSPACE        = pwd()
-    static final def JOB_CONFIG_YAML          = "job-config.yaml"
-    static final def JOB_CONFIG_YAML_PATH     = "${PWD}/${JOB_CONFIG_YAML}"
-    static final def PRODUCT_GIT_URL          = "${PRODUCT_GIT_URL}"
-    static final def PRODUCT_GIT_BRANCH       = "${PRODUCT_GIT_BRANCH}"
-    static final def PRODUCT_DIST_DOWNLOAD_API= "${PRODUCT_DIST_DOWNLOAD_API}"
-    static final def WUM_CHANNEL              = "${WUM_CHANNEL}"
-    static final def PRODUCT_CODE             = "${PRODUCT_CODE}"
-    static final def WUM_PRODUCT_VERSION      = "${WUM_PRODUCT_VERSION}"
-    static final def USE_CUSTOM_TESTNG        = "${USE_CUSTOM_TESTNG}"
-    static final def EXECUTOR_COUNT           = "${EXECUTOR_COUNT}"
+//    static final def TESTGRID_YAML_LOCATION   = "${INFRA_LOCATION}/jobs/${JOB_BASE_NAME}/testgrid.yaml"
+//    static final def AWS_ACCESS_KEY_ID        = credentials('AWS_ACCESS_KEY_ID')
+//    static final def AWS_SECRET_ACCESS_KEY    = credentials('AWS_SECRET_ACCESS_KEY')
+//    static final def TOMCAT_USERNAME          = credentials('TOMCAT_USERNAME')
+//    static final def TOMCAT_PASSWORD          = credentials('TOMCAT_PASSWORD')
+//    static final def WUM_UAT_URL              = credentials('WUM_UAT_URL')
+//    static final def WUM_UAT_APP_KEY          = credentials('WUM_UAT_APPKEY')
+//    static final def USER_NAME                = credentials('WUM_USERNAME')
+//    static final def PASSWORD                 = credentials('WUM_PASSWORD')
+//    static final def GIT_WUM_USERNAME         = credentials('GIT_WUM_USERNAME')
+//    static final def GIT_WUM_PASSWORD         = credentials('GIT_WUM_PASSWORD')
+//    static final def CURRENT_WORKSPACE        = pwd()
+//    static final def JOB_CONFIG_YAML          = "job-config.yaml"
+//    static final def JOB_CONFIG_YAML_PATH     = "${PWD}/${JOB_CONFIG_YAML}"
+//    static final def PRODUCT_GIT_URL          = "${PRODUCT_GIT_URL}"
+//    static final def PRODUCT_GIT_BRANCH       = "${PRODUCT_GIT_BRANCH}"
+//    static final def PRODUCT_DIST_DOWNLOAD_API= "${PRODUCT_DIST_DOWNLOAD_API}"
+//    static final def WUM_CHANNEL              = "${WUM_CHANNEL}"
+//    static final def PRODUCT_CODE             = "${PRODUCT_CODE}"
+//    static final def WUM_PRODUCT_VERSION      = "${WUM_PRODUCT_VERSION}"
+//    static final def USE_CUSTOM_TESTNG        = "${USE_CUSTOM_TESTNG}"
+//    static final def EXECUTOR_COUNT           = "${EXECUTOR_COUNT}"
 
 //    static def props = [
 //            (Constants.TESTGRID_NAME)            : "WSO2-TestGrid",
