@@ -35,12 +35,12 @@ def call() {
         properties = null
 
         pipeline {
-//            agent {
-//                node {
-//                    label ""
-//                    customWorkspace "/testgrid/testgrid-home/jobs/${Properties.getProperty("PRODUCT")}"
-//                }
-//            }
+            agent {
+                node {
+                    label ""
+                    //customWorkspace "/testgrid/testgrid-home/jobs/${Properties.getProperty("PRODUCT")}"
+                }
+            }
             tools {
                 jdk 'jdk8'
             }
