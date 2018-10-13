@@ -50,12 +50,16 @@ class Properties implements Serializable {
 //    ]
 
     static def props2 = [
-            (Constants.PRODUCT)                  : {env.JOB_BASE_NAME}
+            (Constants.PRODUCT)                  : foo()
 
     ]
 
     // Returns a requested property.
     static def getProperty(property) {
         return props2.get(property)
+    }
+
+    static def foo(){
+        return "ABCDEFGH"
     }
 }
