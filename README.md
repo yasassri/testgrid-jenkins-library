@@ -25,6 +25,5 @@ Following is the current hierarchy of the source. This structure is required for
 ├── test
 │   └── UtilTest.groovy
 └── vars
-    ├── Const.groovy
     └── Pipeline.groovy
 ````
