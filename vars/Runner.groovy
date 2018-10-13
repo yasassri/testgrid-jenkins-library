@@ -52,7 +52,7 @@ def call() {
                     steps {
                         script {
                             Properties a = new Properties()
-                            echo Properties.PRODUCT
+                            //echo Properties.PRODUCT
                             echo a.PRODUCT
                             echo "${JOB_BASE_NAME}"
 //                            try {
