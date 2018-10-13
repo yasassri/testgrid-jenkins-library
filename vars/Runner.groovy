@@ -51,7 +51,7 @@ def call() {
                 stage('Preparation') {
                     steps {
                         script {
-                            echo Properties.getProperty(Constants.PRODUCT.toString())
+                            echo Properties.PRODUCT
 //                            try {
 //                                alert.sendNotification('STARTED', "Initiation", "#build_status_verbose")
 //                                alert.sendNotification('STARTED', "Initiation", "#build_status")
