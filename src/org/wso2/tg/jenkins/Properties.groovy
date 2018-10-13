@@ -17,13 +17,11 @@
  */
 package org.wso2.tg.jenkins
 
-@Singleton
-class Properties implements Serializable {
 
 //    static final def TESTGRID_NAME            = "WSO2-TestGrid"
 //    static final def TESTGRID_DIST_LOCATION   = "/testgrid/testgrid-home/testgrid-dist/"
 //    static final def TESTGRID_HOME            = "/testgrid/testgrid-home/"
-    static final def PRODUCT                  = "${JOB_BASE_NAME}"
+      final def PRODUCT                  = "${JOB_BASE_NAME}"
 //    static final def TESTGRID_YAML_LOCATION   = "${INFRA_LOCATION}/jobs/${JOB_BASE_NAME}/testgrid.yaml"
 //    static final def AWS_ACCESS_KEY_ID        = credentials('AWS_ACCESS_KEY_ID')
 //    static final def AWS_SECRET_ACCESS_KEY    = credentials('AWS_SECRET_ACCESS_KEY')
@@ -76,10 +74,10 @@ class Properties implements Serializable {
 //            (Constants.EXECUTOR_COUNT)           : "${EXECUTOR_COUNT}"
 //    ]
 
-    static def configProps = []
-
-    // Returns a requested property.
-    static def getProperty(property) {
-        return configProps.get(property)
-    }
-}
+//    static def configProps = []
+//
+//    // Returns a requested property.
+//    static def getProperty(property) {
+//        return configProps.get(property)
+//    }
+//}
