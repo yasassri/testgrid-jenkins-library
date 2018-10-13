@@ -50,7 +50,7 @@ class Properties implements Serializable {
 //    ]
 
     static def props2 = [
-            (Constants.PRODUCT)                  : ("${env.JOB_BASE_NAME}")
+            (Constants.PRODUCT)                  : env.JOB_BASE_NAME
 
     ]
 
