@@ -21,7 +21,7 @@ package org.wso2.tg.jenkins
 //    static final def TESTGRID_NAME            = "WSO2-TestGrid"
 //    static final def TESTGRID_DIST_LOCATION   = "/testgrid/testgrid-home/testgrid-dist/"
 //    static final def TESTGRID_HOME            = "/testgrid/testgrid-home/"
-      final def PRODUCT                  = "${JOB_BASE_NAME}"
+      def PRODUCT                  = "${JOB_BASE_NAME}"
 //    static final def TESTGRID_YAML_LOCATION   = "${INFRA_LOCATION}/jobs/${JOB_BASE_NAME}/testgrid.yaml"
 //    static final def AWS_ACCESS_KEY_ID        = credentials('AWS_ACCESS_KEY_ID')
 //    static final def AWS_SECRET_ACCESS_KEY    = credentials('AWS_SECRET_ACCESS_KEY')
