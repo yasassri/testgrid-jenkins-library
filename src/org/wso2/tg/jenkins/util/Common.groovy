@@ -18,8 +18,6 @@
 
 package org.wso2.tg.jenkins.util
 
-import com.cloudbees.groovy.cps.NonCPS
-
 def getTimestamp(Date date = new Date()) {
     return date.format('yyyyMMddHHmmss', TimeZone.getTimeZone('GMT')) as String
 }
@@ -66,9 +64,4 @@ def getTestPlanId(file) {
 
 def getRandomNumber(limit){
     return Math.abs(new Random().nextInt() % limit) + 1 as int
-}
-
-@NonCPS
-def foo(){
-    return "$JOB_BASE_NAME"
 }
