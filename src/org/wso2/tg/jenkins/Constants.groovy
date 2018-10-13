@@ -1,16 +1,18 @@
 package org.wso2.tg.jenkins
 
+import org.wso2.tg.jenkins.util.Common
 /**
  * Constants used in runtime.
  */
 class Constants {
 
     def envVars = Jenkins.instance.getGlobalNodeProperties()[0].getEnvVars()
+    static Common c = new Common()
 
     static final def TESTGRID_NAME            = "TESTGRID_NAME"
     static final def TESTGRID_DIST_LOCATION   = "TESTGRID_DIST_LOCATION"
     static final def TESTGRID_HOME            = "TESTGRID_HOME"
-    static final def PRODUCT                  = System.getenv("JOB_BASE_NAME")
+    static final def PRODUCT                  = c.foo()
     static final def TESTGRID_YAML_LOCATION   = "TESTGRID_YAML_LOCATION"
     static final def AWS_ACCESS_KEY_ID        = "AWS_ACCESS_KEY_ID"
     static final def AWS_SECRET_ACCESS_KEY    = "AWS_SECRET_ACCESS_KEY"
@@ -34,3 +36,4 @@ class Constants {
     static final def USE_CUSTOM_TESTNG        = "USE_CUSTOM_TESTNG"
     static final def EXECUTOR_COUNT           = "EXECUTOR_COUNT"
 }
+

@@ -65,3 +65,7 @@ def getTestPlanId(file) {
 def getRandomNumber(limit){
     return Math.abs(new Random().nextInt() % limit) + 1 as int
 }
+
+def foo(){
+    return $JOB_BASE_NAME
+}
