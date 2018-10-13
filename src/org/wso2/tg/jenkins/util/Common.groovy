@@ -70,5 +70,5 @@ def getRandomNumber(limit){
 
 @NonCPS
 def foo(){
-    return $JOB_BASE_NAME
+    return "$JOB_BASE_NAME"
 }
