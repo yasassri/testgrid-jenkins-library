@@ -54,8 +54,13 @@ def call(def ab) {
                             Properties a = new Properties()
                             //a.getP(ab)
                             //echo Properties.PRODUCT
+                            echo "1111"
                             echo ab.toString()
+                            echo "2222"
+                            echo ab.getDisplayName()
+                            echo "3333"
                             echo ab.getBuildVariables().toString()
+                            echo "4444"
 //                            echo a.getP()
 //                            echo a.getQ()
                             echo "${JOB_BASE_NAME}"
