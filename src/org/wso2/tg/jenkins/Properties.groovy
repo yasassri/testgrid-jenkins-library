@@ -33,17 +33,17 @@ import hudson.model.Environment
     DescribableList<NodeProperty<?>, NodePropertyDescriptor> globalNodeProperties = instance.getNodeProperties()
    // List<EnvironmentVariablesNodeProperty> envVarsNodePropertyList = globalNodeProperties.getAll
    //(EnvironmentVariablesNodeProperty.class)
-    def nodes = Jenkins.instance.globalNodeProperties
 
-    def b = nodes.getAll(hudson.slaves.EnvironmentVariablesNodeProperty.class)
 
     def a = "{JOB_BASE_NAME}"
 
     def getP() {
-        return jenkinsHome.toList().size().toString()
+        //return jenkinsHome.toList().size().toString()
     }
 
     def getQ() {
+        def nodes = Jenkins.instance.globalNodeProperties
+        def b = nodes.getAll(hudson.slaves.EnvironmentVariablesNodeProperty.class)
         return b.size().toString()
     }
 //}
