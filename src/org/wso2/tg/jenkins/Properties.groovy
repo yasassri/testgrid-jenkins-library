@@ -33,7 +33,7 @@ class Properties {
     }
 
     def getQ() {
-        return jenkinsHome
+        return jenkinsHome.toString()
     }
 }
 //class Properties {
