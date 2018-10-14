@@ -17,6 +17,10 @@
  */
 package org.wso2.tg.jenkins
 
+import hudson.slaves.EnvironmentVariablesNodeProperty
+import hudson.slaves.NodeProperty
+import hudson.slaves.NodePropertyDescriptor
+import hudson.util.DescribableList
 import jenkins.model.Jenkins
 import hudson.EnvVars
 import hudson.model.Environment
@@ -27,6 +31,8 @@ class Properties {
     //def env  = EnvVars.get("")
     def jenkinsHome = Jenkins.instance.globalNodeProperties
     def currentBuild = Thread.currentThread().executable
+    DescribableList<NodeProperty<?>, NodePropertyDescriptor> globalNodeProperties = instance.getGlobalNodeProperties();
+    List<EnvironmentVariablesNodeProperty> envVarsNodePropertyList = globalNodeProperties.getAll(EnvironmentVariablesNodeProperty.class);
 
     def a = "{JOB_BASE_NAME}"
 
@@ -35,7 +41,7 @@ class Properties {
     }
 
     def getQ() {
-        return (Map<String, String>)currentBuild.getEnvVars().toString()
+        return envVarsNodePropertyList.toString()
     }
 }
 //class Properties {
