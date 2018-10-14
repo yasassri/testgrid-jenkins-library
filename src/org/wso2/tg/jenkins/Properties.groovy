@@ -40,7 +40,7 @@ class Properties {
     }
 
     def getQ() {
-        return envVarsNodePropertyList.toString()
+        return envVarsNodePropertyList.size().toString()
     }
 }
 //class Properties {
