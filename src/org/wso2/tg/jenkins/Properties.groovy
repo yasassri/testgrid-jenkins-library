@@ -34,19 +34,19 @@ class Properties {
    //(EnvironmentVariablesNodeProperty.class)
     def nodes = Jenkins.instance.globalNodeProperties
 
-    def b = nodes.getAll(hudson.slaves.EnvironmentVariablesNodeProperty.class)
-
-    def a = "{JOB_BASE_NAME}"
-    def props = node.nodeProperties.getAll(hudson.slaves.EnvironmentVariablesNodeProperty.class)
-
-
-    def getP() {
-        return instance.getNodes().get(1).getNodeProperties().toList().size().toString()
-    }
-
-    def getQ() {
-        //return globalNodeProperties.toList().size().toString()
-    }
+//    def b = nodes.getAll(hudson.slaves.EnvironmentVariablesNodeProperty.class)
+//
+//    def a = "{JOB_BASE_NAME}"
+//    def props = node.nodeProperties.getAll(hudson.slaves.EnvironmentVariablesNodeProperty.class)
+//
+//
+//    def getP() {
+//        return instance.getNodes().get(1).getNodeProperties().toList().size().toString()
+//    }
+//
+//    def getQ() {
+//        //return globalNodeProperties.toList().size().toString()
+//    }
 }
 //class Properties {
 
