@@ -17,11 +17,23 @@
  */
 package org.wso2.tg.jenkins
 
+import jenkins.model.Jenkins
+import hudson.EnvVars
+
 class Properties {
+
+    def instance = Jenkins.getInstance()
+    def env  = EnvVars.toString()
+    def jenkinsHome = Jenkins.instance.globalNodeProperties
+
     def a = "{JOB_BASE_NAME}"
 
     def getP() {
-        return a
+        return env
+    }
+
+    def getQ() {
+        return jenkinsHome
     }
 }
 //class Properties {
