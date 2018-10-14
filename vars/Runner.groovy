@@ -53,7 +53,7 @@ def call(def ab) {
                         script {
                             Properties a = new Properties()
                             //echo Properties.PRODUCT
-                            echo ab
+                            echo ab.toString()
 //                            echo a.getP()
 //                            echo a.getQ()
                             echo "${JOB_BASE_NAME}"
