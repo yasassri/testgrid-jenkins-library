@@ -30,7 +30,6 @@ class Properties {
     def instance = Jenkins.getInstance()
     //def env  = EnvVars.get("")
     def jenkinsHome = Jenkins.instance.globalNodeProperties
-    def currentBuild = Thread.currentThread().executable
     DescribableList<NodeProperty<?>, NodePropertyDescriptor> globalNodeProperties = instance.getGlobalNodeProperties();
     List<EnvironmentVariablesNodeProperty> envVarsNodePropertyList = globalNodeProperties.getAll(EnvironmentVariablesNodeProperty.class);
 
