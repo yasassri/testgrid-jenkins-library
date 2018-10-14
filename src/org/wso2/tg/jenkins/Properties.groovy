@@ -37,7 +37,7 @@ class Properties {
     def a = "{JOB_BASE_NAME}"
 
     def getP() {
-        return jenkinsHome.size()
+        return jenkinsHome.size().toString()
     }
 
     def getQ() {
