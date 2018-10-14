@@ -25,7 +25,7 @@ import jenkins.model.Jenkins
 import hudson.EnvVars
 import hudson.model.Environment
 
-//class Properties {
+class Properties {
 
     def instance = Jenkins.getInstance()
     //def env  = EnvVars.get("")
@@ -33,20 +33,20 @@ import hudson.model.Environment
     DescribableList<NodeProperty<?>, NodePropertyDescriptor> globalNodeProperties = instance.getNodeProperties()
    // List<EnvironmentVariablesNodeProperty> envVarsNodePropertyList = globalNodeProperties.getAll
    //(EnvironmentVariablesNodeProperty.class)
+    def nodes = Jenkins.instance.globalNodeProperties
 
+    def b = nodes.getAll(hudson.slaves.EnvironmentVariablesNodeProperty.class)
 
     def a = "{JOB_BASE_NAME}"
 
     def getP() {
-        //return jenkinsHome.toList().size().toString()
+        return instance.getNodes().size()
     }
 
     def getQ() {
-        def nodes = Jenkins.instance.globalNodeProperties
-        def b = nodes.getAll(hudson.slaves.EnvironmentVariablesNodeProperty.class)
-        return b.size().toString()
+        return globalNodeProperties.toList().size().toString()
     }
-//}
+}
 //class Properties {
 
 //    static final def TESTGRID_NAME            = "WSO2-TestGrid"
