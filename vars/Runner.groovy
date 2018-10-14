@@ -27,7 +27,7 @@ import org.wso2.tg.jenkins.util.RuntimeUtil
 
 
 // The pipeline should reside in a call block
-def call() {
+def call(def ab) {
 
         // For scaling we need to create slave nodes before starting the pipeline and schedule it appropriately
         def alert = new Slack()
@@ -53,7 +53,7 @@ def call() {
                         script {
                             Properties a = new Properties()
                             //echo Properties.PRODUCT
-                            echo PRODUCT_CODE2
+                            echo ab
 //                            echo a.getP()
 //                            echo a.getQ()
                             echo "${JOB_BASE_NAME}"
