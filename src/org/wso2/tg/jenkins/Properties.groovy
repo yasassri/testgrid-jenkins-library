@@ -25,7 +25,7 @@ import jenkins.model.Jenkins
 import hudson.EnvVars
 import hudson.model.Environment
 
-class Properties {
+//class Properties {
 
     def instance = Jenkins.getInstance()
     //def env  = EnvVars.get("")
@@ -46,7 +46,7 @@ class Properties {
     def getQ() {
         return b.size().toString()
     }
-}
+//}
 //class Properties {
 
 //    static final def TESTGRID_NAME            = "WSO2-TestGrid"
