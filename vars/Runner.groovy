@@ -52,9 +52,10 @@ def call(def ab) {
                     steps {
                         script {
                             Properties a = new Properties()
-                            a.getP(ab)
+                            //a.getP(ab)
                             //echo Properties.PRODUCT
                             echo ab.toString()
+                            echo ab.getBuildVariables().toString()
 //                            echo a.getP()
 //                            echo a.getQ()
                             echo "${JOB_BASE_NAME}"
