@@ -29,8 +29,7 @@ class Properties {
 
     def instance = Jenkins.getInstance()
     //def env  = EnvVars.get("")
-    def jenkinsHome = Jenkins.instance.globalNodeProperties
-    DescribableList<NodeProperty<?>, NodePropertyDescriptor> globalNodeProperties = instance.getNodeProperties()
+   // DescribableList<NodeProperty<?>, NodePropertyDescriptor> globalNodeProperties = instance.getNodeProperties()
    // List<EnvironmentVariablesNodeProperty> envVarsNodePropertyList = globalNodeProperties.getAll
    //(EnvironmentVariablesNodeProperty.class)
     def nodes = Jenkins.instance.globalNodeProperties
@@ -38,13 +37,15 @@ class Properties {
     def b = nodes.getAll(hudson.slaves.EnvironmentVariablesNodeProperty.class)
 
     def a = "{JOB_BASE_NAME}"
+    def props = node.nodeProperties.getAll(hudson.slaves.EnvironmentVariablesNodeProperty.class)
+
 
     def getP() {
         return instance.getNodes().get(1).getNodeProperties().toList().size().toString()
     }
 
     def getQ() {
-        return globalNodeProperties.toList().size().toString()
+        //return globalNodeProperties.toList().size().toString()
     }
 }
 //class Properties {
