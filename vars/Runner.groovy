@@ -52,6 +52,7 @@ def call(def ab) {
                     steps {
                         script {
                             Properties a = new Properties()
+                            a.getP(ab)
                             //echo Properties.PRODUCT
                             echo ab.toString()
 //                            echo a.getP()

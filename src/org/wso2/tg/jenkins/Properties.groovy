@@ -40,9 +40,10 @@ class Properties {
 //    def props = node.nodeProperties.getAll(hudson.slaves.EnvironmentVariablesNodeProperty.class)
 //
 //
-//    def getP() {
-//        return instance.getNodes().get(1).getNodeProperties().toList().size().toString()
-//    }
+    def getP(def ab) {
+        def b = "ssss"
+        return ""
+    }
 //
 //    def getQ() {
 //        //return globalNodeProperties.toList().size().toString()
