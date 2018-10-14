@@ -24,14 +24,14 @@ import hudson.model.Environment
 class Properties {
 
     def instance = Jenkins.getInstance()
-    def env  = EnvVars.get("")
+    //def env  = EnvVars.get("")
     def jenkinsHome = Jenkins.instance.globalNodeProperties
     def currentBuild = Thread.currentThread().executable
 
     def a = "{JOB_BASE_NAME}"
 
     def getP() {
-        return env
+        return ""
     }
 
     def getQ() {
