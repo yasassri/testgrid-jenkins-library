@@ -35,7 +35,7 @@ class Properties {
     }
 
     def getQ() {
-        return currentBuild.getEnvVars().toString()
+        return (Map<String, String>)currentBuild.getEnvVars().toString()
     }
 }
 //class Properties {
