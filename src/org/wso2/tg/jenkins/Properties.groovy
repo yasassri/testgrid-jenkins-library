@@ -28,7 +28,7 @@ import hudson.model.Environment
 class Properties {
 
     def instance = Jenkins.getInstance()
-    def env  = EnvVars.get("")
+    //def env  = EnvVars.get("")
 //    DescribableList<NodeProperty<?>, NodePropertyDescriptor> globalNodeProperties = instance.getNodeProperties()
 //    List<EnvironmentVariablesNodeProperty> envVarsNodePropertyList = globalNodeProperties.getAll
 //   (EnvironmentVariablesNodeProperty.class)
