@@ -57,7 +57,7 @@ def call(def ab) {
                             echo "1111"
                             echo ab.toString()
                             echo "2222"
-                            echo ab.getRawBuild()
+                            echo ab.getRawBuild().getEnvironment().toString()
                             echo "3333"
                             echo ab.getBuildVariables().toString()
                             echo "4444"
