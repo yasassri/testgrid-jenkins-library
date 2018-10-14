@@ -40,7 +40,7 @@ class Properties {
     def a = "{JOB_BASE_NAME}"
 
     def getP() {
-        return instance.getNodes().get(1).getDisplayName()
+        return instance.getNodes().get(1).getNodeProperties().toList().size().toString()
     }
 
     def getQ() {
