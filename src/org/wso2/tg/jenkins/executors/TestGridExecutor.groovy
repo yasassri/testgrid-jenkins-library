@@ -25,6 +25,7 @@ def generateTesPlans(def product, def configYaml) {
     def props = Properties.instance
     sh """
     cd ${props.TESTGRID_HOME}/testgrid-dist/${props.TESTGRID_NAME}
+    set TESTGRID_HOME="${props.TESTGRID_HOME}"
     ./testgrid generate-test-plan \
         --product ${product} \
         --file ${configYaml}
