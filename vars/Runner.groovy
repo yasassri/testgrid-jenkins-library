@@ -61,7 +61,7 @@ def call(def ab) {
                             echo "3333"
                             echo props.AWS_ACCESS_KEY_ID.toString()
                             echo "4444"
-                            echo credentials('PASS')
+                            echo credentials('PASS').toString()
                             echo "55555"
 //                            try {
 //                                alert.sendNotification('STARTED', "Initiation", "#build_status_verbose")
