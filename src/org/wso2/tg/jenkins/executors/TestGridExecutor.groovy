@@ -29,5 +29,7 @@ def generateTesPlans(def product, def configYaml) {
     ./testgrid generate-test-plan \
         --product ${product} \
         --file ${configYaml}
+    echo "Following Test plans were generated : "
+    ls -al ${props.WORKSPACE}/test-plans
     """
 }

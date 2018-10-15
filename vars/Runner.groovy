@@ -95,7 +95,7 @@ def call(def ab) {
                                     cat ${props.JOB_CONFIG_YAML_PATH}
                                     """
 
-                                echo "Generating test plans"
+                                echo "Generating test plans!!"
                                 tgExecutor.generateTesPlans(props.PRODUCT, props.JOB_CONFIG_YAML_PATH)
 
                                 echo "Stashing testplans to be used in different slave nodes"
