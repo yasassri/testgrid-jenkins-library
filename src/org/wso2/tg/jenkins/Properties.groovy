@@ -32,8 +32,8 @@ class Properties implements Serializable {
     static def TESTGRID_NAME            = "WSO2-TestGrid"
     static def TESTGRID_DIST_LOCATION   = "/testgrid/testgrid-home/testgrid-dist/"
     static def TESTGRID_HOME            = "/testgrid/testgrid-home/"
-    static def PRODUCT                  = "${JOB_BASE_NAME}"
-    static def TESTGRID_YAML_LOCATION   = "${INFRA_LOCATION}/jobs/${JOB_BASE_NAME}/testgrid.yaml"
+    static def PRODUCT                  = ""
+    static def TESTGRID_YAML_LOCATION   = ""
     static def AWS_ACCESS_KEY_ID        = credentials('AWS_ACCESS_KEY_ID')
     static def AWS_SECRET_ACCESS_KEY    = credentials('AWS_SECRET_ACCESS_KEY')
     static def TOMCAT_USERNAME          = credentials('TOMCAT_USERNAME')
@@ -47,14 +47,14 @@ class Properties implements Serializable {
     static def CURRENT_WORKSPACE        = pwd()
     static def JOB_CONFIG_YAML          = "job-config.yaml"
     static def JOB_CONFIG_YAML_PATH     = ""
-    static def PRODUCT_GIT_URL          = "${PRODUCT_GIT_URL}"
-    static def PRODUCT_GIT_BRANCH       = "${PRODUCT_GIT_BRANCH}"
-    static def PRODUCT_DIST_DOWNLOAD_API= "${PRODUCT_DIST_DOWNLOAD_API}"
-    static def WUM_CHANNEL              = "${WUM_CHANNEL}"
-    static def PRODUCT_CODE             = "${PRODUCT_CODE}"
-    static def WUM_PRODUCT_VERSION      = "${WUM_PRODUCT_VERSION}"
-    static def USE_CUSTOM_TESTNG        = "${USE_CUSTOM_TESTNG}"
-    static def EXECUTOR_COUNT           = "${EXECUTOR_COUNT}"
+    static def PRODUCT_GIT_URL          = ""
+    static def PRODUCT_GIT_BRANCH       = ""
+    static def PRODUCT_DIST_DOWNLOAD_API= ""
+    static def WUM_CHANNEL              = ""
+    static def PRODUCT_CODE             = ""
+    static def WUM_PRODUCT_VERSION      = ""
+    static def USE_CUSTOM_TESTNG        = ""
+    static def EXECUTOR_COUNT           = ""
 
 
 
@@ -62,7 +62,8 @@ class Properties implements Serializable {
     def initProperties(def  propertyMap){
         Common util = new Common()
         PRODUCT = propertyMap.get(Constants.PRODUCT)
-        TESTGRID_YAML_LOCATION = propertyMap.get(Constants.TESTGRID_YAML_LOCATION)
+        TESTGRID_YAML_LOCATION = propertyMap.get(Constants.INFRA_LOCATION) + "/jobs/" + propertyMap.get("JOB_BASE_NAME") + "/testgrid" +
+                ".yaml"
         CURRENT_WORKSPACE = util.getCurrentWorkspace().toString()
         JOB_CONFIG_YAML_PATH = util.getCurrentWorkspace().toString() + "/" + JOB_CONFIG_YAML
         PRODUCT_GIT_URL = propertyMap.get(Constants.PRODUCT_GIT_URL)

@@ -33,4 +33,5 @@ class Constants {
     static final def WUM_PRODUCT_VERSION      = "WUM_PRODUCT_VERSION"
     static final def USE_CUSTOM_TESTNG        = "USE_CUSTOM_TESTNG"
     static final def EXECUTOR_COUNT           = "EXECUTOR_COUNT"
+    static final def INFRA_LOCATION           = "INFRA_LOCATION"
 }
