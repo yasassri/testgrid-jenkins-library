@@ -26,7 +26,7 @@ import org.wso2.tg.jenkins.Properties
  * @param filePath full qualified path Of directory
  * @throws IOException if file creation fails
  */
-def createJobConfigYamlFile(filePath) throws IOException{
+def createJobConfigYamlFile(filePath) throws IOException {
 
     def props = Properties.instance
     // https://jenkins.io/doc/pipeline/steps/pipeline-utility-steps/#writeyaml-write-a-yaml-from-an-object

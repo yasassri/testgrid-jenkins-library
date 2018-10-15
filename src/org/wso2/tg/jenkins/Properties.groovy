@@ -60,6 +60,7 @@ class Properties {
     static def INFRA_LOCATION               = ""
     static def LATEST_PRODUCT_RELEASE_API   = ""
     static def LATEST_PRODUCT_BUILD_ARTIFACTS_API   = ""
+    static def WORKSPACE                    = ""
 
 
     def initProperties(def  propertyMap){
@@ -91,6 +92,7 @@ class Properties {
         INFRA_LOCATION           = propertyMap.get(Constants.INFRA_LOCATION)
         LATEST_PRODUCT_RELEASE_API = propertyMap.get(Constants.LATEST_PRODUCT_RELEASE_API)
         LATEST_PRODUCT_BUILD_ARTIFACTS_API = propertyMap.get(Constants.LATEST_PRODUCT_BUILD_ARTIFACTS_API)
+        WORKSPACE                = "/testgrid/testgrid-home/jobs/${PRODUCT}"
     }
 }
 
