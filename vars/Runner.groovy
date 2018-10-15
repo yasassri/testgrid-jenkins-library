@@ -44,9 +44,9 @@ def call(def ab) {
                     customWorkspace "/testgrid/testgrid-home/jobs/${props.PRODUCT}"
                 }
             }
-//            tools {
-//                jdk 'jdk8'
-//            }
+            tools {
+                jdk 'jdk8'
+            }
 
             stages {
                 stage('Preparation') {
