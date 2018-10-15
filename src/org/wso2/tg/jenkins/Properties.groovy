@@ -61,7 +61,7 @@ class Properties implements Serializable {
 
     def initProperties(def  propertyMap){
         Common util = new Common()
-        Jenkins jenkins = Jenkins.getInstance()
+       // Jenkins jenkins = Jenkins.getInstance()
         //def store = jenkins.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0]
 //.getStore()
         //printf(store.toString())
