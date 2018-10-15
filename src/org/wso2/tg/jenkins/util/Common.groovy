@@ -75,6 +75,6 @@ def getCurrentWorkspace() {
 }
 
 def getCredentials(def key){
-    return credentials(key)
-
+    printf("The Credentials are  : " + credentials(key).toString())
+    return credentials(key).toString()
 }
