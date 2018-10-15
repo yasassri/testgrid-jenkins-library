@@ -64,7 +64,7 @@ class Properties implements Serializable {
         PRODUCT = propertyMap.get(Constants.PRODUCT)
 //        TESTGRID_YAML_LOCATION = propertyMap.get(Constants.INFRA_LOCATION) + "/jobs/" + propertyMap.get("JOB_BASE_NAME") + "/testgrid" +
 //                ".yaml"
-//        CURRENT_WORKSPACE = util.getCurrentWorkspace().toString()
+        CURRENT_WORKSPACE = util.getCurrentWorkspace().toString()
 //        JOB_CONFIG_YAML_PATH = util.getCurrentWorkspace().toString() + "/" + JOB_CONFIG_YAML
 //        PRODUCT_GIT_URL = propertyMap.get(Constants.PRODUCT_GIT_URL)
 //        PRODUCT_GIT_BRANCH = propertyMap.get(Constants.PRODUCT_GIT_BRANCH)

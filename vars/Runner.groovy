@@ -57,12 +57,10 @@ def call(def ab) {
                             echo "1111"
                             echo props.PRODUCT
                             echo "2222"
-                            echo ab.getRawBuild().getEnvironment().toString()
+                            echo props.CURRENT_WORKSPACE
                             echo "3333"
                             echo ab.getBuildVariables().toString()
                             echo "4444"
-//                            echo a.getP()
-//                            echo a.getQ()
                             echo "${JOB_BASE_NAME}"
 //                            try {
 //                                alert.sendNotification('STARTED', "Initiation", "#build_status_verbose")
