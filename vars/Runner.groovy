@@ -29,7 +29,8 @@ import org.wso2.tg.jenkins.util.RuntimeUtil
 // The pipeline should reside in a call block
 def call(def ab) {
         // Initializing environment properties
-        Properties.instance.initProperties(ab.getRawBuild().getEnvironment())
+        def props = Properties.instance
+        props.initProperties(ab.getRawBuild().getEnvironment())
 
         // For scaling we need to create slave nodes before starting the pipeline and schedule it appropriately
         def alert = new Slack()
@@ -54,7 +55,7 @@ def call(def ab) {
                         script {
                             //echo Properties.PRODUCT
                             echo "1111"
-                            echo ab.toString()
+                            echo props.PRODUCT
                             echo "2222"
                             echo ab.getRawBuild().getEnvironment().toString()
                             echo "3333"
