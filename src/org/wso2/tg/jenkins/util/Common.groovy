@@ -69,3 +69,8 @@ def getRandomNumber(limit){
 def getCurrentWorkspace() {
     return pwd()
 }
+
+def getCredentials(def key){
+    return credentials(key)
+
+}
