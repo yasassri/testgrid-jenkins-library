@@ -69,13 +69,11 @@ def call(def ab) {
 
                                 // Increasing the TG JVM memory paramsnn
                                 runtime.increaseTestGridRuntimeMemory("2G", "2G")
-                                echo "After TG Alter"
                                 // Get testgrid.yaml from jenkins managed files
                                 configFileProvider(
                                         [configFile(fileId: "${props.PRODUCT}-testgrid-yaml", targetLocation:
                                                 "${props.TESTGRID_YAML_LOCATION}")]) {
                                 }
-                                echo "After Config Provider"
 
                                 //Constructing the product git url if test mode is wum. Adding the Git username and password into the product git url.
                                 if ("${props.TEST_MODE}" == "WUM") {
@@ -88,8 +86,9 @@ def call(def ab) {
                                 } else {
                                     PRODUCT_GIT_URL = "${props.PRODUCT_GIT_URL}"
                                 }
+                                echo "Creating Job config!!!!"
                                 // Creating the job config file
-                                ws.createJobConfigYamlFile("${props.JOB_CONFIG_YAML}")
+                                ws.createJobConfigYamlFile("${props.JOB_CONFIG_YAML_PATH}")
                                 sh """
 				                    echo The job-config.yaml :
                                     cat ${JOB_CONFIG_YAML_PATH}
