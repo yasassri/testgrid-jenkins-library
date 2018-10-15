@@ -72,8 +72,8 @@ def call(def ab) {
                                 echo "After TG Alter"
                                 // Get testgrid.yaml from jenkins managed files
                                 configFileProvider(
-                                        [configFile(fileId: "${PRODUCT}-testgrid-yaml", targetLocation:
-                                                "${TESTGRID_YAML_LOCATION}")]) {
+                                        [configFile(fileId: "${props.PRODUCT}-testgrid-yaml", targetLocation:
+                                                "${props.TESTGRID_YAML_LOCATION}")]) {
                                 }
                                 echo "After Config Provider"
 
