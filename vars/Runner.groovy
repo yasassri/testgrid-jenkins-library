@@ -67,7 +67,6 @@ def call(def ab) {
                                 echo pwd()
                                 deleteDir()
 
-                                echo "Before TG Alter"
                                 // Increasing the TG JVM memory paramsnn
                                 runtime.increaseTestGridRuntimeMemory("2G", "2G")
                                 echo "After TG Alter"
@@ -76,6 +75,7 @@ def call(def ab) {
                                         [configFile(fileId: "${PRODUCT}-testgrid-yaml", targetLocation:
                                                 "${TESTGRID_YAML_LOCATION}")]) {
                                 }
+                                echo "After Config Provider"
 
                                 //Constructing the product git url if test mode is wum. Adding the Git username and password into the product git url.
                                 if ("${props.TEST_MODE}" == "WUM") {
