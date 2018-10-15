@@ -19,6 +19,7 @@
 
 import org.wso2.tg.jenkins.alert.Slack
 import org.wso2.tg.jenkins.alert.Email
+import org.wso2.tg.jenkins.executors.TestGridExecutor
 import org.wso2.tg.jenkins.util.AWSUtils
 import org.wso2.tg.jenkins.executors.TestExecutor
 import org.wso2.tg.jenkins.Properties
@@ -37,6 +38,7 @@ def call(def ab) {
         def email = new Email()
         def awsHelper = new AWSUtils()
         def testExecutor = new TestExecutor()
+        def tgExecutor = new TestGridExecutor()
         def runtime = new RuntimeUtil()
         def ws = new WorkSpaceUtils()
 
@@ -93,19 +95,17 @@ def call(def ab) {
                                     cat ${JOB_CONFIG_YAML_PATH}
                                     """
 
-                                sh """
-                                    cd ${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}
-                                    ./testgrid generate-test-plan \
-                                        --product ${PRODUCT} \
-                                        --file ${JOB_CONFIG_YAML_PATH}
-                                """
-                                dir("${PWD}") {
+                                echo "Generating test plans"
+                                tgExecutor.generateTesPlans(props.PRODUCT, props.JOB_CONFIG_YAML_PATH)
+
+                                echo "Stashing testplans to be used in different slave nodes"
+                                dir("${props.CURRENT_WORKSPACE}") {
                                     stash name: "test-plans", includes: "test-plans/**"
                                 }
                             } catch (e) {
                                 currentBuild.result = "FAILED"
                             } finally {
-                                alert.sendNotification(currentBuild.result, "preparation", "#build_status_verbose")
+                                //alert.sendNotification(currentBuild.result, "preparation", "#build_status_verbose")
                             }
                         }
                     }

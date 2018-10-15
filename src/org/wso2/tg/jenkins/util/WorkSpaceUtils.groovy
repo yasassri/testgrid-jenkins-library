@@ -18,6 +18,8 @@
 
 package org.wso2.tg.jenkins.util
 
+import org.wso2.tg.jenkins.Properties
+
 /**
  * Create the given directory.
  *
@@ -27,37 +29,38 @@ package org.wso2.tg.jenkins.util
 def createJobConfigYamlFile(filePath) throws IOException{
 
 
+    def props = Properties.instance
     // https://jenkins.io/doc/pipeline/steps/pipeline-utility-steps/#writeyaml-write-a-yaml-from-an-object
     File file = new File (filePath)
     file.append()
     file.createNewFile()
     ssh """
     echo 'keyFileLocation: workspace/testgrid-key.pem' > ${filePath}
-    echo 'infrastructureRepository: ${INFRA_LOCATION}/' >> ${filePath}
-    echo 'deploymentRepository: ${INFRA_LOCATION}/' >> ${filePath}
-    echo 'scenarioTestsRepository: ${SCENARIOS_LOCATION}' >> ${filePath}
-    echo 'testgridYamlLocation: ${TESTGRID_YAML_LOCATION}' >> ${filePath}
+    echo 'infrastructureRepository: ${props.INFRA_LOCATION}/' >> ${filePath}
+    echo 'deploymentRepository: ${props.INFRA_LOCATION}/' >> ${filePath}
+    echo 'scenarioTestsRepository: ${props.SCENARIOS_LOCATION}' >> ${filePath}
+    echo 'testgridYamlLocation: ${props.TESTGRID_YAML_LOCATION}' >> ${filePath}
     echo 'properties:' >> ${filePath}
-    echo '  PRODUCT_GIT_URL: ${PRODUCT_GIT_URL}' >> ${filePath}
-    echo '  PRODUCT_GIT_BRANCH: ${PRODUCT_GIT_BRANCH}' >> ${filePath}
-    echo '  PRODUCT_DIST_DOWNLOAD_API: ${PRODUCT_DIST_DOWNLOAD_API}' >> ${filePath}
-    echo '  SQL_DRIVERS_LOCATION_UNIX: ${SQL_DRIVERS_LOCATION_UNIX}' >> ${filePath}
-    echo '  SQL_DRIVERS_LOCATION_WINDOWS: ${SQL_DRIVERS_LOCATION_WINDOWS}' >> ${filePath}
-    echo '  REMOTE_WORKSPACE_DIR_UNIX: ${REMOTE_WORKSPACE_DIR_UNIX}' >> ${filePath}
-    echo '  REMOTE_WORKSPACE_DIR_WINDOWS: ${REMOTE_WORKSPACE_DIR_WINDOWS}' >> ${filePath}
-    echo '  gitURL: ${PRODUCT_GIT_URL}' >> ${filePath}
-    echo '  gitBranch: ${PRODUCT_GIT_BRANCH}' >> ${filePath}
-    echo '  productDistDownloadApi: ${PRODUCT_DIST_DOWNLOAD_API}' >> ${filePath}
-    echo '  sqlDriversLocationUnix: ${SQL_DRIVERS_LOCATION_UNIX}' >> ${filePath}
-    echo '  sqlDriversLocationWindows: ${SQL_DRIVERS_LOCATION_WINDOWS}' >> ${filePath}
-    echo '  RemoteWorkspaceDirPosix: ${REMOTE_WORKSPACE_DIR_UNIX}' >> ${filePath}
-    echo '  LATEST_PRODUCT_RELEASE_API: ${LATEST_PRODUCT_RELEASE_API}' >> ${filePath}
-    echo '  LATEST_PRODUCT_BUILD_ARTIFACTS_API: ${LATEST_PRODUCT_BUILD_ARTIFACTS_API}' >> ${filePath}
-    echo '  TEST_MODE: ${TEST_MODE}' >> ${filePath}
+    echo '  PRODUCT_GIT_URL: ${props.PRODUCT_GIT_URL}' >> ${filePath}
+    echo '  PRODUCT_GIT_BRANCH: ${props.PRODUCT_GIT_BRANCH}' >> ${filePath}
+    echo '  PRODUCT_DIST_DOWNLOAD_API: ${props.PRODUCT_DIST_DOWNLOAD_API}' >> ${filePath}
+    echo '  SQL_DRIVERS_LOCATION_UNIX: ${props.SQL_DRIVERS_LOCATION_UNIX}' >> ${filePath}
+    echo '  SQL_DRIVERS_LOCATION_WINDOWS: ${props.SQL_DRIVERS_LOCATION_WINDOWS}' >> ${filePath}
+    echo '  REMOTE_WORKSPACE_DIR_UNIX: ${props.REMOTE_WORKSPACE_DIR_UNIX}' >> ${filePath}
+    echo '  REMOTE_WORKSPACE_DIR_WINDOWS: ${props.REMOTE_WORKSPACE_DIR_WINDOWS}' >> ${filePath}
+    echo '  gitURL: ${props.PRODUCT_GIT_URL}' >> ${filePath}
+    echo '  gitBranch: ${props.PRODUCT_GIT_BRANCH}' >> ${filePath}
+    echo '  productDistDownloadApi: ${props.PRODUCT_DIST_DOWNLOAD_API}' >> ${filePath}
+    echo '  sqlDriversLocationUnix: ${props.SQL_DRIVERS_LOCATION_UNIX}' >> ${filePath}
+    echo '  sqlDriversLocationWindows: ${props.SQL_DRIVERS_LOCATION_WINDOWS}' >> ${filePath}
+    echo '  RemoteWorkspaceDirPosix: ${props.REMOTE_WORKSPACE_DIR_UNIX}' >> ${filePath}
+    echo '  LATEST_PRODUCT_RELEASE_API: ${props.LATEST_PRODUCT_RELEASE_API}' >> ${filePath}
+    echo '  LATEST_PRODUCT_BUILD_ARTIFACTS_API: ${props.LATEST_PRODUCT_BUILD_ARTIFACTS_API}' >> ${filePath}
+    echo '  TEST_MODE: ${props.TEST_MODE}' >> ${filePath}
     echo '  runOnBranch: "false"' >> ${filePath}
-    echo '  WUM_CHANNEL: "${WUM_CHANNEL}"' >> ${filePath}
-    echo '  PRODUCT_CODE: "${PRODUCT_CODE}"' >> ${filePath}
-    echo '  WUM_PRODUCT_VERSION: "${WUM_PRODUCT_VERSION}"' >> ${filePath}
-    echo '  USE_CUSTOM_TESTNG: "${USE_CUSTOM_TESTNG}"' >> ${filePath}
+    echo '  WUM_CHANNEL: "${props.WUM_CHANNEL}"' >> ${filePath}
+    echo '  PRODUCT_CODE: "${props.PRODUCT_CODE}"' >> ${filePath}
+    echo '  WUM_PRODUCT_VERSION: "${props.WUM_PRODUCT_VERSION}"' >> ${filePath}
+    echo '  USE_CUSTOM_TESTNG: "${props.USE_CUSTOM_TESTNG}"' >> ${filePath}
     """
 }

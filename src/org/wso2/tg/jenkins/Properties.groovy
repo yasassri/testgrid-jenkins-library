@@ -22,9 +22,15 @@ import org.wso2.tg.jenkins.util.Common
 @Singleton
 class Properties {
 
-    static def TESTGRID_NAME            = "WSO2-TestGrid"
-    static def TESTGRID_DIST_LOCATION   = "/testgrid/testgrid-home/testgrid-dist/"
-    static def TESTGRID_HOME            = "/testgrid/testgrid-home/"
+    static def TESTGRID_NAME                = "WSO2-TestGrid"
+    static def TESTGRID_DIST_LOCATION       = "/testgrid/testgrid-home/testgrid-dist/"
+    static def TESTGRID_HOME                = "/testgrid/testgrid-home/"
+    static def JOB_CONFIG_YAML              = "job-config.yaml"
+    static def SQL_DRIVERS_LOCATION_UNIX    ="/home/centos/sql-drivers/"
+    static def SQL_DRIVERS_LOCATION_WINDOWS ="/testgrid/sql-drivers"
+
+
+    // Job Properties
     static def PRODUCT                  = ""
     static def TESTGRID_YAML_LOCATION   = ""
     static def AWS_ACCESS_KEY_ID        = ""
@@ -39,7 +45,6 @@ class Properties {
     static def GIT_WUM_USERNAME         = ""
     static def GIT_WUM_PASSWORD         = ""
     static def CURRENT_WORKSPACE        = ""
-    static def JOB_CONFIG_YAML          = "job-config.yaml"
     static def JOB_CONFIG_YAML_PATH     = ""
     static def PRODUCT_GIT_URL          = ""
     static def PRODUCT_GIT_BRANCH       = ""
@@ -49,6 +54,7 @@ class Properties {
     static def WUM_PRODUCT_VERSION      = ""
     static def USE_CUSTOM_TESTNG        = ""
     static def EXECUTOR_COUNT           = ""
+    static def INFRA_LOCATION           = ""
 
 
     def initProperties(def  propertyMap){
@@ -77,6 +83,7 @@ class Properties {
         GIT_WUM_USERNAME         = util.getCredentials('GIT_WUM_USERNAME')
         GIT_WUM_PASSWORD         = util.getCredentials('GIT_WUM_PASSWORD')
         TEST_MODE                = propertyMap.get(Constants.TEST_MODE)
+        INFRA_LOCATION           = propertyMap.get(Constants.INFRA_LOCATION)
     }
 }
 
