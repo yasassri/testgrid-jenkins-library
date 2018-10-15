@@ -36,7 +36,6 @@ def call(def ab) {
         def email = new Email()
         def awsHelper = new AWSUtils()
         def testExecutor = new TestExecutor()
-        properties = null
 
         pipeline {
             agent {
@@ -53,8 +52,6 @@ def call(def ab) {
                 stage('Preparation') {
                     steps {
                         script {
-                            Properties a = new Properties()
-                            //a.getP(ab)
                             //echo Properties.PRODUCT
                             echo "1111"
                             echo ab.toString()
