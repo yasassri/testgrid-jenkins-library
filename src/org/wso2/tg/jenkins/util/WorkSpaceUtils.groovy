@@ -19,6 +19,7 @@
 package org.wso2.tg.jenkins.util
 
 import org.wso2.tg.jenkins.Properties
+import java.io.File
 
 /**
  * Create the given directory.
