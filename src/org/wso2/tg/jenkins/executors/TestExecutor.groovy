@@ -19,6 +19,7 @@
 package org.wso2.tg.jenkins.executors
 
 import com.cloudbees.groovy.cps.NonCPS
+import org.wso2.tg.jenkins.Properties
 import org.wso2.tg.jenkins.util.Common
 import org.wso2.tg.jenkins.util.AWSUtils
 import org.wso2.tg.jenkins.alert.Slack
@@ -68,6 +69,7 @@ def runPlan(tPlan, testPlanId) {
 
 def getTestExecutionMap(parallel_executor_count) {
     def commonUtils = new Common()
+    def props = Properties.instance
     def parallelExecCount = parallel_executor_count as int
     def name = "unknown"
     def tests = [:]
@@ -75,7 +77,7 @@ def getTestExecutionMap(parallel_executor_count) {
     echo "Parallel exec count "+ parallelExecCount
     for (int f = 1; f < parallelExecCount + 1 && f <= files.length; f++) {
         def executor = f
-        name = commonUtils.getParameters("${PWD}/test-plans/" + files[f - 1].name)
+        name = commonUtils.getParameters("${props.WORKSPACE}/test-plans/" + files[f - 1].name)
         echo name
         tests["${name}"] = {
             node {
@@ -93,13 +95,13 @@ def getTestExecutionMap(parallel_executor_count) {
                                 you should assign it to a new variable and use it. (To avoid same 'i-object' being refered)*/
                                 // Execution logic
                                 int fileNo = i
-                                testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
+                                testplanId = commonUtils.getTestPlanId("${props.WORKSPACE}/test-plans/" + files[fileNo].name)
                                 runPlan(files[i], testplanId)
                             }
                         } else {
                             for (int i = 0; i < processFileCount; i++) {
                                 int fileNo = processFileCount * (executor - 1) + i
-                                testplanId = commonUtils.getTestPlanId("${PWD}/test-plans/" + files[fileNo].name)
+                                testplanId = commonUtils.getTestPlanId("${props.WORKSPACE}/test-plans/" + files[fileNo].name)
                                 runPlan(files[fileNo], testplanId)
                             }
                         }
@@ -113,16 +115,17 @@ def getTestExecutionMap(parallel_executor_count) {
 
 @NonCPS
 def prepareWorkspace(tPlan, testPlanId){
+    def props = Properties.instance
 
     sh """
         echo Executing Test Plan : ${tPlan} On directory : ${testPlanId}
         echo Creating workspace and builds sub-directories
-        rm -r -f ${PWD}/${testPlanId}/
-        mkdir -p ${PWD}/${testPlanId}/builds
-        mkdir -p ${PWD}/${testPlanId}/workspace
+        rm -r -f ${props.WORKSPACE}/${testPlanId}/
+        mkdir -p ${props.WORKSPACE}/${testPlanId}/builds
+        mkdir -p ${props.WORKSPACE}/${testPlanId}/workspace
         #Cloning should be done before unstashing TestGridYaml since its going to be injected
         #inside the cloned repository
-        echo Cloning ${SCENARIOS_REPOSITORY} into ${PWD}/${testPlanId}/${SCENARIOS_LOCATION}
+        echo Cloning ${props.SCENARIOS_REPOSITORY} into ${PWD}/${testPlanId}/${SCENARIOS_LOCATION}
         cd ${PWD}/${testPlanId}/workspace
         git clone ${SCENARIOS_REPOSITORY}
 

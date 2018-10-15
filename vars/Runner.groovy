@@ -57,17 +57,13 @@ def call(def ab) {
                 stage('Preparation') {
                     steps {
                         script {
-                            //echo Properties.PRODUCT
-                            echo "1111"
-                            echo pwd()
-                            echo "2222"
                             try {
                                 //alert.sendNotification('STARTED', "Initiation", "#build_status_verbose")
                                 ///alert.sendNotification('STARTED', "Initiation", "#build_status")
                                 echo pwd()
                                 deleteDir()
 
-                                // Increasing the TG JVM memory paramsnn
+                                // Increasing the TG JVM memory params
                                 runtime.increaseTestGridRuntimeMemory("2G", "2G")
                                 // Get testgrid.yaml from jenkins managed files
                                 configFileProvider(
@@ -111,25 +107,25 @@ def call(def ab) {
                     }
                 }
 
-//                stage('parallel-run') {
-//                    steps {
-//                        script {
-//                            def name = "unknown"
-//                            try {
-//                                parallel_executor_count = 12
-//                                if (env.EXECUTOR_COUNT != "null") {
-//                                    echo "executor count is" + env.EXECUTOR_COUNT
-//                                    parallel_executor_count = env.EXECUTOR_COUNT
-//                                }
-//                                def tests = testExecutor.getTestExecutionMap(parallel_executor_count)
-//                                parallel tests
-//                            } catch (e) {
-//                                currentBuild.result = "FAILED"
-//                                alert.sendNotification(currentBuild.result, "Parallel", "#build_status_verbose")
-//                            }
-//                        }
-//                    }
-//                }
+                stage('parallel-run') {
+                    steps {
+                        script {
+                            def name = "unknown"
+                            try {
+                                parallel_executor_count = 12
+                                if (props.EXECUTOR_COUNT != "null") {
+                                    echo "executor count is" + env.EXECUTOR_COUNT
+                                    parallel_executor_count = env.EXECUTOR_COUNT
+                                }
+                                def tests = testExecutor.getTestExecutionMap(parallel_executor_count)
+                                parallel tests
+                            } catch (e) {
+                                currentBuild.result = "FAILED"
+                                //alert.sendNotification(currentBuild.result, "Parallel", "#build_status_verbose")
+                            }
+                        }
+                    }
+                }
 
 //                post {
 //                    always {

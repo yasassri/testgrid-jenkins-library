@@ -35,4 +35,5 @@ class Constants {
     static final def TEST_MODE                = "TEST_MODE"
     static final def LATEST_PRODUCT_RELEASE_API = "LATEST_PRODUCT_RELEASE_API"
     static final def LATEST_PRODUCT_BUILD_ARTIFACTS_API = "LATEST_PRODUCT_BUILD_ARTIFACTS_API"
+    static final def SCENARIOS_REPOSITORY     = "SCENARIOS_REPOSITORY"
 }
