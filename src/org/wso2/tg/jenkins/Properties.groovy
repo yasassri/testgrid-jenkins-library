@@ -50,8 +50,6 @@ class Properties {
     static def EXECUTOR_COUNT           = ""
 
 
-
-
     def initProperties(def  propertyMap){
         Common util = new Common()
 

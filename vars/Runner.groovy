@@ -42,7 +42,7 @@ def call(def ab) {
             agent {
                 node {
                     label ""
-                    //customWorkspace "/testgrid/testgrid-home/jobs/${Properties.getProperty("PRODUCT")}"
+                    customWorkspace "/testgrid/testgrid-home/jobs/${props.PRODUCT}"
                 }
             }
 //            tools {
@@ -59,7 +59,7 @@ def call(def ab) {
                         script {
                             //echo Properties.PRODUCT
                             echo "1111"
-                            echo props.PRODUCT
+                            echo pwd()
                             echo "2222"
                             echo props.CURRENT_WORKSPACE
                             echo "3333"
