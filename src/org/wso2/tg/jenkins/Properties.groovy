@@ -61,6 +61,8 @@ class Properties implements Serializable {
 
     def initProperties(def  propertyMap){
         Common util = new Common()
+        Jenkins jenkins = Jenkins.getInstance()
+        def store = jenkins.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
         PRODUCT = propertyMap.get(Constants.PRODUCT)
 //        TESTGRID_YAML_LOCATION = propertyMap.get(Constants.INFRA_LOCATION) + "/jobs/" + propertyMap.get("JOB_BASE_NAME") + "/testgrid" +
 //                ".yaml"
