@@ -21,7 +21,6 @@ package org.wso2.tg.jenkins.executors
 import org.wso2.tg.jenkins.Properties
 
 
-
 def generateTesPlans(def product, def configYaml) {
     def props = Properties.instance
     sh """
