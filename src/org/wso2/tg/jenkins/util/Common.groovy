@@ -79,11 +79,10 @@ def getCurrentWorkspace() {
 }
 
 def getCredentials(def key){
-    Jenkins jenkins = Jenkins.getInstance()
-    def store = jenkins.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
-    // get credentials domain
-    def domain = Domain.global()
-    store.getCredentials(domain)
-    printf("The Credentials are  : " + store.getCredentials(domain).toString())
+//    Jenkins jenkins = Jenkins.getInstance()
+//    def store = jenkins.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
+//    // get credentials domain
+//    def domain = Domain.global()
+//    store.getCredentials(domain)
     return credentials(key).toString()
 }
