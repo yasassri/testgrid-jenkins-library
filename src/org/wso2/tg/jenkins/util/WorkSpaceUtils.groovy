@@ -19,7 +19,6 @@
 package org.wso2.tg.jenkins.util
 
 import org.wso2.tg.jenkins.Properties
-import java.io.File
 
 /**
  * Create the given directory.
@@ -29,11 +28,10 @@ import java.io.File
  */
 def createJobConfigYamlFile(filePath) throws IOException{
 
-
     def props = Properties.instance
     // https://jenkins.io/doc/pipeline/steps/pipeline-utility-steps/#writeyaml-write-a-yaml-from-an-object
-    File file = new File (filePath)
-    file.createNewFile()
+//    File file = new File (filePath)
+//    file.createNewFile()
     echo "stating to create job config!!"
     ssh """
     echo 'keyFileLocation: workspace/testgrid-key.pem' > ${filePath}
