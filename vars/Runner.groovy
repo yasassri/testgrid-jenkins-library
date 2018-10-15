@@ -36,6 +36,7 @@ def call(def ab) {
         def email = new Email()
         def awsHelper = new AWSUtils()
         def testExecutor = new TestExecutor()
+        def runtime = new RuntimeUtil()
 
         pipeline {
             agent {
@@ -64,7 +65,7 @@ def call(def ab) {
 
                                 echo "Before TG Alter"
                                 // Increasing the TG JVM memory paramsnn
-                                RuntimeUtil.increaseTestGridRuntimeMemory("2G", "2G")
+                                runtime.increaseTestGridRuntimeMemory("2G", "2G")
                                 echo "After TG Alter"
                                 // Get testgrid.yaml from jenkins managed files
                                 configFileProvider(
