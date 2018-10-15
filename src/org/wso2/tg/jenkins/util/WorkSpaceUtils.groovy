@@ -33,7 +33,7 @@ def createJobConfigYamlFile(filePath) throws IOException{
 //    File file = new File (filePath)
 //    file.createNewFile()
     echo "Creating Job-config.yaml at : {$filePath}"
-    ssh """
+    sh """
     echo 'keyFileLocation: workspace/testgrid-key.pem' > ${filePath}
     echo 'infrastructureRepository: ${props.INFRA_LOCATION}/' >> ${filePath}
     echo 'deploymentRepository: ${props.INFRA_LOCATION}/' >> ${filePath}
