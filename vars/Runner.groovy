@@ -17,7 +17,6 @@
  */
 
 
-import org.wso2.tg.jenkins.Constants
 import org.wso2.tg.jenkins.alert.Slack
 import org.wso2.tg.jenkins.alert.Email
 import org.wso2.tg.jenkins.util.AWSUtils
@@ -48,10 +47,6 @@ def call(def ab) {
 //            tools {
 //                jdk 'jdk8'
 //            }
-            environment {
-                QWE=credentials('PASS')
-            }
-
 
             stages {
                 stage('Preparation') {
@@ -61,57 +56,51 @@ def call(def ab) {
                             echo "1111"
                             echo pwd()
                             echo "2222"
-                            echo props.CURRENT_WORKSPACE
-                            echo "3333"
-                            echo props.AWS_ACCESS_KEY_ID.toString()
-                            echo "4444"
-                            echo "${QWE}"
-                            echo "55555"
-//                            try {
-//                                alert.sendNotification('STARTED', "Initiation", "#build_status_verbose")
-//                                alert.sendNotification('STARTED', "Initiation", "#build_status")
-//                                echo pwd()
-//                                deleteDir()
-//
-//                                // Increasing the TG JVM memory paramsnn
-//                                RuntimeUtil.increaseTestGridRuntimeMemory("2G", "2G")
-//                                // Get testgrid.yaml from jenkins managed files
-//                                configFileProvider(
-//                                        [configFile(fileId: "${PRODUCT}-testgrid-yaml", targetLocation:
-//                                                "${TESTGRID_YAML_LOCATION}")]) {
-//                                }
-//
-//                                //Constructing the product git url if test mode is wum. Adding the Git username and password into the product git url.
-//                                if ("${TEST_MODE}" == "WUM") {
-//                                    def url = "${PRODUCT_GIT_URL}"
-//                                    def values = url.split('//g')
-//                                    def productGitUrl = "${values[0]}//${GIT_WUM_USERNAME}:${GIT_WUM_PASSWORD}@g${values[1]}"
-//                                    PRODUCT_GIT_URL = "${productGitUrl}"
-//
-//                                } else {
-//                                    PRODUCT_GIT_URL = "${PRODUCT_GIT_URL}"
-//                                }
-//                                // Creating the job config file
-//                                createJobConfigYamlFile(Properties.getProperty("${JOB_CONFIG_YAML}"))
-//                                sh """
-//				                    echo The job-config.yaml :
-//                                    cat ${JOB_CONFIG_YAML_PATH}
-//                                    """
-//
-//                                sh """
-//                                    cd ${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}
-//                                    ./testgrid generate-test-plan \
-//                                        --product ${PRODUCT} \
-//                                        --file ${JOB_CONFIG_YAML_PATH}
-//                                """
-//                                dir("${PWD}") {
-//                                    stash name: "test-plans", includes: "test-plans/**"
-//                                }
-//                            } catch (e) {
-//                                currentBuild.result = "FAILED"
-//                            } finally {
-//                                alert.sendNotification(currentBuild.result, "preparation", "#build_status_verbose")
-//                            }
+                            try {
+                                //alert.sendNotification('STARTED', "Initiation", "#build_status_verbose")
+                                ///alert.sendNotification('STARTED', "Initiation", "#build_status")
+                                echo pwd()
+                                deleteDir()
+
+                                // Increasing the TG JVM memory paramsnn
+                                RuntimeUtil.increaseTestGridRuntimeMemory("2G", "2G")
+                                // Get testgrid.yaml from jenkins managed files
+                                configFileProvider(
+                                        [configFile(fileId: "${PRODUCT}-testgrid-yaml", targetLocation:
+                                                "${TESTGRID_YAML_LOCATION}")]) {
+                                }
+
+                                //Constructing the product git url if test mode is wum. Adding the Git username and password into the product git url.
+                                if ("${TEST_MODE}" == "WUM") {
+                                    def url = "${PRODUCT_GIT_URL}"
+                                    def values = url.split('//g')
+                                    def productGitUrl = "${values[0]}//${GIT_WUM_USERNAME}:${GIT_WUM_PASSWORD}@g${values[1]}"
+                                    PRODUCT_GIT_URL = "${productGitUrl}"
+
+                                } else {
+                                    PRODUCT_GIT_URL = "${PRODUCT_GIT_URL}"
+                                }
+                                // Creating the job config file
+                                createJobConfigYamlFile(Properties.getProperty("${JOB_CONFIG_YAML}"))
+                                sh """
+				                    echo The job-config.yaml :
+                                    cat ${JOB_CONFIG_YAML_PATH}
+                                    """
+
+                                sh """
+                                    cd ${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}
+                                    ./testgrid generate-test-plan \
+                                        --product ${PRODUCT} \
+                                        --file ${JOB_CONFIG_YAML_PATH}
+                                """
+                                dir("${PWD}") {
+                                    stash name: "test-plans", includes: "test-plans/**"
+                                }
+                            } catch (e) {
+                                currentBuild.result = "FAILED"
+                            } finally {
+                                alert.sendNotification(currentBuild.result, "preparation", "#build_status_verbose")
+                            }
                         }
                     }
                 }
