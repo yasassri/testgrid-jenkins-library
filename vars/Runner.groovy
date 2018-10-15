@@ -48,6 +48,10 @@ def call(def ab) {
 //            tools {
 //                jdk 'jdk8'
 //            }
+            environment {
+                QWE=credentials('PASS')
+            }
+
 
             stages {
                 stage('Preparation') {
@@ -61,7 +65,7 @@ def call(def ab) {
                             echo "3333"
                             echo props.AWS_ACCESS_KEY_ID.toString()
                             echo "4444"
-                            echo credentials('PASS').toString()
+                            echo "${QWE}"
                             echo "55555"
 //                            try {
 //                                alert.sendNotification('STARTED', "Initiation", "#build_status_verbose")
