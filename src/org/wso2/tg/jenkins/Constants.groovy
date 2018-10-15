@@ -5,19 +5,17 @@ package org.wso2.tg.jenkins
  */
 class Constants {
 
-    def envVars = Jenkins.instance.getGlobalNodeProperties()[0].getEnvVars()
-
     static final def TESTGRID_NAME            = "TESTGRID_NAME"
     static final def TESTGRID_DIST_LOCATION   = "TESTGRID_DIST_LOCATION"
     static final def TESTGRID_HOME            = "TESTGRID_HOME"
-    static final def PRODUCT                  = System.get("JOB_BASE_NAME")
+    static final def PRODUCT                  = "JOB_BASE_NAME"
     static final def TESTGRID_YAML_LOCATION   = "TESTGRID_YAML_LOCATION"
     static final def AWS_ACCESS_KEY_ID        = "AWS_ACCESS_KEY_ID"
     static final def AWS_SECRET_ACCESS_KEY    = "AWS_SECRET_ACCESS_KEY"
-    static final def TOMCAT_USERNAME           = "tomcatUsername"
-    static final def TOMCAT_PASSWORD           = "tomcatPassword"
+    static final def TOMCAT_USERNAME          = "tomcatUsername"
+    static final def TOMCAT_PASSWORD          = "tomcatPassword"
     static final def WUM_UAT_URL              = "WUM_UAT_URL"
-    static final def WUM_UAT_APP_KEY           = "WUM_UAT_APPKEY"
+    static final def WUM_UAT_APP_KEY          = "WUM_UAT_APPKEY"
     static final def USER_NAME                = "USER_NAME"
     static final def PASSWORD                 = "PASSWORD"
     static final def GIT_WUM_USERNAME         = "GIT_WUM_USERNAME"
