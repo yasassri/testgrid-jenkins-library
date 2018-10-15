@@ -27,7 +27,9 @@ import hudson.model.Environment
 import org.wso2.tg.jenkins.util.Common
 
 @Singleton
-class Properties implements Serializable {
+class Properties {
+    Jenkins jenkins = Jenkins.getInstance()
+    def store = jenkins.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
 
     static def TESTGRID_NAME            = "WSO2-TestGrid"
     static def TESTGRID_DIST_LOCATION   = "/testgrid/testgrid-home/testgrid-dist/"
@@ -61,9 +63,7 @@ class Properties implements Serializable {
 
     def initProperties(def  propertyMap){
         Common util = new Common()
-       // Jenkins jenkins = Jenkins.getInstance()
-        //def store = jenkins.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0]
-//.getStore()
+
         //printf(store.toString())
         PRODUCT = propertyMap.get(Constants.PRODUCT)
 //        TESTGRID_YAML_LOCATION = propertyMap.get(Constants.INFRA_LOCATION) + "/jobs/" + propertyMap.get("JOB_BASE_NAME") + "/testgrid" +
