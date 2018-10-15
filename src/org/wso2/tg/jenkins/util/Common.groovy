@@ -18,6 +18,8 @@
 
 package org.wso2.tg.jenkins.util
 
+import jenkins.model.Jenkins
+
 def getTimestamp(Date date = new Date()) {
     return date.format('yyyyMMddHHmmss', TimeZone.getTimeZone('GMT')) as String
 }
@@ -75,6 +77,8 @@ def getCurrentWorkspace() {
 }
 
 def getCredentials(def key){
-    printf("The Credentials are  : " + credentials(key).toString())
+    Jenkins jenkins = Jenkins.getInstance()
+    def store = jenkins.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
+    printf("The Credentials are  : " + store.toString())
     return credentials(key).toString()
 }

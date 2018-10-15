@@ -28,8 +28,6 @@ import org.wso2.tg.jenkins.util.Common
 
 @Singleton
 class Properties {
-    Jenkins jenkins = Jenkins.getInstance()
-    def store = jenkins.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
 
     static def TESTGRID_NAME            = "WSO2-TestGrid"
     static def TESTGRID_DIST_LOCATION   = "/testgrid/testgrid-home/testgrid-dist/"
