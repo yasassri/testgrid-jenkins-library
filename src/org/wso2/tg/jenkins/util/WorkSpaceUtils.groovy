@@ -32,7 +32,6 @@ def createJobConfigYamlFile(filePath) throws IOException{
     def props = Properties.instance
     // https://jenkins.io/doc/pipeline/steps/pipeline-utility-steps/#writeyaml-write-a-yaml-from-an-object
     File file = new File (filePath)
-    file.append()
     file.createNewFile()
     echo "stating to create job config!!"
     ssh """
