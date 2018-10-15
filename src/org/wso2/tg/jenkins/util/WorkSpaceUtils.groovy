@@ -32,7 +32,7 @@ def createJobConfigYamlFile(filePath) throws IOException{
     // https://jenkins.io/doc/pipeline/steps/pipeline-utility-steps/#writeyaml-write-a-yaml-from-an-object
 //    File file = new File (filePath)
 //    file.createNewFile()
-    echo "stating to create job config!!"
+    echo "Creating Job-config.yaml at : {$filePath}"
     ssh """
     echo 'keyFileLocation: workspace/testgrid-key.pem' > ${filePath}
     echo 'infrastructureRepository: ${props.INFRA_LOCATION}/' >> ${filePath}

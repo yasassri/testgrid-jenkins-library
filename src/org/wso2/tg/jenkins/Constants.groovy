@@ -33,4 +33,6 @@ class Constants {
     static final def EXECUTOR_COUNT           = "EXECUTOR_COUNT"
     static final def INFRA_LOCATION           = "INFRA_LOCATION"
     static final def TEST_MODE                = "TEST_MODE"
+    static final def LATEST_PRODUCT_RELEASE_API = "LATEST_PRODUCT_RELEASE_API"
+    static final def LATEST_PRODUCT_BUILD_ARTIFACTS_API = "LATEST_PRODUCT_BUILD_ARTIFACTS_API"
 }

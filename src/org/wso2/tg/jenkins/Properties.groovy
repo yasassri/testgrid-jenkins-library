@@ -28,33 +28,38 @@ class Properties {
     static def JOB_CONFIG_YAML              = "job-config.yaml"
     static def SQL_DRIVERS_LOCATION_UNIX    ="/home/centos/sql-drivers/"
     static def SQL_DRIVERS_LOCATION_WINDOWS ="/testgrid/sql-drivers"
-
+    static def REMOTE_WORKSPACE_DIR_UNIX    ="/opt/wso2/workspace"
+    static def REMOTE_WORKSPACE_DIR_WINDOWS ="c:/testgrid/workspace"
+    static def DEPLOYMENT_LOCATION          ="workspace/testgrid"
+    static def SCENARIOS_LOCATION           ="workspace/apim-test-integration"
 
     // Job Properties
-    static def PRODUCT                  = ""
-    static def TESTGRID_YAML_LOCATION   = ""
-    static def AWS_ACCESS_KEY_ID        = ""
-    static def AWS_SECRET_ACCESS_KEY    = ""
-    static def TOMCAT_USERNAME          = ""
-    static def TOMCAT_PASSWORD          = ""
-    static def TEST_MODE                = ""
-    static def WUM_UAT_URL              = ""
-    static def WUM_UAT_APP_KEY          = ""
-    static def USER_NAME                = ""
-    static def PASSWORD                 = ""
-    static def GIT_WUM_USERNAME         = ""
-    static def GIT_WUM_PASSWORD         = ""
-    static def CURRENT_WORKSPACE        = ""
-    static def JOB_CONFIG_YAML_PATH     = ""
-    static def PRODUCT_GIT_URL          = ""
-    static def PRODUCT_GIT_BRANCH       = ""
-    static def PRODUCT_DIST_DOWNLOAD_API= ""
-    static def WUM_CHANNEL              = ""
-    static def PRODUCT_CODE             = ""
-    static def WUM_PRODUCT_VERSION      = ""
-    static def USE_CUSTOM_TESTNG        = ""
-    static def EXECUTOR_COUNT           = ""
-    static def INFRA_LOCATION           = ""
+    static def PRODUCT                      = ""
+    static def TESTGRID_YAML_LOCATION       = ""
+    static def AWS_ACCESS_KEY_ID            = ""
+    static def AWS_SECRET_ACCESS_KEY        = ""
+    static def TOMCAT_USERNAME              = ""
+    static def TOMCAT_PASSWORD              = ""
+    static def TEST_MODE                    = ""
+    static def WUM_UAT_URL                  = ""
+    static def WUM_UAT_APP_KEY              = ""
+    static def USER_NAME                    = ""
+    static def PASSWORD                     = ""
+    static def GIT_WUM_USERNAME             = ""
+    static def GIT_WUM_PASSWORD             = ""
+    static def CURRENT_WORKSPACE            = ""
+    static def JOB_CONFIG_YAML_PATH         = ""
+    static def PRODUCT_GIT_URL              = ""
+    static def PRODUCT_GIT_BRANCH           = ""
+    static def PRODUCT_DIST_DOWNLOAD_API    = ""
+    static def WUM_CHANNEL                  = ""
+    static def PRODUCT_CODE                 = ""
+    static def WUM_PRODUCT_VERSION          = ""
+    static def USE_CUSTOM_TESTNG            = ""
+    static def EXECUTOR_COUNT               = ""
+    static def INFRA_LOCATION               = ""
+    static def LATEST_PRODUCT_RELEASE_API   = ""
+    static def LATEST_PRODUCT_BUILD_ARTIFACTS_API   = ""
 
 
     def initProperties(def  propertyMap){
@@ -84,6 +89,8 @@ class Properties {
         GIT_WUM_PASSWORD         = util.getCredentials('GIT_WUM_PASSWORD')
         TEST_MODE                = propertyMap.get(Constants.TEST_MODE)
         INFRA_LOCATION           = propertyMap.get(Constants.INFRA_LOCATION)
+        LATEST_PRODUCT_RELEASE_API = propertyMap.get(Constants.LATEST_PRODUCT_RELEASE_API)
+        LATEST_PRODUCT_BUILD_ARTIFACTS_API = propertyMap.get(Constants.LATEST_PRODUCT_BUILD_ARTIFACTS_API)
     }
 }
 
