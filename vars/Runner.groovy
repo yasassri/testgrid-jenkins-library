@@ -89,9 +89,10 @@ def call(def ab) {
                                 echo "Creating Job config!!!!"
                                 // Creating the job config file
                                 ws.createJobConfigYamlFile("${props.JOB_CONFIG_YAML_PATH}")
+                                echo "Done Creating Job config!!!!"
                                 sh """
 				                    echo The job-config.yaml :
-                                    cat ${JOB_CONFIG_YAML_PATH}
+                                    cat ${props.JOB_CONFIG_YAML_PATH}
                                     """
 
                                 echo "Generating test plans"
