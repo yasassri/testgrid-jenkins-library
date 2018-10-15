@@ -69,7 +69,8 @@ class Properties {
         PRODUCT = propertyMap.get(Constants.PRODUCT)
         TESTGRID_YAML_LOCATION = propertyMap.get(Constants.INFRA_LOCATION) + "/jobs/" + propertyMap.get("JOB_BASE_NAME") + "/testgrid" + ".yaml"
         CURRENT_WORKSPACE = util.getCurrentWorkspace().toString()
-        JOB_CONFIG_YAML_PATH = util.getCurrentWorkspace().toString() + "/" + JOB_CONFIG_YAML
+        WORKSPACE                = "/testgrid/testgrid-home/jobs/${PRODUCT}"
+        JOB_CONFIG_YAML_PATH = WORKSPACE + "/" + JOB_CONFIG_YAML
         PRODUCT_GIT_URL = propertyMap.get(Constants.PRODUCT_GIT_URL)
         PRODUCT_GIT_BRANCH = propertyMap.get(Constants.PRODUCT_GIT_BRANCH)
         PRODUCT_DIST_DOWNLOAD_API = propertyMap.get(Constants.PRODUCT_DIST_DOWNLOAD_API)
@@ -92,7 +93,6 @@ class Properties {
         INFRA_LOCATION           = propertyMap.get(Constants.INFRA_LOCATION)
         LATEST_PRODUCT_RELEASE_API = propertyMap.get(Constants.LATEST_PRODUCT_RELEASE_API)
         LATEST_PRODUCT_BUILD_ARTIFACTS_API = propertyMap.get(Constants.LATEST_PRODUCT_BUILD_ARTIFACTS_API)
-        WORKSPACE                = "/testgrid/testgrid-home/jobs/${PRODUCT}"
     }
 }
 
