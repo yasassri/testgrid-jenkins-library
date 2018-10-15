@@ -62,8 +62,10 @@ def call(def ab) {
                                 echo pwd()
                                 deleteDir()
 
+                                echo "Before TG Alter"
                                 // Increasing the TG JVM memory paramsnn
                                 RuntimeUtil.increaseTestGridRuntimeMemory("2G", "2G")
+                                echo "After TG Alter"
                                 // Get testgrid.yaml from jenkins managed files
                                 configFileProvider(
                                         [configFile(fileId: "${PRODUCT}-testgrid-yaml", targetLocation:
