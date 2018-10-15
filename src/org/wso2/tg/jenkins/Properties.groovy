@@ -74,7 +74,7 @@ class Properties implements Serializable {
 //        WUM_PRODUCT_VERSION = propertyMap.get(Constants.WUM_PRODUCT_VERSION)
 //        USE_CUSTOM_TESTNG = propertyMap.get(Constants.USE_CUSTOM_TESTNG)
 //        EXECUTOR_COUNT = propertyMap.get(Constants.EXECUTOR_COUNT)
-//        AWS_ACCESS_KEY_ID        = util.getCredentials('AWS_ACCESS_KEY_ID')
+        AWS_ACCESS_KEY_ID        = util.getCredentials('AWS_ACCESS_KEY_ID')
 //        AWS_SECRET_ACCESS_KEY    = util.getCredentials('AWS_SECRET_ACCESS_KEY')
 //        TOMCAT_USERNAME          = util.getCredentials('TOMCAT_USERNAME')
 //        TOMCAT_PASSWORD          = util.getCredentials('TOMCAT_PASSWORD')

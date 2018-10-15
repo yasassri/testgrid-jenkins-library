@@ -59,7 +59,7 @@ def call(def ab) {
                             echo "2222"
                             echo props.CURRENT_WORKSPACE
                             echo "3333"
-                            echo ab.getBuildVariables().toString()
+                            echo props.AWS_ACCESS_KEY_ID
                             echo "4444"
                             echo "${JOB_BASE_NAME}"
 //                            try {
