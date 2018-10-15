@@ -32,4 +32,5 @@ class Constants {
     static final def USE_CUSTOM_TESTNG        = "USE_CUSTOM_TESTNG"
     static final def EXECUTOR_COUNT           = "EXECUTOR_COUNT"
     static final def INFRA_LOCATION           = "INFRA_LOCATION"
+    static final def TEST_MODE                = "TEST_MODE"
 }

@@ -31,6 +31,7 @@ class Properties {
     static def AWS_SECRET_ACCESS_KEY    = ""
     static def TOMCAT_USERNAME          = ""
     static def TOMCAT_PASSWORD          = ""
+    static def TEST_MODE                = ""
     static def WUM_UAT_URL              = ""
     static def WUM_UAT_APP_KEY          = ""
     static def USER_NAME                = ""
@@ -75,6 +76,7 @@ class Properties {
         PASSWORD                 = util.getCredentials('WUM_PASSWORD')
         GIT_WUM_USERNAME         = util.getCredentials('GIT_WUM_USERNAME')
         GIT_WUM_PASSWORD         = util.getCredentials('GIT_WUM_PASSWORD')
+        TEST_MODE                = propertyMap.get(Constants.TEST_MODE)
     }
 }
 

@@ -23,6 +23,7 @@ import org.wso2.tg.jenkins.util.AWSUtils
 import org.wso2.tg.jenkins.executors.TestExecutor
 import org.wso2.tg.jenkins.Properties
 import org.wso2.tg.jenkins.util.RuntimeUtil
+import org.wso2.tg.jenkins.util.WorkSpaceUtils
 
 
 // The pipeline should reside in a call block
@@ -37,6 +38,7 @@ def call(def ab) {
         def awsHelper = new AWSUtils()
         def testExecutor = new TestExecutor()
         def runtime = new RuntimeUtil()
+        def ws = new WorkSpaceUtils()
 
         pipeline {
             agent {
@@ -74,17 +76,18 @@ def call(def ab) {
                                 }
 
                                 //Constructing the product git url if test mode is wum. Adding the Git username and password into the product git url.
-                                if ("${TEST_MODE}" == "WUM") {
-                                    def url = "${PRODUCT_GIT_URL}"
+                                if ("${props.TEST_MODE}" == "WUM") {
+                                    def url = "${props.PRODUCT_GIT_URL}"
                                     def values = url.split('//g')
-                                    def productGitUrl = "${values[0]}//${GIT_WUM_USERNAME}:${GIT_WUM_PASSWORD}@g${values[1]}"
+                                    def productGitUrl =
+                                            "${values[0]}//${props.GIT_WUM_USERNAME}:${props.GIT_WUM_PASSWORD}@g${values[1]}"
                                     PRODUCT_GIT_URL = "${productGitUrl}"
 
                                 } else {
-                                    PRODUCT_GIT_URL = "${PRODUCT_GIT_URL}"
+                                    PRODUCT_GIT_URL = "${props.PRODUCT_GIT_URL}"
                                 }
                                 // Creating the job config file
-                                createJobConfigYamlFile(Properties.getProperty("${JOB_CONFIG_YAML}"))
+                                ws.createJobConfigYamlFile("${props.JOB_CONFIG_YAML}")
                                 sh """
 				                    echo The job-config.yaml :
                                     cat ${JOB_CONFIG_YAML_PATH}
