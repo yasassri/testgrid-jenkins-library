@@ -20,10 +20,12 @@ package org.wso2.tg.jenkins.alert
 
 /**
  * Sends Email notifications
+ *
+ * @param subject subject of the Email
  * @param content body of the Email
  */
 def send(subject,  content) {
-    emailext(to: "${EMAIL_TO_LIST}",
-            subject: subject,
-            body: content, mimeType: 'text/html')
+//    emailext(to: "${EMAIL_TO_LIST}",
+//            subject: subject,
+//            body: content, mimeType: 'text/html')
 }

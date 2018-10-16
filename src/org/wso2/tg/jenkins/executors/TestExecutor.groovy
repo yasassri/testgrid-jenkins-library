@@ -30,6 +30,7 @@ def runPlan(tPlan, testPlanId) {
     def notfier = new Slack()
     def awsHelper = new AWSUtils()
     def fileUtil = new FileUtils()
+    def props = Properties.instance
 
     fileUtil.createDirectory("${PWD}/${testPlanId}")
     prepareWorkspace(tPlan, testPlanId)
@@ -42,7 +43,7 @@ def runPlan(tPlan, testPlanId) {
 
     //writeFile file: "${PWD}/${testPlanId}/${INFRA_LOCATION}/deploy.sh", text: '#!/bin/sh'
 
-    def name = commonUtil.getParameters("${PWD}/${testPlanId}/${tPlan}")
+    def name = commonUtil.getParameters("${props.WORKSPACE}/${testPlanId}/${tPlan}")
     notfier.sendNotification("STARTED", "parallel \n Infra : " + name, "#build_status_verbose")
     try {
         sh """
@@ -50,8 +51,8 @@ def runPlan(tPlan, testPlanId) {
             java -version
             #Need to change directory to root to run the next command properly
             cd /
-            #.${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}/testgrid run-testplan --product ${PRODUCT} \
-            #--file ${PWD}/${testPlanId}/${tPlan} --workspace ${PWD}/${testPlanId}        
+            #.${props.TESTGRID_HOME}/testgrid-dist/${props.TESTGRID_NAME}/testgrid run-testplan --product ${props.PRODUCT} \
+            #--file ${props.WORKSPACE}/${testPlanId}/${tPlan} --workspace ${props.WORKSPACE}/${testPlanId}        
         """
         commonUtil.truncateTestRunLog(testPlanId)
     } catch (Exception err) {
