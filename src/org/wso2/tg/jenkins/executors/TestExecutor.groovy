@@ -122,6 +122,7 @@ def prepareWorkspace(tPlan, testPlanId){
         echo Executing Test Plan : ${tPlan} On directory : ${testPlanId}
         echo Creating workspace and builds sub-directories
         rm -r -f ${props.WORKSPACE}/${testPlanId}/
+        mkdir -p ${props.WORKSPACE}/${testPlanId}
         mkdir -p ${props.WORKSPACE}/${testPlanId}/builds
         mkdir -p ${props.WORKSPACE}/${testPlanId}/workspace
         #Cloning should be done before unstashing TestGridYaml since its going to be injected
