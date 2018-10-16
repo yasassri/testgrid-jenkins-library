@@ -33,8 +33,9 @@ def runPlan(tPlan, testPlanId) {
     def props = Properties.instance
 
     fileUtil.createDirectory("${props.WORKSPACE}/${testPlanId}")
+    echo "11111"
     prepareWorkspace(tPlan, testPlanId)
-
+    echo "22222"
     sleep(time:commonUtil.getRandomNumber(10),unit:"SECONDS")
     echo "Unstashing test-plans and testgrid.yaml to ${props.WORKSPACE}/${testPlanId}"
     dir("${props.WORKSPACE}/${testPlanId}") {
@@ -114,7 +115,7 @@ def getTestExecutionMap(parallel_executor_count) {
     return tests
 }
 
-@NonCPS
+//@NonCPS
 def prepareWorkspace(tPlan, testPlanId){
     def props = Properties.instance
 
