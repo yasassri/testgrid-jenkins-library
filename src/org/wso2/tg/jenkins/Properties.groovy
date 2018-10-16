@@ -62,6 +62,7 @@ class Properties {
     static def LATEST_PRODUCT_BUILD_ARTIFACTS_API   = ""
     static def WORKSPACE                    = ""
     static def SCENARIOS_REPOSITORY         = ""
+    static def INFRASTRUCTURE_REPOSITORY    = ""
 
 
 
@@ -96,6 +97,7 @@ class Properties {
         LATEST_PRODUCT_RELEASE_API = propertyMap.get(Constants.LATEST_PRODUCT_RELEASE_API)
         LATEST_PRODUCT_BUILD_ARTIFACTS_API = propertyMap.get(Constants.LATEST_PRODUCT_BUILD_ARTIFACTS_API)
         SCENARIOS_REPOSITORY     = propertyMap.get(Constants.SCENARIOS_REPOSITORY)
+        INFRASTRUCTURE_REPOSITORY     = propertyMap.get(Constants.INFRASTRUCTURE_REPOSITORY)
     }
 }
 

@@ -32,12 +32,12 @@ def runPlan(tPlan, testPlanId) {
     def fileUtil = new FileUtils()
     def props = Properties.instance
 
-    fileUtil.createDirectory("${PWD}/${testPlanId}")
+    fileUtil.createDirectory("${props.WORKSPACE}/${testPlanId}")
     prepareWorkspace(tPlan, testPlanId)
 
     sleep(time:commonUtil.getRandomNumber(10),unit:"SECONDS")
-    echo "Unstashing test-plans and testgrid.yaml to ${PWD}/${testPlanId}"
-    dir("${PWD}/${testPlanId}") {
+    echo "Unstashing test-plans and testgrid.yaml to ${props.WORKSPACE}/${testPlanId}"
+    dir("${props.WORKSPACE}/${testPlanId}") {
         unstash name: "test-plans"
     }
 
@@ -84,11 +84,11 @@ def getTestExecutionMap(parallel_executor_count) {
             node {
                 stage("Parallel Executor : ${executor}") {
                     script {
-                        int processFileCount = 0;
+                        int processFileCount = 0
                         if (files.length < parallelExecCount) {
-                            processFileCount = 1;
+                            processFileCount = 1
                         } else {
-                            processFileCount = files.length / parallelExecCount;
+                            processFileCount = files.length / parallelExecCount
                         }
                         if (executor == parallelExecCount) {
                             for (int i = processFileCount * (executor - 1); i < files.length; i++) {
@@ -126,18 +126,18 @@ def prepareWorkspace(tPlan, testPlanId){
         mkdir -p ${props.WORKSPACE}/${testPlanId}/workspace
         #Cloning should be done before unstashing TestGridYaml since its going to be injected
         #inside the cloned repository
-        echo Cloning ${props.SCENARIOS_REPOSITORY} into ${PWD}/${testPlanId}/${SCENARIOS_LOCATION}
-        cd ${PWD}/${testPlanId}/workspace
-        git clone ${SCENARIOS_REPOSITORY}
+        echo Cloning ${props.SCENARIOS_REPOSITORY} into ${props.WORKSPACE}/${testPlanId}/${props.SCENARIOS_LOCATION}
+        cd ${props.WORKSPACE}/${testPlanId}/workspace
+        git clone ${props.SCENARIOS_REPOSITORY}
 
-        echo Cloning ${INFRASTRUCTURE_REPOSITORY} into ${PWD}/${testPlanId}/${INFRA_LOCATION}
-        git clone ${INFRASTRUCTURE_REPOSITORY}
-        cp /testgrid/testgrid-prod-key.pem ${PWD}/${testPlanId}/workspace/testgrid-key.pem
-        chmod 400 ${PWD}/${testPlanId}/workspace/testgrid-key.pem
+        echo Cloning ${props.INFRASTRUCTURE_REPOSITORY} into ${props.WORKSPACE}/${testPlanId}/${props.INFRA_LOCATION}
+        git clone ${props.INFRASTRUCTURE_REPOSITORY}
+        cp /testgrid/testgrid-prod-key.pem ${props.WORKSPACE}/${testPlanId}/workspace/testgrid-key.pem
+        chmod 400 ${props.WORKSPACE}/${testPlanId}/workspace/testgrid-key.pem
         echo Workspace directory content:
-        ls ${PWD}/${testPlanId}/
+        ls ${props.WORKSPACE}/${testPlanId}/
         #echo Test-plans directory content:
-        #ls ${PWD}/${testPlanId}/test-plans/
+        #ls ${props.WORKSPACE}/${testPlanId}/test-plans/
     """
 }
 
