@@ -140,4 +140,3 @@ def prepareWorkspace(tPlan, testPlanId){
         #ls ${props.WORKSPACE}/${testPlanId}/test-plans/
     """
 }
-
