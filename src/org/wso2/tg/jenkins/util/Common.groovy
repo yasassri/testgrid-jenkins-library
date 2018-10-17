@@ -21,15 +21,17 @@ package org.wso2.tg.jenkins.util
 import jenkins.model.Jenkins
 import com.cloudbees.plugins.credentials.domains.Domain
 import com.cloudbees.plugins.credentials.impl.*
+import org.wso2.tg.jenkins.Properties
 
 def getTimestamp(Date date = new Date()) {
     return date.format('yyyyMMddHHmmss', TimeZone.getTimeZone('GMT')) as String
 }
 
 def truncateTestRunLog(parallelNumber) {
+    def props = Properties.instance
     sh """
-    if [ -d "${TESTGRID_HOME}/jobs/${PRODUCT}/${parallelNumber}/builds" ]; then
-        cd ${TESTGRID_HOME}/jobs/${PRODUCT}/${parallelNumber}
+    if [ -d "${props.TESTGRID_HOME}/jobs/${props.PRODUCT}/${parallelNumber}/builds" ]; then
+        cd ${props.TESTGRID_HOME}/jobs/${props.PRODUCT}/${parallelNumber}
       for file in builds/*/test-run.log ; do
         truncatedFile=\$(dirname \$file)/truncated-\$(basename \$file);
         head -n 10 \$file > \$truncatedFile;
@@ -39,7 +41,7 @@ def truncateTestRunLog(parallelNumber) {
         tail -n 50 \$file >> \$truncatedFile;
       done
     else
-        echo no logs found to truncate in ${TESTGRID_HOME}/jobs/${PRODUCT}/${parallelNumber}/builds!
+        echo no logs found to truncate in ${props.TESTGRID_HOME}/jobs/${props.PRODUCT}/${parallelNumber}/builds!
     fi
    """
 }
