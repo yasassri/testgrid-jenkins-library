@@ -43,7 +43,7 @@ private def getS3WorkspaceURL() {
 
 private def getS3BucketName() {
     def props = Properties.instance
-    def properties = readProperties file: "${props.TESTGRID_HOME}/config.properties"
+    def properties = readProperties file: "${props.CONFIG_PROPERTY_FILE_PATH}"
     def bucket = properties['AWS_S3_BUCKET_NAME']
     if ("${bucket}" == "null") {
         bucket = "unknown"

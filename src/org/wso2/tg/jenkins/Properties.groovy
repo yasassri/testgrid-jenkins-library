@@ -32,6 +32,7 @@ class Properties {
     static def REMOTE_WORKSPACE_DIR_WINDOWS ="c:/testgrid/workspace"
     static def DEPLOYMENT_LOCATION          ="workspace/testgrid"
     static def SCENARIOS_LOCATION           ="workspace/apim-test-integration"
+    static def CONFIG_PROPERTY_FILE_PATH    = TESTGRID_HOME + "/config.properties"
 
     // Job Properties
     static def PRODUCT                      = ""

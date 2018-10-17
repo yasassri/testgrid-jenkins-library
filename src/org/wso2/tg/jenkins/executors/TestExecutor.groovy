@@ -33,17 +33,13 @@ def runPlan(tPlan, testPlanId) {
     def props = Properties.instance
 
     fileUtil.createDirectory("${props.WORKSPACE}/${testPlanId}")
-    echo "11111"
+    echo "Preparing workspace"
     prepareWorkspace(tPlan, testPlanId)
-        echo "22222"
     sleep(time:commonUtil.getRandomNumber(10),unit:"SECONDS")
     echo "Unstashing test-plans and testgrid.yaml to ${props.WORKSPACE}/${testPlanId}"
     dir("${props.WORKSPACE}/${testPlanId}") {
         unstash name: "test-plans"
     }
-    echo "After Unstash"
-
-    //writeFile file: "${PWD}/${testPlanId}/${INFRA_LOCATION}/deploy.sh", text: '#!/bin/sh'
 
     def name = commonUtil.getParameters("${props.WORKSPACE}/${testPlanId}/${tPlan}")
     notfier.sendNotification("STARTED", "parallel \n Infra : " + name, "#build_status_verbose")
@@ -65,9 +61,7 @@ def runPlan(tPlan, testPlanId) {
     }
 
     echo "RESULT: ${currentBuild.result}"
-    script {
-        awsHelper.uploadToS3(testPlanId)
-    }
+    awsHelper.uploadToS3(testPlanId)
 }
 
 def getTestExecutionMap(parallel_executor_count) {
