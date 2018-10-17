@@ -19,32 +19,36 @@
 package org.wso2.tg.jenkins.util
 
 import com.cloudbees.groovy.cps.NonCPS
+import org.wso2.tg.jenkins.Properties
 
 def s3BucketName = getS3BucketName()
+def props = Properties.instance
 
 @NonCPS
 def uploadToS3(testPlanId) {
     echo "XXXXXUUU : ${s3BucketName}"
     sh """
-      aws s3 sync ${TESTGRID_HOME}/jobs/${PRODUCT}/${testPlanId}/ s3://${s3BucketName}/artifacts/jobs/${PRODUCT}/builds/${testPlanId} --include "*" --exclude 'workspace/*'
+      aws s3 sync ${props.TESTGRID_HOME}/jobs/${props.PRODUCT}/${testPlanId}/ 
+s3://${s3BucketName}/artifacts/jobs/${props.PRODUCT}/builds/${testPlanId} --include "*" --exclude 'workspace/*'
       """
 }
 
 @NonCPS
 def uploadCharts() {
     sh """
-      aws s3 sync ${TESTGRID_HOME}/jobs/${PRODUCT}/builds/ s3://${s3BucketName}/charts/${PRODUCT}/ --exclude "*" --include "*.png" --acl public-read
+      aws s3 sync ${props.TESTGRID_HOME}/jobs/${props.PRODUCT}/builds/ s3://${s3BucketName}/charts/${props.PRODUCT}/ 
+--exclude "*" --include "*.png" --acl public-read
       """
 }
 
 def loadProperties() {
     node {
-        def properties = readProperties file: "${TESTGRID_HOME}/config.properties"
+        def properties = readProperties file: "${props.TESTGRID_HOME}/config.properties"
     }
 }
 
 def getS3BucketName() {
-    def properties = readProperties file: "${TESTGRID_HOME}/config.properties"
+    def properties = readProperties file: "${props.TESTGRID_HOME}/config.properties"
     def bucket = properties['AWS_S3_BUCKET_NAME']
     if ("${bucket}" == "null") {
         bucket = "unknown"
