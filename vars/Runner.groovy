@@ -95,7 +95,7 @@ def call(def ab) {
                                 tgExecutor.generateTesPlans(props.PRODUCT, props.JOB_CONFIG_YAML_PATH)
 
                                 echo "Stashing testplans to be used in different slave nodes"
-                                dir("${props.CURRENT_WORKSPACE}") {
+                                dir("${props.WORKSPACE}") {
                                     stash name: "test-plans", includes: "test-plans/**"
                                 }
                             } catch (e) {
