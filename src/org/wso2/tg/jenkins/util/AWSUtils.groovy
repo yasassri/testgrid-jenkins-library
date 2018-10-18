@@ -18,11 +18,13 @@
 
 package org.wso2.tg.jenkins.util
 
+import org.wso2.tg.jenkins.PipelineContext
 import org.wso2.tg.jenkins.Properties
 
 
 class AWSUtils implements Serializable {
     static def props = Properties.instance
+    static def coontext = PipelineContext.instance
 
     static def uploadToS3(testPlanId) {
 //        sh """
