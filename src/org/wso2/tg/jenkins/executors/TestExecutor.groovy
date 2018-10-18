@@ -74,7 +74,9 @@ def getTestExecutionMap(parallel_executor_count) {
     echo "Parallel exec count "+ parallelExecCount
     for (int f = 1; f < parallelExecCount + 1 && f <= files.length; f++) {
         def executor = f
+        echo "11111"
         name = commonUtils.getParameters("${props.WORKSPACE}/test-plans/" + files[f - 1].name)
+        echo "2222"
         echo name
         tests["${name}"] = {
             node {
