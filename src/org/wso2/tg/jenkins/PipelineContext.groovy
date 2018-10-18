@@ -23,7 +23,7 @@ class PipelineContext implements Serializable {
 
     def context = null
 
-    synchronized setContext(def context2) {
+    synchronized def setContext(def context2) {
         contex = context2
     }
 
