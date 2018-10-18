@@ -18,7 +18,7 @@
 package org.wso2.tg.jenkins
 
 
-@Singleton
+@Singleton(lazy=true,strict=false)
 class PipelineContext implements Serializable {
 
     def context = null
