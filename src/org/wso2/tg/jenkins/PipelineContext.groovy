@@ -23,8 +23,8 @@ class PipelineContext {
 
     static def context = null
 
-    def setContext(def context2) {
-        context = context2
+    def setContext(def context) {
+        this.context = context
     }
 
     def getContex() {
