@@ -19,7 +19,10 @@
 package org.wso2.tg.jenkins.util
 
 import com.cloudbees.groovy.cps.NonCPS
+import groovy.transform.Field
 import org.wso2.tg.jenkins.Properties
+
+@Field props2 = Properties.instance
 
 def uploadToS3(testPlanId) {
     def props = Properties.instance
