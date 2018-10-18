@@ -45,18 +45,18 @@ def call(def ab) {
     def runtime = new RuntimeUtils()
     def ws = new WorkSpaceUtils()
 
-//    pipeline {
-//        agent {
-//            node {
-//                label ""
-//                customWorkspace "/testgrid/testgrid-home/jobs/${props.PRODUCT}"
-//            }
-//        }
-//        tools {
-//            jdk 'jdk8'
-//        }
+    pipeline {
+        agent {
+            node {
+                label ""
+                customWorkspace "/testgrid/testgrid-home/jobs/${props.PRODUCT}"
+            }
+        }
+        tools {
+            jdk 'jdk8'
+        }
 
-//        stages {
+        stages {
             stage('Preparation') {
                 steps {
                     script {
@@ -173,6 +173,6 @@ def call(def ab) {
 //                        }
 //                    }
 //                }
-//        }
-//    }
+        }
+    }
 }
