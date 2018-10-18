@@ -39,7 +39,7 @@ def call(def ab) {
     // For scaling we need to create slave nodes before starting the pipeline and schedule it appropriately
     def alert = new Slack()
     def email = new Email()
-    def awsHelper = new AWSUtils()
+    //def awsHelper = new AWSUtils()
     def testExecutor = new TestExecutor()
     def tgExecutor = new TestGridExecutor()
     def runtime = new RuntimeUtils()
