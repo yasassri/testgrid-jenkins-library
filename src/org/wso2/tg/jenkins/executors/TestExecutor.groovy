@@ -18,6 +18,7 @@
 
 package org.wso2.tg.jenkins.executors
 
+import com.cloudbees.groovy.cps.NonCPS
 import org.wso2.tg.jenkins.Properties
 import org.wso2.tg.jenkins.util.Common
 import org.wso2.tg.jenkins.util.AWSUtils
@@ -64,6 +65,7 @@ def runPlan(tPlan, testPlanId) {
         awsHelper.uploadToS3(testPlanId)
 }
 
+//@NonCPS
 def getTestExecutionMap(parallel_executor_count) {
     def commonUtils = new Common()
     def props = Properties.instance
@@ -72,6 +74,7 @@ def getTestExecutionMap(parallel_executor_count) {
     def tests = [:]
     def files = findFiles(glob: '**/test-plans/*.yaml')
     echo "Parallel exec count "+ parallelExecCount
+    echo "Parallel exec count files length " + files.length
     for (int f = 1; f < parallelExecCount + 1 && f <= files.length; f++) {
         def executor = f
         echo "11111"
