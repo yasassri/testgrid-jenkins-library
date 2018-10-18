@@ -18,7 +18,6 @@
 
 package org.wso2.tg.jenkins.executors
 
-import com.cloudbees.groovy.cps.NonCPS
 import org.wso2.tg.jenkins.Properties
 import org.wso2.tg.jenkins.util.Common
 import org.wso2.tg.jenkins.util.AWSUtils
@@ -110,7 +109,6 @@ def getTestExecutionMap(parallel_executor_count) {
     return tests
 }
 
-//@NonCPS
 def prepareWorkspace(tPlan, testPlanId){
     def props = Properties.instance
 
