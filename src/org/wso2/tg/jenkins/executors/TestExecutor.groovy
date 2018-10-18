@@ -73,6 +73,11 @@ def getTestExecutionMap(parallel_executor_count) {
     def name = "unknown"
     def tests = [:]
     echo pwd()
+    sh """
+    ls -al
+    echo "XXXX Plans "
+    ls test-plans
+    """
     def files = findFiles(glob: '**/test-plans/*.yaml')
     echo "Parallel exec count "+ parallelExecCount
     echo "Parallel exec count files length " + files.length
