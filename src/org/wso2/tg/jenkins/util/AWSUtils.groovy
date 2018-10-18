@@ -22,7 +22,7 @@ import org.wso2.tg.jenkins.Properties
 
 
 class AWSUtils implements Serializable {
-    def props = Properties.instance
+    static def props = Properties.instance
 
     static def uploadToS3(testPlanId) {
         sh """
