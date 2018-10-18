@@ -18,40 +18,35 @@
 
 package org.wso2.tg.jenkins.util
 
-import org.wso2.tg.jenkins.PipelineContext
+import com.cloudbees.groovy.cps.NonCPS
 import org.wso2.tg.jenkins.Properties
 
+def uploadToS3(testPlanId) {
+    def props = Properties.instance
+    sh """
+      aws s3 sync ${props.TESTGRID_HOME}/jobs/${props.PRODUCT}/${testPlanId}/ ${getS3WorkspaceURL()}/artifacts/jobs/${props.PRODUCT}/builds/${testPlanId} --include "*" --exclude 'workspace/*'
+      """
+}
 
-class AWSUtils implements Serializable {
-    static def props = Properties.instance
-    static def coontext = PipelineContext.instance
+def uploadCharts() {
+    def props = Properties.instance
+    sh """
+      aws s3 sync ${props.TESTGRID_HOME}/jobs/${props.PRODUCT}/builds/ ${getS3WorkspaceURL()}/charts/${props.PRODUCT}/ 
+--exclude "*" --include "*.png" --acl public-read
+      """
+}
 
-    static def uploadToS3(testPlanId) {
-//        sh """
-//      aws s3 sync ${props.TESTGRID_HOME}/jobs/${props.PRODUCT}/${testPlanId}/ ${getS3WorkspaceURL()
-//        }/artifacts/jobs/${props.PRODUCT}/builds/${testPlanId} --include "*" --exclude 'workspace/*'
-//      """
+private def getS3WorkspaceURL() {
+    // We need to upload all the artifacts to product workspace
+    return "s3://" + getS3BucketName()
+}
+
+private def getS3BucketName() {
+    def props = Properties.instance
+    def properties = readProperties file: "${props.CONFIG_PROPERTY_FILE_PATH}"
+    def bucket = properties['AWS_S3_BUCKET_NAME']
+    if ("${bucket}" == "null") {
+        bucket = "unknown"
     }
-
-    static def uploadCharts() {
-//        sh """
-//      aws s3 sync ${props.TESTGRID_HOME}/jobs/${props.PRODUCT}/builds/ ${getS3WorkspaceURL()}/charts/${props.PRODUCT}/
-//--exclude "*" --include "*.png" --acl public-read
-//      """
-    }
-
-    static private def getS3WorkspaceURL() {
-        // We need to upload all the artifacts to product workspace
-        return "s3://" + getS3BucketName()
-    }
-
-    static private def getS3BucketName() {
-//        def properties = readProperties file: "${props.CONFIG_PROPERTY_FILE_PATH}"
-//        def bucket = properties['AWS_S3_BUCKET_NAME']
-//        if ("${bucket}" == "null") {
-//            bucket = "unknown"
-//        }
-//        return bucket
-    }
-
+    return bucket
 }

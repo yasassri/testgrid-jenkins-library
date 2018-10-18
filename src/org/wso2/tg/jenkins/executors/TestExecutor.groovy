@@ -27,7 +27,7 @@ import org.wso2.tg.jenkins.util.FileUtils
 def runPlan(tPlan, testPlanId) {
     def commonUtil = new Common()
     def notfier = new Slack()
-    //def awsHelper = new AWSUtils()
+    def awsHelper = new AWSUtils()
     def fileUtil = new FileUtils()
     def props = Properties.instance
 
@@ -60,7 +60,7 @@ def runPlan(tPlan, testPlanId) {
     }
 
     echo "RESULT: ${currentBuild.result}"
-    AWSUtils.uploadToS3(testPlanId)
+    awsHelper.uploadToS3(testPlanId)
 }
 
 def getTestExecutionMap(parallel_executor_count) {
