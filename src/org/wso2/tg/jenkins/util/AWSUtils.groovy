@@ -18,18 +18,18 @@
 
 package org.wso2.tg.jenkins.util
 
-import groovy.transform.Field
+import com.cloudbees.groovy.cps.NonCPS
 import org.wso2.tg.jenkins.Properties
 
-@Field def props = Properties.instance
-
 def uploadToS3(testPlanId) {
+    def props = Properties.instance
     sh """
       aws s3 sync ${props.TESTGRID_HOME}/jobs/${props.PRODUCT}/${testPlanId}/ ${getS3WorkspaceURL()}/artifacts/jobs/${props.PRODUCT}/builds/${testPlanId} --include "*" --exclude 'workspace/*'
       """
 }
 
 def uploadCharts() {
+    def props = Properties.instance
     sh """
       aws s3 sync ${props.TESTGRID_HOME}/jobs/${props.PRODUCT}/builds/ ${getS3WorkspaceURL()}/charts/${props.PRODUCT}/ 
 --exclude "*" --include "*.png" --acl public-read
@@ -42,8 +42,9 @@ private def getS3WorkspaceURL() {
 }
 
 private def getS3BucketName() {
-    def configProperties = readProperties file: "${props.CONFIG_PROPERTY_FILE_PATH}"
-    def bucket = configProperties['AWS_S3_BUCKET_NAME']
+    def props = Properties.instance
+    def properties = readProperties file: "${props.CONFIG_PROPERTY_FILE_PATH}"
+    def bucket = properties['AWS_S3_BUCKET_NAME']
     if ("${bucket}" == "null") {
         bucket = "unknown"
     }
