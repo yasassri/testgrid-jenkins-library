@@ -56,7 +56,7 @@ def call(def ab) {
 //            jdk 'jdk8'
 //        }
 
-        stages {
+//        stages {
             stage('Preparation') {
                 steps {
                     script {
@@ -173,6 +173,6 @@ def call(def ab) {
 //                        }
 //                    }
 //                }
-        }
+//        }
 //    }
 }
