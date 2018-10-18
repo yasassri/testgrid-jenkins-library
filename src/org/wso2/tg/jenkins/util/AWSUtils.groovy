@@ -25,17 +25,17 @@ class AWSUtils implements Serializable {
     static def props = Properties.instance
 
     static def uploadToS3(testPlanId) {
-        sh """
-      aws s3 sync ${props.TESTGRID_HOME}/jobs/${props.PRODUCT}/${testPlanId}/ ${getS3WorkspaceURL()
-        }/artifacts/jobs/${props.PRODUCT}/builds/${testPlanId} --include "*" --exclude 'workspace/*'
-      """
+//        sh """
+//      aws s3 sync ${props.TESTGRID_HOME}/jobs/${props.PRODUCT}/${testPlanId}/ ${getS3WorkspaceURL()
+//        }/artifacts/jobs/${props.PRODUCT}/builds/${testPlanId} --include "*" --exclude 'workspace/*'
+//      """
     }
 
     static def uploadCharts() {
-        sh """
-      aws s3 sync ${props.TESTGRID_HOME}/jobs/${props.PRODUCT}/builds/ ${getS3WorkspaceURL()}/charts/${props.PRODUCT}/ 
---exclude "*" --include "*.png" --acl public-read
-      """
+//        sh """
+//      aws s3 sync ${props.TESTGRID_HOME}/jobs/${props.PRODUCT}/builds/ ${getS3WorkspaceURL()}/charts/${props.PRODUCT}/
+//--exclude "*" --include "*.png" --acl public-read
+//      """
     }
 
     static private def getS3WorkspaceURL() {
@@ -44,12 +44,12 @@ class AWSUtils implements Serializable {
     }
 
     static private def getS3BucketName() {
-        def properties = readProperties file: "${props.CONFIG_PROPERTY_FILE_PATH}"
-        def bucket = properties['AWS_S3_BUCKET_NAME']
-        if ("${bucket}" == "null") {
-            bucket = "unknown"
-        }
-        return bucket
+//        def properties = readProperties file: "${props.CONFIG_PROPERTY_FILE_PATH}"
+//        def bucket = properties['AWS_S3_BUCKET_NAME']
+//        if ("${bucket}" == "null") {
+//            bucket = "unknown"
+//        }
+//        return bucket
     }
 
 }
