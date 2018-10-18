@@ -20,13 +20,13 @@ package org.wso2.tg.jenkins
 @Singleton
 class PipelineContext implements Serializable {
 
-    private static def context
+    private def context
 
     synchronized setContext(def context) {
         this.contex = context
     }
 
-    static def getContex() {
+    def getContex() {
         return context
     }
 }
