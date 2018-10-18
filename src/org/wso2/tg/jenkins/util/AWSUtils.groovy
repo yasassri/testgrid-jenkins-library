@@ -20,32 +20,36 @@ package org.wso2.tg.jenkins.util
 
 import org.wso2.tg.jenkins.Properties
 
-props = Properties.instance
 
-def uploadToS3(testPlanId) {
-    sh """
+class AWSUtils implements Serializable {
+    def props = Properties.instance
+
+    def uploadToS3(testPlanId) {
+        sh """
       aws s3 sync ${props.TESTGRID_HOME}/jobs/${props.PRODUCT}/${testPlanId}/ ${getS3WorkspaceURL()
-    }/artifacts/jobs/${props.PRODUCT}/builds/${testPlanId} --include "*" --exclude 'workspace/*'
+        }/artifacts/jobs/${props.PRODUCT}/builds/${testPlanId} --include "*" --exclude 'workspace/*'
       """
-}
+    }
 
-def uploadCharts() {
-    sh """
+    def uploadCharts() {
+        sh """
       aws s3 sync ${props.TESTGRID_HOME}/jobs/${props.PRODUCT}/builds/ ${getS3WorkspaceURL()}/charts/${props.PRODUCT}/ 
 --exclude "*" --include "*.png" --acl public-read
       """
-}
-
-private def getS3WorkspaceURL() {
-    // We need to upload all the artifacts to product workspace
-    return "s3://" + getS3BucketName()
-}
-
-private def getS3BucketName() {
-    def properties = readProperties file: "${props.CONFIG_PROPERTY_FILE_PATH}"
-    def bucket = properties['AWS_S3_BUCKET_NAME']
-    if ("${bucket}" == "null") {
-        bucket = "unknown"
     }
-    return bucket
+
+    private def getS3WorkspaceURL() {
+        // We need to upload all the artifacts to product workspace
+        return "s3://" + getS3BucketName()
+    }
+
+    private def getS3BucketName() {
+        def properties = readProperties file: "${props.CONFIG_PROPERTY_FILE_PATH}"
+        def bucket = properties['AWS_S3_BUCKET_NAME']
+        if ("${bucket}" == "null") {
+            bucket = "unknown"
+        }
+        return bucket
+    }
+
 }
