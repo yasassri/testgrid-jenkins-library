@@ -60,7 +60,8 @@ def runPlan(tPlan, testPlanId) {
     }
 
     echo "RESULT: ${currentBuild.result}"
-    awsHelper.uploadToS3(testPlanId)
+
+        awsHelper.uploadToS3(testPlanId)
 }
 
 def getTestExecutionMap(parallel_executor_count) {
@@ -109,6 +110,7 @@ def getTestExecutionMap(parallel_executor_count) {
     return tests
 }
 
+//@NonCPS
 def prepareWorkspace(tPlan, testPlanId){
     def props = Properties.instance
 
