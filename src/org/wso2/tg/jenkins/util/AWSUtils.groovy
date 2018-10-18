@@ -18,8 +18,6 @@
 
 package org.wso2.tg.jenkins.util
 
-import com.cloudbees.groovy.cps.NonCPS
-import groovy.transform.Field
 import org.wso2.tg.jenkins.Properties
 
 props = Properties.instance

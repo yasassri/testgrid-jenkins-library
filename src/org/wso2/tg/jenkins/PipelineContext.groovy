@@ -18,4 +18,15 @@ package org.wso2.tg.jenkins
  */
 
 @Singleton
-class PipelineContext implements Serializable {}
+class PipelineContext implements Serializable {
+
+    private static def context = null
+
+    synchronized setContext(def context) {
+        this.contex = context
+    }
+
+    static def getContex() {
+        return context
+    }
+}

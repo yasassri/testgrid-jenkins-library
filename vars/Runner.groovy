@@ -17,6 +17,7 @@
  */
 
 
+import org.wso2.tg.jenkins.PipelineContext
 import org.wso2.tg.jenkins.alert.Slack
 import org.wso2.tg.jenkins.alert.Email
 import org.wso2.tg.jenkins.executors.TestGridExecutor
@@ -29,103 +30,104 @@ import org.wso2.tg.jenkins.util.WorkSpaceUtils
 
 // The pipeline should reside in a call block
 def call(def ab) {
-        // Initializing environment properties
-        def props = Properties.instance
-        props.initProperties(ab.getRawBuild().getEnvironment())
+    // Setting the current pipeline context
+    PipelineContext.instance.setContext(this)
+    // Initializing environment properties
+    Properties.instance.initProperties(ab.getRawBuild().getEnvironment())
 
-        // For scaling we need to create slave nodes before starting the pipeline and schedule it appropriately
-        def alert = new Slack()
-        def email = new Email()
-        def awsHelper = new AWSUtils()
-        def testExecutor = new TestExecutor()
-        def tgExecutor = new TestGridExecutor()
-        def runtime = new RuntimeUtil()
-        def ws = new WorkSpaceUtils()
+    // For scaling we need to create slave nodes before starting the pipeline and schedule it appropriately
+    def alert = new Slack()
+    def email = new Email()
+    def awsHelper = new AWSUtils()
+    def testExecutor = new TestExecutor()
+    def tgExecutor = new TestGridExecutor()
+    def runtime = new RuntimeUtil()
+    def ws = new WorkSpaceUtils()
 
-        pipeline {
-            agent {
-                node {
-                    label ""
-                    customWorkspace "/testgrid/testgrid-home/jobs/${props.PRODUCT}"
-                }
+    pipeline {
+        agent {
+            node {
+                label ""
+                customWorkspace "/testgrid/testgrid-home/jobs/${props.PRODUCT}"
             }
-            tools {
-                jdk 'jdk8'
-            }
+        }
+        tools {
+            jdk 'jdk8'
+        }
 
-            stages {
-                stage('Preparation') {
-                    steps {
-                        script {
-                            try {
-                                //alert.sendNotification('STARTED', "Initiation", "#build_status_verbose")
-                                ///alert.sendNotification('STARTED', "Initiation", "#build_status")
-                                echo pwd()
-                                deleteDir()
+        stages {
+            stage('Preparation') {
+                steps {
+                    script {
+                        try {
+                            //alert.sendNotification('STARTED', "Initiation", "#build_status_verbose")
+                            ///alert.sendNotification('STARTED', "Initiation", "#build_status")
+                            echo pwd()
+                            deleteDir()
 
-                                // Increasing the TG JVM memory params
-                                runtime.increaseTestGridRuntimeMemory("2G", "2G")
-                                // Get testgrid.yaml from jenkins managed files
-                                configFileProvider(
-                                        [configFile(fileId: "${props.PRODUCT}-testgrid-yaml", targetLocation:
-                                                "${props.TESTGRID_YAML_LOCATION}")]) {
-                                }
+                            // Increasing the TG JVM memory params
+                            runtime.increaseTestGridRuntimeMemory("2G", "2G")
+                            // Get testgrid.yaml from jenkins managed files
+                            configFileProvider(
+                                    [configFile(fileId: "${props.PRODUCT}-testgrid-yaml", targetLocation:
+                                            "${props.TESTGRID_YAML_LOCATION}")]) {
+                            }
 
-                                //Constructing the product git url if test mode is wum. Adding the Git username and password into the product git url.
-                                if ("${props.TEST_MODE}" == "WUM") {
-                                    def url = "${props.PRODUCT_GIT_URL}"
-                                    def values = url.split('//g')
-                                    def productGitUrl =
-                                            "${values[0]}//${props.GIT_WUM_USERNAME}:${props.GIT_WUM_PASSWORD}@g${values[1]}"
-                                    PRODUCT_GIT_URL = "${productGitUrl}"
+                            //Constructing the product git url if test mode is wum. Adding the Git username and password into the product git url.
+                            if ("${props.TEST_MODE}" == "WUM") {
+                                def url = "${props.PRODUCT_GIT_URL}"
+                                def values = url.split('//g')
+                                def productGitUrl =
+                                        "${values[0]}//${props.GIT_WUM_USERNAME}:${props.GIT_WUM_PASSWORD}@g${values[1]}"
+                                PRODUCT_GIT_URL = "${productGitUrl}"
 
-                                } else {
-                                    PRODUCT_GIT_URL = "${props.PRODUCT_GIT_URL}"
-                                }
-                                echo "Creating Job config!!!!"
-                                // Creating the job config file
-                                ws.createJobConfigYamlFile("${props.JOB_CONFIG_YAML_PATH}")
-                                echo "Done Creating Job config!!!!"
-                                sh """
+                            } else {
+                                PRODUCT_GIT_URL = "${props.PRODUCT_GIT_URL}"
+                            }
+                            echo "Creating Job config!!!!"
+                            // Creating the job config file
+                            ws.createJobConfigYamlFile("${props.JOB_CONFIG_YAML_PATH}")
+                            echo "Done Creating Job config!!!!"
+                            sh """
 				                    echo The job-config.yaml :
                                     cat ${props.JOB_CONFIG_YAML_PATH}
                                     """
 
-                                echo "Generating test plans!!"
-                                tgExecutor.generateTesPlans(props.PRODUCT, props.JOB_CONFIG_YAML_PATH)
+                            echo "Generating test plans!!"
+                            tgExecutor.generateTesPlans(props.PRODUCT, props.JOB_CONFIG_YAML_PATH)
 
-                                echo "Stashing testplans to be used in different slave nodes"
-                                dir("${props.WORKSPACE}") {
-                                    stash name: "test-plans", includes: "test-plans/**"
-                                }
-                            } catch (e) {
-                                currentBuild.result = "FAILED"
-                            } finally {
-                                //alert.sendNotification(currentBuild.result, "preparation", "#build_status_verbose")
+                            echo "Stashing testplans to be used in different slave nodes"
+                            dir("${props.WORKSPACE}") {
+                                stash name: "test-plans", includes: "test-plans/**"
                             }
+                        } catch (e) {
+                            currentBuild.result = "FAILED"
+                        } finally {
+                            //alert.sendNotification(currentBuild.result, "preparation", "#build_status_verbose")
                         }
                     }
                 }
+            }
 
-                stage('parallel-run') {
-                    steps {
-                        script {
-                            def name = "unknown"
-                            try {
-                                parallel_executor_count = 12
-                                if (props.EXECUTOR_COUNT != "null") {
-                                    echo "executor count is" + env.EXECUTOR_COUNT
-                                    parallel_executor_count = env.EXECUTOR_COUNT
-                                }
-                                def tests = testExecutor.getTestExecutionMap(parallel_executor_count)
-                                parallel tests
-                            } catch (e) {
-                                currentBuild.result = "FAILED"
-                                //alert.sendNotification(currentBuild.result, "Parallel", "#build_status_verbose")
+            stage('parallel-run') {
+                steps {
+                    script {
+                        def name = "unknown"
+                        try {
+                            parallel_executor_count = 12
+                            if (props.EXECUTOR_COUNT != "null") {
+                                echo "executor count is" + env.EXECUTOR_COUNT
+                                parallel_executor_count = env.EXECUTOR_COUNT
                             }
+                            def tests = testExecutor.getTestExecutionMap(parallel_executor_count)
+                            parallel tests
+                        } catch (e) {
+                            currentBuild.result = "FAILED"
+                            //alert.sendNotification(currentBuild.result, "Parallel", "#build_status_verbose")
                         }
                     }
                 }
+            }
 
 //                post {
 //                    always {
@@ -170,6 +172,6 @@ def call(def ab) {
 //                        }
 //                    }
 //                }
-            }
         }
+    }
 }
