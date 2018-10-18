@@ -31,7 +31,7 @@ import org.wso2.tg.jenkins.util.WorkSpaceUtils
 // The pipeline should reside in a call block
 def call(def ab) {
     // Setting the current pipeline context
-    PipelineContext.instance.setContext(this)
+    //PipelineContext.instance.setContext(this)
     // Initializing environment properties
     def props = Properties.instance
     props.instance.initProperties(ab.getRawBuild().getEnvironment())
@@ -39,7 +39,7 @@ def call(def ab) {
     // For scaling we need to create slave nodes before starting the pipeline and schedule it appropriately
     def alert = new Slack()
     def email = new Email()
-    //def awsHelper = new AWSUtils()
+    def awsHelper = new AWSUtils()
     def testExecutor = new TestExecutor()
     def tgExecutor = new TestGridExecutor()
     def runtime = new RuntimeUtils()
