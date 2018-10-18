@@ -78,11 +78,7 @@ def getTestExecutionMap(parallel_executor_count) {
     echo "XXXX Plans "
     ls test-plans
     """
-    // In some cases the file search can hapen in a different workspace
-    def files
-    dir(props.WORKSPACE){
-        files = findFiles(glob: '**/test-plans/*.yaml')
-    }
+    def files = findFiles(glob: '**/test-plans/*.yaml')
     echo "Parallel exec count "+ parallelExecCount
     echo "Parallel exec count files length " + files.length
     for (int f = 1; f < parallelExecCount + 1 && f <= files.length; f++) {
