@@ -24,7 +24,7 @@ import org.wso2.tg.jenkins.executors.TestGridExecutor
 import org.wso2.tg.jenkins.util.AWSUtils
 import org.wso2.tg.jenkins.executors.TestExecutor
 import org.wso2.tg.jenkins.Properties
-import org.wso2.tg.jenkins.util.RuntimeUtil
+import org.wso2.tg.jenkins.util.RuntimeUtils
 import org.wso2.tg.jenkins.util.WorkSpaceUtils
 
 
@@ -42,7 +42,7 @@ def call(def ab) {
     def awsHelper = new AWSUtils()
     def testExecutor = new TestExecutor()
     def tgExecutor = new TestGridExecutor()
-    def runtime = new RuntimeUtil()
+    def runtime = new RuntimeUtils()
     def ws = new WorkSpaceUtils()
 
 //    pipeline {

@@ -28,6 +28,6 @@ class PipelineContext {
     }
 
     def getContex() {
-        return context
+        return this.context
     }
 }

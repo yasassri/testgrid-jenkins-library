@@ -18,9 +18,6 @@
 
 package org.wso2.tg.jenkins.util
 
-import jenkins.model.Jenkins
-import com.cloudbees.plugins.credentials.domains.Domain
-import com.cloudbees.plugins.credentials.impl.*
 import org.wso2.tg.jenkins.Properties
 
 def getTimestamp(Date date = new Date()) {
@@ -63,12 +60,12 @@ def getParameters(file) {
 
 def getTestPlanId(file) {
     echo "This is the file " + file.toString()
-     def tpyaml = readFile(file)
-     def m = tpyaml =~ /(id:)([A-z :'0-9\.-]*)(\n)/
+    def tpyaml = readFile(file)
+    def m = tpyaml =~ /(id:)([A-z :'0-9\.-]*)(\n)/
     return m[0][2].trim()
- }
+}
 
-def getRandomNumber(limit){
+def getRandomNumber(limit) {
     return Math.abs(new Random().nextInt() % limit) + 1 as int
 }
 
@@ -80,7 +77,7 @@ def getCurrentWorkspace() {
     return a
 }
 
-def getCredentials(def key){
+def getCredentials(def key) {
 //    Jenkins jenkins = Jenkins.getInstance()
 //    def store = jenkins.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
 //    // get credentials domain
