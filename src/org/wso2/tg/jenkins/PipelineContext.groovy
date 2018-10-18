@@ -1,4 +1,3 @@
-package org.wso2.tg.jenkins
 /*
  * Copyright (c) 2018, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  *
@@ -16,14 +15,16 @@ package org.wso2.tg.jenkins
  * specific language governing permissions and limitations
  * under the License.
  */
+package org.wso2.tg.jenkins
+
 
 @Singleton
 class PipelineContext implements Serializable {
 
     private def context
 
-    synchronized setContext(def context) {
-        this.contex = context
+    synchronized setContext(def context2) {
+        contex = context2
     }
 
     def getContex() {
