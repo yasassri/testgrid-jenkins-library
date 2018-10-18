@@ -117,8 +117,8 @@ def call(def ab) {
                         try {
                             parallel_executor_count = 12
                             if (props.EXECUTOR_COUNT != "null") {
-                                echo "executor count is" + env.EXECUTOR_COUNT
-                                parallel_executor_count = env.EXECUTOR_COUNT
+                                echo "executor count is" + props.EXECUTOR_COUNT
+                                parallel_executor_count = props.EXECUTOR_COUNT
                             }
                             def tests = testExecutor.getTestExecutionMap(parallel_executor_count)
                             parallel tests
