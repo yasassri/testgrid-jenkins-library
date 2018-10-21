@@ -29,7 +29,7 @@ import org.wso2.tg.jenkins.util.WorkSpaceUtils
 
 
 // The pipeline should reside in a call block
-def call(def ab) {
+def call() {
     // Setting the current pipeline context
     PipelineContext.instance.setContext(this)
     // Initializing environment properties
@@ -62,10 +62,8 @@ def call(def ab) {
                     script {
                         try {
                             //alert.sendNotification('STARTED', "Initiation", "#build_status_verbose")
-                            ///alert.sendNotification('STARTED', "Initiation", "#build_status")
-                            echo pwd()
+                            //alert.sendNotification('STARTED', "Initiation", "#build_status")
                             deleteDir()
-                            echo "111"
                             pwd()
                             // Increasing the TG JVM memory params
                             runtime.increaseTestGridRuntimeMemory("2G", "2G")
@@ -89,11 +87,10 @@ def call(def ab) {
                             echo "Creating Job config!!!!"
                             // Creating the job config file
                             ws.createJobConfigYamlFile("${props.JOB_CONFIG_YAML_PATH}")
-                            echo "Done Creating Job config!!!!"
                             sh """
-				                    echo The job-config.yaml :
-                                    cat ${props.JOB_CONFIG_YAML_PATH}
-                                    """
+                                echo The job-config.yaml content :
+                                cat ${props.JOB_CONFIG_YAML_PATH}
+                            """
 
                             echo "Generating test plans!!"
                             tgExecutor.generateTesPlans(props.PRODUCT, props.JOB_CONFIG_YAML_PATH)
@@ -152,10 +149,11 @@ def call(def ab) {
                         //Send email for failed results.
                         if (fileExists("${props.WORKSPACE}/SummarizedEmailReport.html")) {
                             def emailBody = readFile "${props.WORKSPACE}/SummarizedEmailReport.html"
-                            email.send("'${env.JOB_NAME}' Integration Test Results! #(${env.BUILD_NUMBER})", "${emailBody}")
+                            email.send("'${props.PRODUCT}' Integration Test Results! #(${env.BUILD_NUMBER})",
+                                    "${emailBody}")
                         } else {
                             echo "No SummarizedEmailReport.html file found!!"
-                            email.send("'${env.JOB_NAME}'#(${env.BUILD_NUMBER}) - SummarizedEmailReport.html " +
+                            email.send("'${props.PRODUCT}'#(${env.BUILD_NUMBER}) - SummarizedEmailReport.html " +
                                     "file not found", "Could not find the summarized email report ${env.BUILD_URL}. This is an error in " +
                                     "testgrid.")
                         }
