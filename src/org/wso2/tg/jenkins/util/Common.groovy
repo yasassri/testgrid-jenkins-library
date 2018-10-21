@@ -72,10 +72,8 @@ def getRandomNumber(limit) {
 }
 
 def getCurrentWorkspace() {
-    def a = null
-    node {
-        a = pwd()
-    }
+    def a
+    a = pwd()
     return a
 }
 

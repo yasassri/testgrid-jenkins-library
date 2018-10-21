@@ -66,12 +66,11 @@ class Properties {
     static def INFRASTRUCTURE_REPOSITORY    = ""
 
 
-
-    def initProperties(def  propertyMap){
+    def initProperties(def propertyMap) {
         Common util = new Common()
 
-        CURRENT_WORKSPACE = util.getCurrentWorkspace()
-        WORKSPACE                = util.getCurrentWorkspace()
+        CURRENT_WORKSPACE = util.getCurrentWorkspace().toString()
+        WORKSPACE = util.getCurrentWorkspace()
         PRODUCT = propertyMap.get(Constants.PRODUCT)
         TESTGRID_YAML_LOCATION = WORKSPACE + "/testgrid" + ".yaml"
         JOB_CONFIG_YAML_PATH = WORKSPACE + "/" + JOB_CONFIG_YAML
@@ -83,22 +82,22 @@ class Properties {
         WUM_PRODUCT_VERSION = propertyMap.get(Constants.WUM_PRODUCT_VERSION)
         USE_CUSTOM_TESTNG = propertyMap.get(Constants.USE_CUSTOM_TESTNG)
         EXECUTOR_COUNT = propertyMap.get(Constants.EXECUTOR_COUNT)
-        AWS_ACCESS_KEY_ID        = util.getCredentials('AWS_ACCESS_KEY_ID')
-        AWS_SECRET_ACCESS_KEY    = util.getCredentials('AWS_SECRET_ACCESS_KEY')
-        TOMCAT_USERNAME          = util.getCredentials('TOMCAT_USERNAME')
-        TOMCAT_PASSWORD          = util.getCredentials('TOMCAT_PASSWORD')
-        WUM_UAT_URL              = util.getCredentials('WUM_UAT_URL')
-        WUM_UAT_APP_KEY          = util.getCredentials('WUM_UAT_APPKEY')
-        USER_NAME                = util.getCredentials('WUM_USERNAME')
-        PASSWORD                 = util.getCredentials('WUM_PASSWORD')
-        GIT_WUM_USERNAME         = util.getCredentials('GIT_WUM_USERNAME')
-        GIT_WUM_PASSWORD         = util.getCredentials('GIT_WUM_PASSWORD')
-        TEST_MODE                = propertyMap.get(Constants.TEST_MODE)
-        INFRA_LOCATION           = propertyMap.get(Constants.INFRA_LOCATION)
+        AWS_ACCESS_KEY_ID = util.getCredentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = util.getCredentials('AWS_SECRET_ACCESS_KEY')
+        TOMCAT_USERNAME = util.getCredentials('TOMCAT_USERNAME')
+        TOMCAT_PASSWORD = util.getCredentials('TOMCAT_PASSWORD')
+        WUM_UAT_URL = util.getCredentials('WUM_UAT_URL')
+        WUM_UAT_APP_KEY = util.getCredentials('WUM_UAT_APPKEY')
+        USER_NAME = util.getCredentials('WUM_USERNAME')
+        PASSWORD = util.getCredentials('WUM_PASSWORD')
+        GIT_WUM_USERNAME = util.getCredentials('GIT_WUM_USERNAME')
+        GIT_WUM_PASSWORD = util.getCredentials('GIT_WUM_PASSWORD')
+        TEST_MODE = propertyMap.get(Constants.TEST_MODE)
+        INFRA_LOCATION = propertyMap.get(Constants.INFRA_LOCATION)
         LATEST_PRODUCT_RELEASE_API = propertyMap.get(Constants.LATEST_PRODUCT_RELEASE_API)
         LATEST_PRODUCT_BUILD_ARTIFACTS_API = propertyMap.get(Constants.LATEST_PRODUCT_BUILD_ARTIFACTS_API)
-        SCENARIOS_REPOSITORY     = propertyMap.get(Constants.SCENARIOS_REPOSITORY)
-        INFRASTRUCTURE_REPOSITORY     = propertyMap.get(Constants.INFRASTRUCTURE_REPOSITORY)
+        SCENARIOS_REPOSITORY = propertyMap.get(Constants.SCENARIOS_REPOSITORY)
+        INFRASTRUCTURE_REPOSITORY = propertyMap.get(Constants.INFRASTRUCTURE_REPOSITORY)
     }
 }
 
