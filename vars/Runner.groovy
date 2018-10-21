@@ -45,12 +45,6 @@ def call(def ab) {
             node {
                 label ""
                 customWorkspace "/testgrid/testgrid-home/jobs/${props.PRODUCT}"
-                // we need to initialize the environment within the pipeline
-                // Setting the current pipeline context
-                PipelineContext.instance.setContext(this)
-                // Initializing environment properties
-                def props = Properties.instance
-                props.instance.initProperties(ab.getRawBuild().getEnvironment())
 
             }
         }
@@ -61,6 +55,12 @@ def call(def ab) {
         stages {
             stage('Preparation') {
                 steps {
+                    // we need to initialize the environment within the pipeline
+                    // Setting the current pipeline context
+                    PipelineContext.instance.setContext(this)
+                    // Initializing environment properties
+                    def props = Properties.instance
+                    props.instance.initProperties(ab.getRawBuild().getEnvironment())
                     script {
                         try {
                             //alert.sendNotification('STARTED', "Initiation", "#build_status_verbose")
