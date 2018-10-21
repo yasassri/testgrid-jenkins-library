@@ -34,7 +34,7 @@ def runPlan(tPlan, testPlanId) {
     fileUtil.createDirectory("${props.WORKSPACE}/${testPlanId}")
     echo "Preparing workspace"
     prepareWorkspace(tPlan, testPlanId)
-    sleep(time:commonUtil.getRandomNumber(10),unit:"SECONDS")
+    //sleep(time:commonUtil.getRandomNumber(10),unit:"SECONDS")
     echo "Unstashing test-plans and testgrid.yaml to ${props.WORKSPACE}/${testPlanId}"
     dir("${props.WORKSPACE}/${testPlanId}") {
         unstash name: "test-plans"

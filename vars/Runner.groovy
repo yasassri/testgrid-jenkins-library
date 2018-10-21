@@ -137,12 +137,11 @@ def call(def ab) {
                 script {
                     try {
                         sh """
+                                export TESTGRID_HOME="${props.TESTGRID_HOME}" 
                                 cd ${props.TESTGRID_HOME}/testgrid-dist/${props.TESTGRID_NAME}
                                 ./testgrid finalize-run-testplan \
                                 --product ${props.PRODUCT} --workspace ${props.WORKSPACE}
-                            """
 
-                        sh """
                                 export DISPLAY=:95.0
                                 cd ${props.TESTGRID_HOME}/testgrid-dist/${props.TESTGRID_NAME}
                                 ./testgrid generate-email \
