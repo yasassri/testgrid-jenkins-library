@@ -48,7 +48,7 @@ def runPlan(tPlan, testPlanId) {
             java -version
             #Need to change directory to root to run the next command properly
              export TESTGRID_HOME="${props.TESTGRID_HOME}"
-            ./${props.TESTGRID_HOME}/testgrid-dist/${props.TESTGRID_NAME}/testgrid run-testplan --product ${props.PRODUCT} \
+            .${props.TESTGRID_HOME}testgrid-dist/${props.TESTGRID_NAME}/testgrid run-testplan --product ${props.PRODUCT} \
             --file ${props.WORKSPACE}/${testPlanId}/${tPlan} --workspace ${props.WORKSPACE}/${testPlanId}        
         """
         commonUtil.truncateTestRunLog(testPlanId)
