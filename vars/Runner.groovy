@@ -30,17 +30,16 @@ import org.wso2.tg.jenkins.util.WorkSpaceUtils
 
 // The pipeline should reside in a call block
 def call(def ab) {
+    // For scaling we need to create slave nodes before starting the pipeline and schedule it appropriately
+    def alert = new Slack()
+    def email = new Email()
+    def awsHelper = new AWSUtils()
+    def testExecutor = new TestExecutor()
+    def tgExecutor = new TestGridExecutor()
+    def runtime = new RuntimeUtils()
+    def ws = new WorkSpaceUtils()
 
     pipeline {
-        // For scaling we need to create slave nodes before starting the pipeline and schedule it appropriately
-        def alert = new Slack()
-        def email = new Email()
-        def awsHelper = new AWSUtils()
-        def testExecutor = new TestExecutor()
-        def tgExecutor = new TestGridExecutor()
-        def runtime = new RuntimeUtils()
-        def ws = new WorkSpaceUtils()
-
         agent {
             node {
                 label ""
