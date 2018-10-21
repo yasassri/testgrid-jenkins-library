@@ -18,6 +18,7 @@
 
 package org.wso2.tg.jenkins.util
 
+import org.wso2.tg.jenkins.PipelineContext
 import org.wso2.tg.jenkins.Properties
 
 def getTimestamp(Date date = new Date()) {
@@ -73,7 +74,8 @@ def getRandomNumber(limit) {
 
 def getCurrentWorkspace() {
     def a
-    a = pwd()
+    def ctx = PipelineContext.instance.getContex()
+    a = ctx.pwd()
     return a
 }
 
