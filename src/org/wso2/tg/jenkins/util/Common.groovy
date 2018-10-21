@@ -18,7 +18,6 @@
 
 package org.wso2.tg.jenkins.util
 
-import org.wso2.tg.jenkins.PipelineContext
 import org.wso2.tg.jenkins.Properties
 
 def getTimestamp(Date date = new Date()) {
@@ -72,14 +71,12 @@ def getRandomNumber(limit) {
     return Math.abs(new Random().nextInt() % limit) + 1 as int
 }
 
+/**
+ *
+ * @return current working directory
+ */
 def getCurrentWorkspace() {
-//    def a
-//    def ctx = PipelineContext.instance.getContex()
-//    a = ctx.pwd()
-    def pwd = sh returnStdout: true, script: """#!/bin/bash --login pwd"""
-    echo "The pwd path is set as : ${pwd}"
-    return pwd.trim()
-    //return a
+    return pwd()
 }
 
 def getCredentials(def key) {
