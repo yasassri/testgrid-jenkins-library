@@ -31,7 +31,7 @@ import org.wso2.tg.jenkins.util.WorkSpaceUtils
 // The pipeline should reside in a call block
 def call(def ab) {
     // Setting the current pipeline context
-    //PipelineContext.instance.setContext(this)
+    PipelineContext.instance.setContext(this)
     // Initializing environment properties
     def props = Properties.instance
     props.instance.initProperties(ab.getRawBuild().getEnvironment())
