@@ -69,9 +69,9 @@ class Properties {
     def initProperties(def propertyMap) {
         Common util = new Common()
 
-        CURRENT_WORKSPACE = util.getCurrentWorkspace().toString()
-        WORKSPACE = util.getCurrentWorkspace()
         PRODUCT = propertyMap.get(Constants.PRODUCT)
+        CURRENT_WORKSPACE = util.getCurrentWorkspace().toString()
+        WORKSPACE = TESTGRID_HOME + "/jobs/" + PRODUCT
         TESTGRID_YAML_LOCATION = WORKSPACE + "/testgrid" + ".yaml"
         JOB_CONFIG_YAML_PATH = WORKSPACE + "/" + JOB_CONFIG_YAML
         PRODUCT_GIT_URL = propertyMap.get(Constants.PRODUCT_GIT_URL)
@@ -100,4 +100,3 @@ class Properties {
         INFRASTRUCTURE_REPOSITORY = propertyMap.get(Constants.INFRASTRUCTURE_REPOSITORY)
     }
 }
-

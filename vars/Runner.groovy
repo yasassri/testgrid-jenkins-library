@@ -30,6 +30,12 @@ import org.wso2.tg.jenkins.util.WorkSpaceUtils
 
 // The pipeline should reside in a call block
 def call(def ab) {
+    // Setting the current pipeline context
+    PipelineContext.instance.setContext(this)
+    // Initializing environment properties
+    def props = Properties.instance
+    props.instance.initProperties(ab.getRawBuild().getEnvironment())
+
     // For scaling we need to create slave nodes before starting the pipeline and schedule it appropriately
     def alert = new Slack()
     def email = new Email()
@@ -43,8 +49,7 @@ def call(def ab) {
         agent {
             node {
                 label ""
-                customWorkspace "/testgrid/testgrid-home/jobs/${props.PRODUCT}"
-
+                customWorkspace "${props.WORKSPACE}"
             }
         }
         tools {
@@ -55,12 +60,6 @@ def call(def ab) {
             stage('Preparation') {
                 steps {
                     script {
-                        // we need to initialize the environment within the pipeline
-                        // Setting the current pipeline context
-                        PipelineContext.instance.setContext(this)
-                        // Initializing environment properties
-                        def props = Properties.instance
-                        props.instance.initProperties(ab.getRawBuild().getEnvironment())
                         try {
                             //alert.sendNotification('STARTED', "Initiation", "#build_status_verbose")
                             ///alert.sendNotification('STARTED', "Initiation", "#build_status")
