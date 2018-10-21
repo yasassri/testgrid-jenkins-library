@@ -130,44 +130,44 @@ def call(def ab) {
                     }
                 }
             }
+        }
 
-                post {
-                    always {
-                        script {
-                            try {
-                                sh """
+        post {
+            always {
+                script {
+                    try {
+                        sh """
                                 cd ${props.TESTGRID_HOME}/testgrid-dist/${props.TESTGRID_NAME}
                                 ./testgrid finalize-run-testplan \
                                 --product ${props.PRODUCT} --workspace ${props.WORKSPACE}
                             """
 
-                                sh """
+                        sh """
                                 export DISPLAY=:95.0
                                 cd ${props.TESTGRID_HOME}/testgrid-dist/${props.TESTGRID_NAME}
                                 ./testgrid generate-email \
                                 --product ${props.PRODUCT} \
                                 --workspace ${props.WORKSPACE}
                             """
-                                awsHelper.uploadCharts()
-                                //Send email for failed results.
-                                if (fileExists("${props.WORKSPACE}/SummarizedEmailReport.html")) {
-                                    def emailBody = readFile "${props.WORKSPACE}/SummarizedEmailReport.html"
-                                    email.send("'${env.JOB_NAME}' Integration Test Results! #(${env.BUILD_NUMBER})", "${emailBody}")
-                                } else {
-                                    echo "No SummarizedEmailReport.html file found!!"
-                                    email.send("'${env.JOB_NAME}'#(${env.BUILD_NUMBER}) - SummarizedEmailReport.html " +
-                                            "file not found", "Could not find the summarized email report ${env.BUILD_URL}. This is an error in " +
-                                            "testgrid.")
-                                }
-                            } catch (e) {
-                                currentBuild.result = "FAILED"
-                            } finally {
-                                alert.sendNotification(currentBuild.result, "completed", "#build_status")
-                                alert.sendNotification(currentBuild.result, "completed", "#build_status_verbose")
-                            }
+                        awsHelper.uploadCharts()
+                        //Send email for failed results.
+                        if (fileExists("${props.WORKSPACE}/SummarizedEmailReport.html")) {
+                            def emailBody = readFile "${props.WORKSPACE}/SummarizedEmailReport.html"
+                            email.send("'${env.JOB_NAME}' Integration Test Results! #(${env.BUILD_NUMBER})", "${emailBody}")
+                        } else {
+                            echo "No SummarizedEmailReport.html file found!!"
+                            email.send("'${env.JOB_NAME}'#(${env.BUILD_NUMBER}) - SummarizedEmailReport.html " +
+                                    "file not found", "Could not find the summarized email report ${env.BUILD_URL}. This is an error in " +
+                                    "testgrid.")
                         }
+                    } catch (e) {
+                        currentBuild.result = "FAILED"
+                    } finally {
+                        alert.sendNotification(currentBuild.result, "completed", "#build_status")
+                        alert.sendNotification(currentBuild.result, "completed", "#build_status_verbose")
                     }
                 }
+            }
         }
     }
 }
