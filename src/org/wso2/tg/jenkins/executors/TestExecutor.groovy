@@ -47,9 +47,9 @@ def runPlan(tPlan, testPlanId) {
             echo Running Test-Plan: ${tPlan}
             java -version
             #Need to change directory to root to run the next command properly
-            cd /
-            #.${props.TESTGRID_HOME}/testgrid-dist/${props.TESTGRID_NAME}/testgrid run-testplan --product ${props.PRODUCT} \
-            #--file ${props.WORKSPACE}/${testPlanId}/${tPlan} --workspace ${props.WORKSPACE}/${testPlanId}        
+             export TESTGRID_HOME="${props.TESTGRID_HOME}"
+            ./${props.TESTGRID_HOME}/testgrid-dist/${props.TESTGRID_NAME}/testgrid run-testplan --product ${props.PRODUCT} \
+            --file ${props.WORKSPACE}/${testPlanId}/${tPlan} --workspace ${props.WORKSPACE}/${testPlanId}        
         """
         commonUtil.truncateTestRunLog(testPlanId)
     } catch (Exception err) {
