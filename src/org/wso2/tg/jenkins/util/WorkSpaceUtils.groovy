@@ -38,7 +38,8 @@ def createJobConfigYamlFile(filePath) throws IOException {
     echo 'infrastructureRepository: ${props.INFRA_LOCATION}/' >> ${filePath}
     echo 'deploymentRepository: ${props.INFRA_LOCATION}/' >> ${filePath}
     echo 'scenarioTestsRepository: ${props.SCENARIOS_LOCATION}' >> ${filePath}
-    echo 'testgridYamlLocation: ${props.TESTGRID_YAML_LOCATION}' >> ${filePath}
+    #echo 'testgridYamlLocation: ${props.TESTGRID_YAML_LOCATION}' >> ${filePath}
+    echo 'testgridYamlLocation: ./' >> ${filePath}
     echo 'properties:' >> ${filePath}
     echo '  PRODUCT_GIT_URL: ${props.PRODUCT_GIT_URL}' >> ${filePath}
     echo '  PRODUCT_GIT_BRANCH: ${props.PRODUCT_GIT_BRANCH}' >> ${filePath}
