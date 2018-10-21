@@ -73,10 +73,13 @@ def getRandomNumber(limit) {
 }
 
 def getCurrentWorkspace() {
-    def a
-    def ctx = PipelineContext.instance.getContex()
-    a = ctx.pwd()
-    return a
+//    def a
+//    def ctx = PipelineContext.instance.getContex()
+//    a = ctx.pwd()
+    def pwd = sh returnStdout: true, script: """#!/bin/bash --login pwd"""
+    echo "The pwd path is set as : ${pwd}"
+    return pwd.trim()
+    //return a
 }
 
 def getCredentials(def key) {
