@@ -70,7 +70,7 @@ class Properties {
         Common util = new Common()
 
         PRODUCT = propertyMap.get(Constants.PRODUCT)
-        CURRENT_WORKSPACE = util.getCurrentWorkspace().toString()
+        //CURRENT_WORKSPACE = util.getCurrentWorkspace().toString()
         WORKSPACE = TESTGRID_HOME + "/jobs/" + PRODUCT
         TESTGRID_YAML_LOCATION = WORKSPACE + "/testgrid" + ".yaml"
         JOB_CONFIG_YAML_PATH = WORKSPACE + "/" + JOB_CONFIG_YAML
