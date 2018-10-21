@@ -55,13 +55,13 @@ def call(def ab) {
         stages {
             stage('Preparation') {
                 steps {
-                    // we need to initialize the environment within the pipeline
-                    // Setting the current pipeline context
-                    PipelineContext.instance.setContext(this)
-                    // Initializing environment properties
-                    def props = Properties.instance
-                    props.instance.initProperties(ab.getRawBuild().getEnvironment())
                     script {
+                        // we need to initialize the environment within the pipeline
+                        // Setting the current pipeline context
+                        PipelineContext.instance.setContext(this)
+                        // Initializing environment properties
+                        def props = Properties.instance
+                        props.instance.initProperties(ab.getRawBuild().getEnvironment())
                         try {
                             //alert.sendNotification('STARTED', "Initiation", "#build_status_verbose")
                             ///alert.sendNotification('STARTED', "Initiation", "#build_status")
