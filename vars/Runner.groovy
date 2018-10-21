@@ -72,7 +72,7 @@ def call(def ab) {
                             // Get testgrid.yaml from jenkins managed files
                             configFileProvider(
                                     [configFile(fileId: "${props.PRODUCT}-testgrid-yaml", targetLocation:
-                                            "${props.TESTGRID_YAML_LOCATION}")]) {
+                                            "${props.WORKSPACE}/${props.TESTGRID_YAML_LOCATION}")]) {
                             }
 
                             //Constructing the product git url if test mode is wum. Adding the Git username and password into the product git url.

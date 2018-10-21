@@ -72,7 +72,7 @@ class Properties {
         PRODUCT = propertyMap.get(Constants.PRODUCT)
         //CURRENT_WORKSPACE = util.getCurrentWorkspace().toString()
         WORKSPACE = TESTGRID_HOME + "/jobs/" + PRODUCT
-        TESTGRID_YAML_LOCATION = WORKSPACE + "/testgrid" + ".yaml"
+        TESTGRID_YAML_LOCATION = "/testgrid" + ".yaml"
         JOB_CONFIG_YAML_PATH = WORKSPACE + "/" + JOB_CONFIG_YAML
         PRODUCT_GIT_URL = propertyMap.get(Constants.PRODUCT_GIT_URL)
         PRODUCT_GIT_BRANCH = propertyMap.get(Constants.PRODUCT_GIT_BRANCH)
