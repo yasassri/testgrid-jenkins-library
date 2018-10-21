@@ -142,12 +142,6 @@ def call(def ab) {
 //                            """
 //
 //                                sh """
-//                                 cd ${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}
-//                                ./testgrid generate-report \
-//                                --product ${PRODUCT} \
-//                                --groupBy scenario
-//                            """
-//                                sh """
 //                                export DISPLAY=:95.0
 //                                cd ${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}
 //                                ./testgrid generate-email \
