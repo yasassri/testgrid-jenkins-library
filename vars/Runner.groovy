@@ -65,7 +65,8 @@ def call(def ab) {
                             ///alert.sendNotification('STARTED', "Initiation", "#build_status")
                             echo pwd()
                             deleteDir()
-
+                            echo "111"
+                            pwd()
                             // Increasing the TG JVM memory params
                             runtime.increaseTestGridRuntimeMemory("2G", "2G")
                             // Get testgrid.yaml from jenkins managed files

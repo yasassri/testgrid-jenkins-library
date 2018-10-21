@@ -70,10 +70,10 @@ class Properties {
     def initProperties(def  propertyMap){
         Common util = new Common()
 
+        CURRENT_WORKSPACE = util.getCurrentWorkspace()
+        WORKSPACE                = util.getCurrentWorkspace()
         PRODUCT = propertyMap.get(Constants.PRODUCT)
-        TESTGRID_YAML_LOCATION = propertyMap.get(Constants.INFRA_LOCATION) + "/jobs/" + propertyMap.get("JOB_BASE_NAME") + "/testgrid" + ".yaml"
-        CURRENT_WORKSPACE = util.getCurrentWorkspace().toString()
-        WORKSPACE                = util.getCurrentWorkspace().toString()
+        TESTGRID_YAML_LOCATION = WORKSPACE + "/testgrid" + ".yaml"
         JOB_CONFIG_YAML_PATH = WORKSPACE + "/" + JOB_CONFIG_YAML
         PRODUCT_GIT_URL = propertyMap.get(Constants.PRODUCT_GIT_URL)
         PRODUCT_GIT_BRANCH = propertyMap.get(Constants.PRODUCT_GIT_BRANCH)
