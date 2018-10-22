@@ -62,11 +62,6 @@ class Properties {
     static def SCENARIOS_REPOSITORY
     static def INFRASTRUCTURE_REPOSITORY
 
-    def call() {
-        def ctx = PipelineContext.getContext()
-        ctx.echo "In the constructure"
-    }
-
     def initProperties() {
 
         PRODUCT = getJobProperty(Constants.PRODUCT)
