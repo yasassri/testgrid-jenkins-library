@@ -98,16 +98,17 @@ class Properties {
     }
 
     /**
-     * Used to check if mandatory properties are null or empty
+     * Validate mandatory properties and get properties.
      */
-    private def validateProperty(def prop) {
+    private def getProperty(def propertyMap, def property, boolean isMandatory = true) {
         def ctx = PipelineContext.getContext()
-        if (prop != null && props.trim() != "") {
-            ctx.echo "The prop is empty not VVVVVVVV"
-            return prop
+        def prop = propertyMap.get(property)
+        if (prop == null && props.trim() == "" && isMandatory) {
+            ctx.echo "The prop is empty UUUUUUUUUUUUUUUU"
+            throw new Exception("The property : " + prop + " is null or empty!!")
         }
-        ctx.echo "The prop is empty UUUUUUUUUUUUUUUU"
-        throw new Exception("The property : " + prop + " is null or empty!!")
+        ctx.echo "<font color=\"red\">The prop is empty not VVVVVVVV</font>"
+        return prop
     }
 
     private def getProductGitUrl(def propertyMap) {
