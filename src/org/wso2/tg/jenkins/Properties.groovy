@@ -99,13 +99,14 @@ class Properties {
 
     private def getProductGitUrl(def propertyMap) {
         //Constructing the product git url if test mode is wum. Adding the Git username and password into the product git url.
+        def productGitUrl
         if (TEST_MODE == "WUM") {
             def url = propertyMap.get(Constants.PRODUCT_GIT_URL)
             def values = url.split('//g')
-            def productGitUrl = "${values[0]}//${GIT_WUM_USERNAME}:${GIT_WUM_PASSWORD}@g${values[1]}"
-            PRODUCT_GIT_URL = productGitUrl
+            productGitUrl = "${values[0]}//${GIT_WUM_USERNAME}:${GIT_WUM_PASSWORD}@g${values[1]}"
         } else {
-            PRODUCT_GIT_URL = propertyMap.get(Constants.PRODUCT_GIT_URL)
+            productGitUrl = propertyMap.get(Constants.PRODUCT_GIT_URL)
         }
+        return productGitUrl
     }
 }
