@@ -23,46 +23,43 @@ import org.wso2.tg.jenkins.util.Common
 import org.wso2.tg.jenkins.util.AWSUtils
 import org.wso2.tg.jenkins.alert.Slack
 import org.wso2.tg.jenkins.util.FileUtils
+import org.wso2.tg.jenkins.util.RuntimeUtils
 
 def runPlan(tPlan, testPlanId) {
     def commonUtil = new Common()
-    def notfier = new Slack()
+    def notifier = new Slack()
     def awsHelper = new AWSUtils()
     def fileUtil = new FileUtils()
     def props = Properties.instance
+    def tgExecutor = new TestGridExecutor()
+    def runtime =  new RuntimeUtils()
 
     fileUtil.createDirectory("${props.WORKSPACE}/${testPlanId}")
     echo "Preparing workspace"
     prepareWorkspace(tPlan, testPlanId)
     //sleep(time:commonUtil.getRandomNumber(10),unit:"SECONDS")
     echo "Unstashing test-plans and testgrid.yaml to ${props.WORKSPACE}/${testPlanId}"
-    dir("${props.WORKSPACE}/${testPlanId}") {
-        unstash name: "test-plans"
-    }
+    runtime.unstashTestPlansIfNotAvailable("${props.WORKSPACE}/testplans")
+//    dir("${props.WORKSPACE}/${testPlanId}") {
+//        unstash name: "test-plans"
+//    }
 
-    def name = commonUtil.getParameters("${props.WORKSPACE}/${testPlanId}/${tPlan}")
-    notfier.sendNotification("STARTED", "parallel \n Infra : " + name, "#build_status_verbose")
+    def name = commonUtil.getParameters("${props.WORKSPACE}/${tPlan}")
+    notifier.sendNotification("STARTED", "parallel \n Infra : " + name, "#build_status_verbose")
     try {
-        sh """
-            echo Running Test-Plan: ${tPlan}
-            java -version
-            #Need to change directory to root to run the next command properly
-            cd ${props.TESTGRID_HOME}/testgrid-dist/${props.TESTGRID_NAME}
-            export TESTGRID_HOME="${props.TESTGRID_HOME}"
-            ./testgrid run-testplan --product ${props.PRODUCT} \
-            --file ${props.WORKSPACE}/${testPlanId}/${tPlan} --workspace ${props.WORKSPACE}/${testPlanId}        
-        """
+        tgExecutor.runTesPlans(props.PRODUCT,
+                "${props.WORKSPACE}/${tPlan}", "${props.WORKSPACE}/${testPlanId}")
         commonUtil.truncateTestRunLog(testPlanId)
     } catch (Exception err) {
         echo "Error : ${err}"
         currentBuild.result = 'UNSTABLE'
     } finally {
-        notfier.sendNotification(currentBuild.result, "Parallel \n Infra : " + name, "#build_status_verbose")
+        notifier.sendNotification(currentBuild.result, "Parallel \n Infra : " + name, "#build_status_verbose")
     }
 
     echo "RESULT: ${currentBuild.result}"
 
-        awsHelper.uploadToS3(testPlanId)
+    awsHelper.uploadToS3(testPlanId)
 }
 
 //@NonCPS
@@ -72,20 +69,11 @@ def getTestExecutionMap(parallel_executor_count) {
     def parallelExecCount = parallel_executor_count as int
     def name = "unknown"
     def tests = [:]
-    echo pwd()
-    sh """
-    ls -al
-    echo "XXXX Plans "
-    ls test-plans
-    """
     def files = findFiles(glob: '**/test-plans/*.yaml')
-    echo "Parallel exec count "+ parallelExecCount
-    echo "Parallel exec count files length " + files.length
+    echo "Found ${files.length} testplans"
     for (int f = 1; f < parallelExecCount + 1 && f <= files.length; f++) {
         def executor = f
-        echo "11111"
         name = commonUtils.getParameters("${props.WORKSPACE}/test-plans/" + files[f - 1].name)
-        echo "2222"
         echo name
         tests["${name}"] = {
             node {

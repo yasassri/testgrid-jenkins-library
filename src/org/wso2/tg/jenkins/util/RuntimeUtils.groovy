@@ -16,4 +16,11 @@ def increaseTestGridRuntimeMemory(min, max) {
         """
 }
 
-def unStashTestPlans() {}
+def unstashTestPlansIfNotAvailable(def testplanDirectory) {
+    def props = Properties.instance
+    if(!fileExists(testplanDirectory)){
+        dir("${props.WORKSPACE}") {
+            unstash name: "test-plans"
+        }
+    }
+}

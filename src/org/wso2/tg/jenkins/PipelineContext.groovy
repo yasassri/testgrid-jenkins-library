@@ -21,13 +21,13 @@ package org.wso2.tg.jenkins
 @Singleton
 class PipelineContext {
 
-    static def context = null
+    static def context
 
-    def setContext(def context) {
+    static def setContext(def context) {
         this.context = context
     }
 
-    def getContex() {
+    static def getContext() {
         return this.context
     }
 }

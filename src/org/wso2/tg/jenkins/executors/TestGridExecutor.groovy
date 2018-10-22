@@ -33,3 +33,18 @@ def generateTesPlans(def product, def configYaml) {
     ls -al ${props.WORKSPACE}/test-plans
     """
 }
+
+def runTesPlans(def product, def testPlanFilePath, def workspace) {
+    def props = Properties.instance
+    sh """
+            echo Running Test-Plan: ${testPlanFilePath}
+            cd ${props.TESTGRID_HOME}/testgrid-dist/${props.TESTGRID_NAME}
+            export TESTGRID_HOME="${props.TESTGRID_HOME}"
+            ./testgrid run-testplan --product ${product} \
+            --file ${testPlanFilePath} --workspace ${workspace}        
+    """
+}
+
+def finalizeTestPlans() {}
+
+def generateEmail() {}
