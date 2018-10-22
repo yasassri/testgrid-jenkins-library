@@ -63,8 +63,8 @@ class Properties {
     static def INFRASTRUCTURE_REPOSITORY
 
     def call() {
-        def ctx = PipelineContext.getContext()
-        ctx.echo "In the constructure"
+//        def ctx = PipelineContext.getContext()
+//        ctx.echo "In the constructure"
     }
 
     def initProperties() {
