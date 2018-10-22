@@ -101,10 +101,12 @@ class Properties {
      * Used to check if mandatory properties are null or empty
      */
     private def validateProperty(def prop) {
-        if (prop?.trim()) {
-            echo "The prop is empty UUUUUUUUUUUUUUUU"
-            throw new Exception("The property : " + prop + " is null or empty!!")
+        if (prop != null && props.trim() != "") {
+            echo "The prop is empty not VVVVVVVV"
+            return prop
         }
+        echo "The prop is empty UUUUUUUUUUUUUUUU"
+        throw new Exception("The property : " + prop + " is null or empty!!")
     }
 
     private def getProductGitUrl(def propertyMap) {
