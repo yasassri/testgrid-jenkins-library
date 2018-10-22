@@ -17,8 +17,6 @@
  */
 package org.wso2.tg.jenkins
 
-import org.wso2.tg.jenkins.util.Common
-
 @Singleton
 class Properties {
 
