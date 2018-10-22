@@ -19,6 +19,7 @@ package org.wso2.tg.jenkins
 
 @Singleton
 class Properties {
+    private def ctx = PipelineContext.getContext()
 
     static def TESTGRID_NAME                = "WSO2-TestGrid"
     static def TESTGRID_DIST_LOCATION       = "/testgrid/testgrid-home/testgrid-dist/"
@@ -61,6 +62,10 @@ class Properties {
     static def WORKSPACE
     static def SCENARIOS_REPOSITORY
     static def INFRASTRUCTURE_REPOSITORY
+
+    def call() {
+        ctx.echo "In the constructure"
+    }
 
     def initProperties() {
 
@@ -113,7 +118,7 @@ class Properties {
         return prop
     }
 
-    private def getProductGitUrl(def propertyMap) {
+    private def getProductGitUrl() {
         //Constructing the product git url if test mode is wum. Adding the Git username and password into the product git url.
         def productGitUrl
         if (TEST_MODE == "WUM") {
@@ -127,7 +132,6 @@ class Properties {
     }
 
     private def getCredentials(def key, boolean isMandatory = true){
-        def ctx = PipelineContext.getContext()
         def cred = ctx.credentials(key).toString()
         if (cred == null || cred.trim() == "" && isMandatory) {
             ctx.echo "A mandatory credential is empty or null " + key
