@@ -102,6 +102,7 @@ class Properties {
      */
     private def validateProperty(def prop) {
         if (prop?.trim()) {
+            echo "The prop is empty UUUUUUUUUUUUUUUU"
             throw new Exception("The property : " + prop + " is null or empty!!")
         }
     }
