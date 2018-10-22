@@ -75,7 +75,7 @@ class Properties {
         GIT_WUM_USERNAME = util.getCredentials('GIT_WUM_USERNAME')
         GIT_WUM_PASSWORD = util.getCredentials('GIT_WUM_PASSWORD')
         PRODUCT_GIT_URL = getProductGitUrl(propertyMap)
-        PRODUCT_GIT_BRANCH = propertyMap.get(Constants.PRODUCT_GIT_BRANCH)
+        PRODUCT_GIT_BRANCH = propertyMap.get(Constants.PRODUCT_GIT_BRANCH)?
         PRODUCT_DIST_DOWNLOAD_API = propertyMap.get(Constants.PRODUCT_DIST_DOWNLOAD_API)
         WUM_CHANNEL = propertyMap.get(Constants.WUM_CHANNEL)
         PRODUCT_CODE = propertyMap.get(Constants.PRODUCT_CODE)
