@@ -75,7 +75,7 @@ class Properties {
         GIT_WUM_USERNAME = util.getCredentials('GIT_WUM_USERNAME')
         GIT_WUM_PASSWORD = util.getCredentials('GIT_WUM_PASSWORD')
         PRODUCT_GIT_URL = getProductGitUrl(propertyMap)
-        PRODUCT_GIT_BRANCH = propertyMap.get(Constants.PRODUCT_GIT_BRANCH)?
+        PRODUCT_GIT_BRANCH = validateProperty(propertyMap.get(Constants.PRODUCT_GIT_BRANCH))
         PRODUCT_DIST_DOWNLOAD_API = propertyMap.get(Constants.PRODUCT_DIST_DOWNLOAD_API)
         WUM_CHANNEL = propertyMap.get(Constants.WUM_CHANNEL)
         PRODUCT_CODE = propertyMap.get(Constants.PRODUCT_CODE)
@@ -95,6 +95,15 @@ class Properties {
         LATEST_PRODUCT_BUILD_ARTIFACTS_API = propertyMap.get(Constants.LATEST_PRODUCT_BUILD_ARTIFACTS_API)
         SCENARIOS_REPOSITORY = propertyMap.get(Constants.SCENARIOS_REPOSITORY)
         INFRASTRUCTURE_REPOSITORY = propertyMap.get(Constants.INFRASTRUCTURE_REPOSITORY)
+    }
+
+    /**
+     * Used to check if mandatory properties are null or empty
+     */
+    private def validateProperty(def prop) {
+        if (prop?.trim()) {
+            throw new Exception("The property : " + prop + " is null or empty!!")
+        }
     }
 
     private def getProductGitUrl(def propertyMap) {
