@@ -101,11 +101,12 @@ class Properties {
      * Used to check if mandatory properties are null or empty
      */
     private def validateProperty(def prop) {
+        def ctx = PipelineContext.getContext()
         if (prop != null && props.trim() != "") {
-            echo "The prop is empty not VVVVVVVV"
+            ctx.echo "The prop is empty not VVVVVVVV"
             return prop
         }
-        echo "The prop is empty UUUUUUUUUUUUUUUU"
+        ctx.echo "The prop is empty UUUUUUUUUUUUUUUU"
         throw new Exception("The property : " + prop + " is null or empty!!")
     }
 
