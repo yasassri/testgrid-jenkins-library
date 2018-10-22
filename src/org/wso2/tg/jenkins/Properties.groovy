@@ -134,6 +134,7 @@ class Properties {
     }
 
     private def getCredentials(def key, boolean isMandatory = true){
+        def ctx = PipelineContext.getContext()
         def cred = ctx.credentials(key).toString()
         if (cred == null || cred.trim() == "" && isMandatory) {
             ctx.echo "A mandatory credential is empty or null " + key
