@@ -103,7 +103,7 @@ class Properties {
     private def getJobProperty(def propertyMap, def property, boolean isMandatory = true) {
         def ctx = PipelineContext.getContext()
         def prop = propertyMap.get(property)
-        if (prop == null && prop.trim() == "" && isMandatory) {
+        if (prop == null || prop.trim() == "" && isMandatory) {
             ctx.echo "The prop is empty UUUUUUUUUUUUUUUU"
             throw new Exception("The property : " + prop + " is null or empty!!")
         }
