@@ -19,7 +19,6 @@ package org.wso2.tg.jenkins
 
 @Singleton
 class Properties {
-    private def ctx = PipelineContext.getContext()
 
     static def TESTGRID_NAME                = "WSO2-TestGrid"
     static def TESTGRID_DIST_LOCATION       = "/testgrid/testgrid-home/testgrid-dist/"
@@ -64,6 +63,7 @@ class Properties {
     static def INFRASTRUCTURE_REPOSITORY
 
     def call() {
+        def ctx = PipelineContext.getContext()
         ctx.echo "In the constructure"
     }
 
@@ -119,6 +119,8 @@ class Properties {
     }
 
     private def getProductGitUrl() {
+        def ctx = PipelineContext.getContext()
+        def propertyMap = ctx.currentBuild.getRawBuild().getEnvironment()
         //Constructing the product git url if test mode is wum. Adding the Git username and password into the product git url.
         def productGitUrl
         if (TEST_MODE == "WUM") {
