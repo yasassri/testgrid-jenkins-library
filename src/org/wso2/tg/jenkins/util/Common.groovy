@@ -44,7 +44,6 @@ def truncateTestRunLog(parallelNumber) {
 }
 
 def getParameters(file) {
-    echo "33333"
     def tpyaml = readFile(file)
     def m = tpyaml =~ /(parameters:)([A-z \n:'0-9\.-]*)(provisioners)/
     // echo tpyaml
@@ -56,7 +55,6 @@ def getParameters(file) {
         name += s.split(":")[1]
     }
     //echo "This is the name" + name
-    echo "44444"
     return name
 }
 

@@ -40,6 +40,8 @@ def runPlan(tPlan, testPlanId) {
     //sleep(time:commonUtil.getRandomNumber(10),unit:"SECONDS")
     echo "Unstashing test-plans and testgrid.yaml to ${props.WORKSPACE}/${testPlanId}"
     runtime.unstashTestPlansIfNotAvailable("${props.WORKSPACE}/testplans")
+    writeFile file: "${props.WORKSPACE}/${testPlanId}/${props.INFRA_LOCATION}/deploy.sh", text: '#!/bin/sh'
+
 //    dir("${props.WORKSPACE}/${testPlanId}") {
 //        unstash name: "test-plans"
 //    }
