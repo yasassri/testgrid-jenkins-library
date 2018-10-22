@@ -104,7 +104,7 @@ class Properties {
         def ctx = PipelineContext.getContext()
         def prop = propertyMap.get(property)
         if (prop == null || prop.trim() == "" && isMandatory) {
-            ctx.echo "The prop is empty UUUUUUUUUUUUUUUU"
+            ctx.echo "<font color="red">The prop is empty not uuuuuuuu</font>"
             throw new Exception("The property : " + prop + " is null or empty!!")
         }
         ctx.echo "<font color=\"red\">The prop is empty not VVVVVVVV</font>"
