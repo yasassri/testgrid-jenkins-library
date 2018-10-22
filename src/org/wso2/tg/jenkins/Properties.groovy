@@ -63,8 +63,8 @@ class Properties {
     static def INFRASTRUCTURE_REPOSITORY
 
     def call() {
-//        def ctx = PipelineContext.getContext()
-//        ctx.echo "In the constructure"
+        def ctx = PipelineContext.getContext()
+        ctx.echo "In the constructure"
     }
 
     def initProperties() {
@@ -76,7 +76,7 @@ class Properties {
         TEST_MODE = getJobProperty(Constants.TEST_MODE)
         GIT_WUM_USERNAME = getCredentials('GIT_WUM_USERNAME')
         GIT_WUM_PASSWORD = getCredentials('GIT_WUM_PASSWORD')
-        PRODUCT_GIT_URL = getProductGitUrl(Constants.PRODUCT_GIT_URL)
+        PRODUCT_GIT_URL = getProductGitUrl()
         PRODUCT_GIT_BRANCH = getJobProperty(Constants.PRODUCT_GIT_BRANCH)
         PRODUCT_DIST_DOWNLOAD_API = getJobProperty(Constants.PRODUCT_DIST_DOWNLOAD_API)
         WUM_CHANNEL = getJobProperty(Constants.WUM_CHANNEL, false)
