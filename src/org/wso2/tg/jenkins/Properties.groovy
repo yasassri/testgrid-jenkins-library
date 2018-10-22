@@ -75,7 +75,7 @@ class Properties {
         GIT_WUM_USERNAME = util.getCredentials('GIT_WUM_USERNAME')
         GIT_WUM_PASSWORD = util.getCredentials('GIT_WUM_PASSWORD')
         PRODUCT_GIT_URL = getProductGitUrl(propertyMap)
-        PRODUCT_GIT_BRANCH = getProperty(propertyMap, Constants.PRODUCT_GIT_BRANCH)
+        PRODUCT_GIT_BRANCH = getJobProperty(propertyMap, Constants.PRODUCT_GIT_BRANCH)
         PRODUCT_DIST_DOWNLOAD_API = propertyMap.get(Constants.PRODUCT_DIST_DOWNLOAD_API)
         WUM_CHANNEL = propertyMap.get(Constants.WUM_CHANNEL)
         PRODUCT_CODE = propertyMap.get(Constants.PRODUCT_CODE)
@@ -100,7 +100,7 @@ class Properties {
     /**
      * Validate mandatory properties and get properties.
      */
-    private def getProperty(def propertyMap, def property, boolean isMandatory = true) {
+    private def getJobProperty(def propertyMap, def property, boolean isMandatory = true) {
         def ctx = PipelineContext.getContext()
         def prop = propertyMap.get(property)
         if (prop == null && props.trim() == "" && isMandatory) {
