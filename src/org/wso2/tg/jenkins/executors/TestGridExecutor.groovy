@@ -54,8 +54,8 @@ def runTesPlans(def product, def testPlanFilePath, def workspace) {
     sh """
         cd ${props.TESTGRID_DIST_LOCATION}/${props.TESTGRID_NAME}
         export TESTGRID_HOME="${props.TESTGRID_HOME}"
-        ./testgrid run-testplan --product ${product} \
-            --file ${testPlanFilePath} --workspace ${workspace}        
+        #./testgrid run-testplan --product ${product} \
+         #   --file ${testPlanFilePath} --workspace ${workspace}        
     """
 }
 
