@@ -201,7 +201,7 @@ def call() {
                     }
                     echo "Printing the Logs ========="
                     def b = PipelineContext.instance.getContext()
-                    for(String line : b.getRawBuild().getLog(100)){
+                    for(String line : b.getLog(100)){
                         echo line
                     }
                 }
