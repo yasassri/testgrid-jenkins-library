@@ -165,7 +165,7 @@ def call() {
                         def name = "unknown"
                         try {
                             def tests = testExecutor.getTestExecutionMap(props.EXECUTOR_COUNT)
-                            parallel tests
+                            //parallel tests
                         } catch (e) {
                             currentBuild.result = "FAILED"
                             alert.sendNotification(currentBuild.result, "Parallel", "#build_status_verbose")
@@ -198,6 +198,11 @@ def call() {
                     } finally {
                         alert.sendNotification(currentBuild.result, "completed", "#build_status")
                         alert.sendNotification(currentBuild.result, "completed", "#build_status_verbose")
+                    }
+                    echo "Printing the Logs ========="
+                    def b = PipelineContext.instance.getContext()
+                    for(String line : b.getRawBuild().getLog(100)){
+                        echo line
                     }
                 }
             }
