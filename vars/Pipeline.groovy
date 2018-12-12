@@ -200,7 +200,7 @@ def call() {
                         alert.sendNotification(currentBuild.result, "completed", "#build_status_verbose")
                     }
                     echo "Printing the Logs ========="
-                    def b = PipelineContext.instance.getContext()
+                    def b = PipelineContext.instance.getContext().currentBuild
                     echo "${b}"
                     for(String line : b.getLog(100)){
                         echo line
